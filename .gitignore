@@ -1,0 +1,7 @@
+# Covers all Jetbrains project files
+
+*.iml
+
+# Covers the specific IDEA project folder
+
+.idea/
