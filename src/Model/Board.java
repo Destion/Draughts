@@ -5,19 +5,18 @@ import java.util.HashMap;
 
 public class Board extends HashMap {
 
-    boolean exists;
-    HashMap instance;
+    private Board instance;
 
-    //The key in the map is the spot on the board, the value is the piece on the spot
-    //(0 = empty, 1 = occupied by player 1, 2 = occupied by player 2, 3 = occupied by king of player 1, 4 = occupied by king of player 2)
-
-    public HashMap getBoard(){
-        if (exists){
-            return this.instance;
+    public Board getInstance(){
+        if (instance == null){
+            return this.init();
         } else {
-            //return this.initialize();
-            return null;
+            return instance;
         }
+    }
+
+    private Board init(){
+        return null;
     }
 
 
