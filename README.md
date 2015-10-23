@@ -28,7 +28,7 @@ An enum of either black or white
 
 #####Position
 A cartesian product with an horizontal and vercical value
-- For the horizontal axis we use: a-j (left to right)
+- For the horizontal axis we use: 1-10 (left to right)
 - For the vertical axi we use: 1-10 (bottom to top)
 
 #####Player
