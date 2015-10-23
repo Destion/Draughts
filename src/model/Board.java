@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 
 public class Board {
-
     private HashMap<Position, Piece> board;
+    public static final int BOARDSIZE = 10;
 
     public HashMap<Position, Piece> getBoard(){
         return board;
@@ -15,7 +15,21 @@ public class Board {
         this.board = board;
     }
 
-
+    public void initializeBoard(){
+        for (int i = 1; i <= BOARDSIZE; i++){
+            board.put(new Position(XAxis.A, i), null);
+            board.put(new Position(XAxis.B, i), null);
+            board.put(new Position(XAxis.C, i), null);
+            board.put(new Position(XAxis.D, i), null);
+            board.put(new Position(XAxis.E, i), null);
+            board.put(new Position(XAxis.F, i), null);
+            board.put(new Position(XAxis.G, i), null);
+            board.put(new Position(XAxis.H, i), null);
+            board.put(new Position(XAxis.I, i), null);
+            board.put(new Position(XAxis.J, i), null);
+        }
+        // put white and black men on position.
+    }
     // a10 b10 c10 d10 e10 f10 g10 h10 i10
     // a9  b9  c9  d9  e9  f9  g9  h9  i9
     // a8  b8  c8  d8  e8  f8  g8  h8  i8

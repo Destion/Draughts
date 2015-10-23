@@ -1,11 +1,14 @@
 package model;
 
 
-public class Piece {
+public abstract class Piece {
+    private Colour colour;
 
-    private enum color{ black, white }
-    private enum type{ man, king}
+    public Piece(Colour colour) {
+        this.colour = colour;
+    }
 
+    public abstract boolean validMove(Position oldPos, Position newPos, Board board);
 
 
 
