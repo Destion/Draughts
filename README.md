@@ -45,7 +45,7 @@ Gui classes...
 ####Controller
 
 #####CommunicatoinsController
-This controller controls all the communicatoins between the Raspberry Pi and the FPGA.
+This controller controls all the communications between the Raspberry Pi and the FPGA.
 
 #####GameController
 This controller controls the gamestate, checks if moves are legal and checks if the game is won or lost after a move is made.
