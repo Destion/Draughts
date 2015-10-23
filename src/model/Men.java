@@ -9,6 +9,7 @@ public class Men extends Piece{
     }
 
     public boolean validMove(Position oldPos, Position newPos, Board board){
+
         return false;
     }
 }

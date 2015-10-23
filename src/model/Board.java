@@ -7,6 +7,8 @@ public class Board {
     private HashMap<Position, Piece> board;
     public static final int BOARDSIZE = 10;
     public static final int NUMPIECES = 20;
+    public int numberWhite;
+    public int numberBlack;
 
     public HashMap<Position, Piece> getBoard(){
         return board;
@@ -39,7 +41,32 @@ public class Board {
 
             }
         }
+        numberWhite = 20;
+        numberBlack = 20;
+    }
 
+    public boolean hasWinner(){
+        return numberWhite == 0 || numberBlack == 0;
+    }
+
+    public Colour winner(){
+        Colour winner;
+        if (numberBlack == 0){
+            winner = Colour.WHITE;
+        } else if (numberWhite == 0) {
+            winner = Colour.BLACK;
+        } else {
+            winner = null;
+        }
+        return winner;
+    }
+
+    public boolean draw(){
+        return false;
+    }
+
+    public boolean gameOver(){
+        return this.hasWinner() || this.draw();
     }
 
     // does not work this way

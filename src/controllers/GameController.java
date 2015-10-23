@@ -1,20 +1,17 @@
 package controllers;
 
 
+import model.Board;
+
 public class GameController {
+    private Board board;
 
-    private GameController instance;
-
-    public GameController getInstance(){
-        if (instance == null){
-            return this.init();
-        } else {
-            return instance;
-        }
+    public void setup(){
+        board.initializeBoard();
     }
 
-    private GameController init(){
-        return null;
+    public void play(){
+
     }
 
 }
