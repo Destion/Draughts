@@ -34,9 +34,9 @@ A cartesian product with an horizontal and vercical value
 #####Player
 A player can make a move. This is an abstract class with 1 shared function. makeMove() returns a Positon object to tell the game that he want to make that move.
 ######HumanPlayer
-This the human player. Getmove() lets the human player make a move.
+This the human player. determineMove() lets the human player make a move.
 ######Computerplayer
-Getmove() asks the FPGA controller for a move. It sends the board to for the AI to calculate the move.
+determineMove() asks the FPGA controller for a move. It sends the board to for the AI to calculate the move.
 
 ####view
 Gui classes...
