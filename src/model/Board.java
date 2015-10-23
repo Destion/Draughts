@@ -3,20 +3,16 @@ package model;
 import java.util.HashMap;
 
 
-public class Board extends HashMap {
+public class Board {
 
-    private Board instance;
+    private HashMap<Position, Piece> board;
 
-    public Board getInstance(){
-        if (instance == null){
-            return this.init();
-        } else {
-            return instance;
-        }
+    public HashMap<Position, Piece> getBoard(){
+        return board;
     }
 
-    private Board init(){
-        return null;
+    public void setBoard(HashMap<Position,Piece> board){
+        this.board = board;
     }
 
 
