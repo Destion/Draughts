@@ -44,7 +44,7 @@ Gui classes...
 
 ####Controller
 
-#####CommunicatoinsController
+#####CommunicationsController
 This controller controls all the communications between the Raspberry Pi and the FPGA.
 
 #####GameController
