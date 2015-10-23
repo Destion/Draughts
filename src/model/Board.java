@@ -1,5 +1,7 @@
 package model;
 
+import javafx.geometry.Pos;
+
 import java.util.HashMap;
 
 
@@ -45,9 +47,19 @@ public class Board {
         numberBlack = 20;
     }
 
+    public void move(Position oldPos, Position newPos){
+        Position pos1;
+        Position pos2;
+        for (Position tmp : board.keySet()){
+            if (oldPos)
+        }
+    }
+
     public boolean hasWinner(){
         return numberWhite == 0 || numberBlack == 0;
     }
+
+
 
     public Colour winner(){
         Colour winner;
