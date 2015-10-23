@@ -12,10 +12,12 @@ public abstract class Player {
         this.colour = colour;
     }
 
-    public Position makeMove(Board board){
-        Position newPos = this.determineMove(board);
-        return newPos;
+    public void makeMove(Board board){
+        Position[] pos = this.determineMove(board);
+        if (pos != null && pos.length == 2){
+            board.move(pos[0],pos[1]);
+        }
     }
 
-    public abstract Position determineMove(Board board);
+    public abstract Position[] determineMove(Board board);
 }

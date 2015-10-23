@@ -48,11 +48,26 @@ public class Board {
     }
 
     public void move(Position oldPos, Position newPos){
-        Position pos1;
-        Position pos2;
-        for (Position tmp : board.keySet()){
-            if (oldPos)
+        Piece piece = board.get(oldPos);
+        if (piece.validMove(oldPos,newPos,this)){
+
+
+
+
+
+            board.replace(newPos, piece);
+            board.replace(oldPos, null);
         }
+    }
+
+    public Position getPositionOnBoard(Position pos){
+        Position pos1 = null;
+        for (Position tmp : board.keySet()){
+            if (tmp.equals(pos)){
+                pos1 = tmp;
+            }
+        }
+        return pos1;
     }
 
     public boolean hasWinner(){
