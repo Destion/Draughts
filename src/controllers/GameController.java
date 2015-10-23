@@ -1,6 +1,4 @@
-package Controllers;
-
-import java.util.HashMap;
+package controllers;
 
 
 public class GameController {

@@ -4,7 +4,7 @@
 Draughts AI implemented using a provided Raspberry Pi B and DE1 SoC Board.
 
 ###Implementation
-####Model
+####model
 #####Board
 A board has an map of all pieces with a position.
 - The key is the Position object
@@ -38,7 +38,7 @@ This the human player. Getmove() lets the human player make a move.
 ######Computerplayer
 Getmove() asks the FPGA controller for a move. It sends the board to for the AI to calculate the move.
 
-####View 
+####view
 Gui classes...
 
 
