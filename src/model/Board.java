@@ -6,6 +6,7 @@ import java.util.HashMap;
 public class Board {
     private HashMap<Position, Piece> board;
     public static final int BOARDSIZE = 10;
+    public static final int NUMPIECES = 20;
 
     public HashMap<Position, Piece> getBoard(){
         return board;
@@ -16,20 +17,32 @@ public class Board {
     }
 
     public void initializeBoard(){
-        for (int i = 1; i <= BOARDSIZE; i++){
-            board.put(new Position(XAxis.A, i), null);
-            board.put(new Position(XAxis.B, i), null);
-            board.put(new Position(XAxis.C, i), null);
-            board.put(new Position(XAxis.D, i), null);
-            board.put(new Position(XAxis.E, i), null);
-            board.put(new Position(XAxis.F, i), null);
-            board.put(new Position(XAxis.G, i), null);
-            board.put(new Position(XAxis.H, i), null);
-            board.put(new Position(XAxis.I, i), null);
-            board.put(new Position(XAxis.J, i), null);
+        for (int x = 1; x <= BOARDSIZE; x++){
+            for (int y = 1; y <= BOARDSIZE; y++){
+                if (x % 2 != 0 ){
+                    if (y == 1 || y == 3) {
+                        board.put(new Position(x, y), new Men(Colour.WHITE));
+                    } else if (y == 7 || y ==9){
+                        board.put(new Position(x, y), new Men(Colour.BLACK));
+                    } else {
+                        board.put(new Position(x, y), null);
+                    }
+                } else {
+                    if (y == 2 || y == 4) {
+                        board.put(new Position(x, y), new Men(Colour.WHITE));
+                    } else if (y == 8 || y ==10){
+                        board.put(new Position(x, y), new Men(Colour.BLACK));
+                    } else {
+                        board.put(new Position(x, y), null);
+                    }
+                }
+
+            }
         }
-        // put white and black men on position.
+
     }
+
+    // does not work this way
     // a10 b10 c10 d10 e10 f10 g10 h10 i10
     // a9  b9  c9  d9  e9  f9  g9  h9  i9
     // a8  b8  c8  d8  e8  f8  g8  h8  i8
