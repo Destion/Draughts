@@ -3,10 +3,6 @@ import model.Colour;
 import model.HumanPlayer;
 import model.Player;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -35,6 +31,7 @@ public class Main {
         Player player1 = new HumanPlayer("Rogier", Colour.WHITE);
         Player player2 = new HumanPlayer("Barry", Colour.BLACK);
         GameController game = new GameController(player1, player2);
+        game.game();
     }
 
 }

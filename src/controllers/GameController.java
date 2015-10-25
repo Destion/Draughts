@@ -1,11 +1,10 @@
 package controllers;
 
 
-import model.Board;
-import model.Move;
-import model.Player;
+import model.*;
 
 import java.util.List;
+import java.util.Map;
 
 public class GameController {
     private Board board;
@@ -16,6 +15,12 @@ public class GameController {
     public GameController(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
+        board = new Board();
+    }
+
+    public void game() {
+        this.setup();
+        this.play();
     }
 
     public void setup(){
@@ -39,6 +44,7 @@ public class GameController {
     }
 
     public void temporaryTUI(){
+        Map<Position, Piece> grid = board.getGrid();
         System.out.println();
     }
 

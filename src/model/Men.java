@@ -18,10 +18,29 @@ public class Men extends Piece{
     }
 
     public boolean canMoveForward(Position position, Board board){
-        return false;
+        boolean canMove = false;
+        int var = 0;
+        if (board.getGrid().get(position).getColour() == Colour.WHITE) {
+            var = 1;
+        } else {
+            var = -1;
+        }
+        Position option1 = board.getPositionOnBoard(new Position(position.getX() + 1, position.getY() + var));
+        Position option2 = board.getPositionOnBoard(new Position(position.getX() - 1, position.getY() + var));
+        if (option1 == null || option2 == null) {
+            canMove = true;
+        }
+        return canMove;
     }
 
     public boolean canCapture(Position position, Board board){
+        boolean canCapture = false;
+        // check if next to is black
+        // check if free spot
+        // loop this for multiple capture
+
+
+
         return false;
     }
 }
