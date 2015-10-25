@@ -1,46 +1,53 @@
 package model;
 
+import java.util.List;
+
 /**
  * Created by Rogier on 23-10-15.
  */
-public class Men extends Piece{
+public class Men implements Piece {
+    private Colour colour;
+
     public Men(Colour colour) {
-        super(colour);
+        this.colour = colour;
     }
 
-    public boolean validMove(Move move, Board board) {
+    public boolean validMove(Move move, Board board, Colour colour) {
+        //        TODO Implementation
+
         return false;
     }
 
-    @Override
-    public boolean canMove(Position position, Board board) {
-        return this.canMoveForward(position,board) || canMoveForward(position, board);
+    public boolean canMove(Position position, Board board, Colour colour) {
+        int var = (colour == Colour.WHITE) ? 1 : -1;
+        return !board.getGrid().containsKey(new Position(position.getX() + 1, position.getY() + var))
+                || !board.getGrid().containsKey(new Position(position.getX() - 1, position.getY() + var));
     }
 
-    public boolean canMoveForward(Position position, Board board){
-        boolean canMove = false;
-        int var = 0;
-        if (board.getGrid().get(position).getColour() == Colour.WHITE) {
-            var = 1;
-        } else {
-            var = -1;
-        }
-        Position option1 = board.getPositionOnBoard(new Position(position.getX() + 1, position.getY() + var));
-        Position option2 = board.getPositionOnBoard(new Position(position.getX() - 1, position.getY() + var));
-        if (option1 == null || option2 == null) {
-            canMove = true;
-        }
-        return canMove;
-    }
-
-    public boolean canCapture(Position position, Board board){
+    public boolean canCapture(Position position, Board board, Colour colour) {
         boolean canCapture = false;
-        // check if next to is black
+        // TODO check if next to is black
         // check if free spot
         // loop this for multiple capture
 
 
+        return canCapture;
+    }
 
-        return false;
+    @Override
+    public List<Move> movesOnPosition(Position position, Board board, Colour colour) {
+//        TODO Implementation
+        return null;
+    }
+
+    @Override
+    public List<Move> capturesOnPosition(Position position, Board board, Colour colour) {
+        //        TODO Implementation
+        return null;
+    }
+
+    @Override
+    public Colour getColour() {
+        return colour;
     }
 }

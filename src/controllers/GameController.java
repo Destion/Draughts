@@ -29,18 +29,21 @@ public class GameController {
     }
 
     public void play(){
-        if(counter % 2 == 0){
-            //player1
-            List<Move> possibleMoves = board.generatePossibleMoves(player1.getColour());
-            player1.makeMove(board,possibleMoves);
-            this.temporaryTUI();
-        } else{
-            //player2
-            List<Move> possibleMoves = board.generatePossibleMoves(player2.getColour());
-            player2.makeMove(board,possibleMoves);
-            this.temporaryTUI();
-        }
+        while (!board.gameOver()) {
+            if (counter % 2 == 0) {
+                //player1
+                List<Move> possibleMoves = board.generatePossibleMoves(player1.getColour());
+                player1.makeMove(board, possibleMoves);
+                this.temporaryTUI();
 
+            } else {
+                //player2
+                List<Move> possibleMoves = board.generatePossibleMoves(player2.getColour());
+                player2.makeMove(board, possibleMoves);
+                this.temporaryTUI();
+            }
+            counter++;
+        }
     }
 
     public void temporaryTUI(){

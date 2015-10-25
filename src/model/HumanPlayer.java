@@ -11,12 +11,23 @@ public class HumanPlayer extends Player {
     }
 
     public Move determineMove(Board board, List<Move> possibleMoves) {
-        this.temporaryTUI();
-
+        int i = possibleMoves.size();
+        this.temporaryTUI(possibleMoves);
+//    TODO System.in
         return null;
     }
 
-    public void temporaryTUI(){
-        System.out.println();
+    public void temporaryTUI(List<Move> possibleMoves) {
+        int i = 0;
+        for (Move move : possibleMoves) {
+            String s = i + " " + move.getOldPos().toString() + " ";
+            for (Position position : move.getInterPos()) {
+                s = s + position.toString() + " ";
+            }
+            s = s + move.getNewPos().toString();
+            System.out.println(s);
+            i++;
+        }
+
     }
 }

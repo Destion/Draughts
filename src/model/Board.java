@@ -37,26 +37,25 @@ public class Board {
 
             }
         }
-        numberWhite = 20;
-        numberBlack = 20;
+        numberWhite = NUMPIECES;
+        numberBlack = NUMPIECES;
     }
 
-    public void move(Move move) {
-        Position oldPosition = this.getPositionOnBoard(move.getOldPos());
+    public void move(Move move, Colour colour) {
+        Position oldPosition = move.getOldPos();
         Piece piece = grid.get(oldPosition);
-        if (piece.validMove(move, this)) {
+        if (piece.validMove(move, this, colour)) {
             grid.put(move.getNewPos(), grid.get(oldPosition));
             grid.remove(oldPosition);
             if (move.getCaptured().size() > 0) {
                 for (Position position : move.getCaptured()) {
-                    Position tmp = this.getPositionOnBoard(position);
-                    Piece tmpPiece = grid.get(tmp);
-                    if (tmpPiece.getColour() == Colour.WHITE) {
+                    Piece tmpPiece = grid.get(position);
+                    if (tmpPiece != null && tmpPiece.getColour() == Colour.WHITE) {
                         numberWhite--;
                     } else {
                         numberBlack--;
                     }
-                    grid.remove(tmp);
+                    grid.remove(position);
                 }
             }
             if ((piece.getColour() == Colour.WHITE && move.getNewPos().getY() == 10)
@@ -73,24 +72,26 @@ public class Board {
     }
 
     public List<Move> generatePossibleMoves(Colour colour) {
-        List<Move> possibleMoves = new ArrayList<Move>();
-            for (Position position : grid.keySet()){
-                if(grid.get(position).getColour() == colour){
-                    grid.get(position).canMove(position,this);
+        List<Move> possibleMoves = new ArrayList<>();
+        boolean mustCapture = false;
+        for (Position position : grid.keySet()) {
+            if (grid.get(position).getColour() == colour) {
+                if (grid.get(position).canCapture(position, this, colour)) {
+                    possibleMoves.addAll(grid.get(position).capturesOnPosition(position, this, colour));
+                    mustCapture = true;
                 }
             }
-
-        return possibleMoves;
-    }
-
-    public Position getPositionOnBoard(Position pos) {
-        Position pos1 = null;
-        for (Position tmp : grid.keySet()) {
-            if (tmp.equals(pos)) {
-                pos1 = tmp;
+        }
+        if (!mustCapture) {
+            for (Position position : grid.keySet()) {
+                if (grid.get(position).getColour() == colour) {
+                    if (grid.get(position).canMove(position, this, colour)) {
+                        possibleMoves.addAll(grid.get(position).movesOnPosition(position, this, colour));
+                    }
+                }
             }
         }
-        return pos1;
+        return possibleMoves;
     }
 
     public boolean hasWinner() {
@@ -111,6 +112,7 @@ public class Board {
     }
 
     public boolean draw() {
+        //        TODO Implementation
         return false;
     }
 

@@ -1,14 +1,49 @@
 package model;
 
+import java.util.List;
+
 /**
  * Created by Rogier on 23-10-15.
  */
-public class King extends Piece {
+public class King implements Piece {
+    private Colour colour;
+
     public King(Colour colour) {
-        super(colour);
+        this.colour = colour;
     }
 
-    public boolean validMove(Position oldPos, Position newPos, Board board) {
+    @Override
+    public boolean validMove(Move move, Board board, Colour colour) {
+        //        TODO Implementation
         return false;
+    }
+
+    @Override
+    public boolean canMove(Position position, Board board, Colour colour) {
+        //        TODO Implementation
+        return false;
+    }
+
+    @Override
+    public boolean canCapture(Position position, Board board, Colour colour) {
+        //        TODO Implementation
+        return false;
+    }
+
+    @Override
+    public List<Move> movesOnPosition(Position position, Board board, Colour colour) {
+        //        TODO Implementation
+        return null;
+    }
+
+    @Override
+    public List<Move> capturesOnPosition(Position position, Board board, Colour colour) {
+        //        TODO Implementation
+        return null;
+    }
+
+    @Override
+    public Colour getColour() {
+        return colour;
     }
 }
