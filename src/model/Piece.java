@@ -8,9 +8,11 @@ public abstract class Piece {
         this.colour = colour;
     }
 
-    public abstract boolean validMove(Position oldPos, Position newPos, Board board);
+    public abstract boolean validMove(Move move, Board board);
 
+    public abstract boolean canMove(Position position, Board board);
 
-
-
+    public Colour getColour() {
+        return colour;
+    }
 }

@@ -1,5 +1,7 @@
 package model;
 
+import java.util.List;
+
 /**
  * Created by Rogier on 23-10-15.
  */
@@ -12,12 +14,16 @@ public abstract class Player {
         this.colour = colour;
     }
 
-    public void makeMove(Board board){
-        Position[] pos = this.determineMove(board);
-        if (pos != null && pos.length == 2){
-            board.move(pos[0],pos[1]);
+    public void makeMove(Board board, List<Move> possibleMoves){
+        Move move = this.determineMove(board, possibleMoves);
+        if (move != null ){
+            board.move(move);
         }
     }
 
-    public abstract Position[] determineMove(Board board);
+    public abstract Move determineMove(Board board, List<Move> possibleMoves);
+
+    public Colour getColour() {
+        return colour;
+    }
 }

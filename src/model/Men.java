@@ -8,8 +8,20 @@ public class Men extends Piece{
         super(colour);
     }
 
-    public boolean validMove(Position oldPos, Position newPos, Board board){
+    public boolean validMove(Move move, Board board) {
+        return false;
+    }
 
+    @Override
+    public boolean canMove(Position position, Board board) {
+        return this.canMoveForward(position,board) || canMoveForward(position, board);
+    }
+
+    public boolean canMoveForward(Position position, Board board){
+        return false;
+    }
+
+    public boolean canCapture(Position position, Board board){
         return false;
     }
 }
