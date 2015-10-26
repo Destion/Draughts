@@ -62,9 +62,11 @@ public class GameController {
                 }
             }
             System.out.println(s);
+            System.out.println("--------------------------------------------------");
         }
         System.out.println("    a  | b  | c  | d  | e  | f  | g  | h  | i  | j");
 
     }
+
 
 }

@@ -1,10 +1,7 @@
 package model;
 
-import javafx.geometry.Pos;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Rogier on 24-10-15.
@@ -20,7 +17,6 @@ public class Move {
         this.newPos = newPos;
         this.interPos = interPos;
         captured = new ArrayList<Position>();
-        calculateCaptured();
     }
 
     public Position getOldPos() {
@@ -50,11 +46,13 @@ public class Move {
     public void calculateCaptured(){
         if(interPos != null || Math.abs(oldPos.getY() - newPos.getY()) > 1 ){
             Position tmp = oldPos;
-            for (Position position : interPos){
-                int x = (tmp.getX() + position.getX())/2;
-                int y = (tmp.getY() + position.getY())/2;
-                captured.add(new Position(x, y));
-                tmp = position;
+            if (interPos != null) {
+                for (Position position : interPos) {
+                    int x = (tmp.getX() + position.getX()) / 2;
+                    int y = (tmp.getY() + position.getY()) / 2;
+                    captured.add(new Position(x, y));
+                    tmp = position;
+                }
             }
             int x = (tmp.getX() + newPos.getX())/2;
             int y = (tmp.getY() + newPos.getY())/2;

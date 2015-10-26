@@ -13,12 +13,6 @@ public class King implements Piece {
     }
 
     @Override
-    public boolean validMove(Move move, Board board, Colour colour) {
-        //        TODO Implementation
-        return false;
-    }
-
-    @Override
     public boolean canMove(Position position, Board board, Colour colour) {
         //        TODO Implementation
         return false;
