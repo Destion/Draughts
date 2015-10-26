@@ -28,4 +28,9 @@ public class Panel extends JPanel{
             g.fillRect(sq.getX(), sq.getY(), 100, 100);
         }
     }
+
+    public void drawClick(Graphics g, int x, int y){
+        g.setColor(Color.blue);
+        g.fillRect(x, y, 100, 100);
+    }
 }

@@ -1,10 +1,10 @@
 package view;
 
 import view.drawObjects.Square;
+import view.listeners.ClickListener;
 
 import javax.swing.*;
-import java.awt.*;
-import java.lang.reflect.Array;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 /**
@@ -14,6 +14,7 @@ public class Window extends JFrame{
 
     ArrayList<Square> squares;
     Panel panel;
+    MouseListener clickListener;
 
     public Window(){
         this.setSize(1920, 1080);
@@ -22,6 +23,10 @@ public class Window extends JFrame{
         this.setLocationRelativeTo(null);
 
         panel = new Panel(this.initBoard());
+
+        this.clickListener = new ClickListener(this);
+
+        this.addMouseListener(this.clickListener);
 
         this.getContentPane().add(panel);
 
@@ -74,5 +79,4 @@ public class Window extends JFrame{
         }
         return squares;
     }
-
 }
