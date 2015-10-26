@@ -6,10 +6,10 @@ import java.util.List;
 /**
  * Created by Rogier on 23-10-15.
  */
-public class Men implements Piece {
+public class Man implements Piece {
     private Colour colour;
 
-    public Men(Colour colour) {
+    public Man(Colour colour) {
         this.colour = colour;
     }
 

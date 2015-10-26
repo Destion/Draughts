@@ -23,15 +23,15 @@ public class Board {
             for (int y = 1; y <= BOARDSIZE; y++) {
                 if (x % 2 != 0) {
                     if (y == 1 || y == 3) {
-                        grid.put(new Position(x, y), new Men(Colour.WHITE));
+                        grid.put(new Position(x, y), new Man(Colour.WHITE));
                     } else if (y == 7 || y == 9) {
-                        grid.put(new Position(x, y), new Men(Colour.BLACK));
+                        grid.put(new Position(x, y), new Man(Colour.BLACK));
                     }
                 } else {
                     if (y == 2 || y == 4) {
-                        grid.put(new Position(x, y), new Men(Colour.WHITE));
+                        grid.put(new Position(x, y), new Man(Colour.WHITE));
                     } else if (y == 8 || y == 10) {
-                        grid.put(new Position(x, y), new Men(Colour.BLACK));
+                        grid.put(new Position(x, y), new Man(Colour.BLACK));
                     }
                 }
 
