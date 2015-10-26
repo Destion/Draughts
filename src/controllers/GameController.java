@@ -30,6 +30,7 @@ public class GameController {
     }
 
     public void play(){
+        this.temporaryTUI();
         while (!board.gameOver()) {
             if (counter % PLAYERCOUNT == 0) {
                 //player1
@@ -50,17 +51,20 @@ public class GameController {
     public void temporaryTUI(){
         Map<Position, Piece> grid = board.getGrid();
 
-        for (int i = 1; i <= Board.BOARDSIZE; i++) {
-            String s = "";
-            for (int j = 1; j <= Board.BOARDSIZE; j++) {
+        for (int j = Board.BOARDSIZE; j >= 1; j--) {
+
+            String s = j + ". ";
+            s = (j < 10) ? s + " " : s;
+            for (int i = 1; i <= Board.BOARDSIZE; i++) {
                 if (grid.containsKey(new Position(i, j))) {
-                    s = s + grid.get(new Position(i, j)).getColour().toString() + grid.get(new Position(i, j)).toString() + " |";
+                    s = s + grid.get(new Position(i, j)).getColour().toString() + grid.get(new Position(i, j)).toString() + " | ";
                 } else {
-                    s = s + "   |";
+                    s = s + "   | ";
                 }
             }
             System.out.println(s);
         }
+        System.out.println("    a  | b  | c  | d  | e  | f  | g  | h  | i  | j");
 
     }
 

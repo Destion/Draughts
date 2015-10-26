@@ -2,6 +2,7 @@ package model;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.List;
 
 /**
@@ -12,6 +13,7 @@ public class HumanPlayer extends Player {
 
     public HumanPlayer(String name, Colour colour) {
         super(name, colour);
+        reader = new BufferedReader(new InputStreamReader(System.in));
     }
 
     public Move determineMove(Board board, List<Move> possibleMoves) {
