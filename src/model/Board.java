@@ -55,8 +55,10 @@ public class Board {
 
         grid.put(move.getNewPos(), grid.get(oldPosition));
         grid.remove(oldPosition);
+        move.calculateCaptured();
         if (move.getCaptured().size() > 0) {
             for (Position position : move.getCaptured()) {
+                System.out.println(position.toString());
                 Piece tmpPiece = grid.get(position);
                 if (tmpPiece != null && tmpPiece.getColour() == Colour.WHITE) {
                     numberWhite--;

@@ -13,12 +13,6 @@ public class Man implements Piece {
         this.colour = colour;
     }
 
-    public boolean validMove(Move move, Board board, Colour colour) {
-        //        TODO Implementation
-
-        return false;
-    }
-
     public boolean canMove(Position position, Board board, Colour colour) {
         int var = (colour == Colour.WHITE) ? 1 : -1;
         return board.freePosition(new Position(position.getX() + 1, position.getY() + var))
@@ -67,12 +61,63 @@ public class Man implements Piece {
 
     @Override
     public List<Move> capturesOnPosition(Position position, Board board, Colour colour) {
-        //        TODO Implementation
+        //TODO Implementation with more than 4 options
         List<Move> possibleMoves = new ArrayList<>();
         if (captureOption(position, board, colour, -1, -1)) {
-
+            List<Position> interPos = new ArrayList<>();
+            interPos.add(position);
+            Move move = new Move(position, null, interPos);
+            move = this.getCaptureMove(new Position(position.getX() - 2, position.getY() - 2), board, colour, move);
+            possibleMoves.add(move);
+            move.getInterPos().remove(0);
+        } else if (captureOption(position, board, colour, -1, 1)) {
+            List<Position> interPos = new ArrayList<>();
+            interPos.add(position);
+            Move move = new Move(position, null, interPos);
+            move = this.getCaptureMove(new Position(position.getX() - 2, position.getY() + 2), board, colour, move);
+            possibleMoves.add(move);
+            move.getInterPos().remove(0);
+        } else if (captureOption(position, board, colour, 1, -1)) {
+            List<Position> interPos = new ArrayList<>();
+            interPos.add(position);
+            Move move = new Move(position, null, interPos);
+            move = this.getCaptureMove(new Position(position.getX() + 2, position.getY() - 2), board, colour, move);
+            possibleMoves.add(move);
+            move.getInterPos().remove(0);
+        } else if (captureOption(position, board, colour, 1, 1)) {
+            List<Position> interPos = new ArrayList<>();
+            interPos.add(position);
+            Move move = new Move(position, null, interPos);
+            move = this.getCaptureMove(new Position(position.getX() + 2, position.getY() + 2), board, colour, move);
+            possibleMoves.add(move);
+            move.getInterPos().remove(0);
         }
-        return null;
+        return possibleMoves;
+    }
+
+    public Move getCaptureMove(Position position, Board board, Colour colour, Move move) {
+        if (captureOption(position, board, colour, -1, -1)
+                && !(new Position(position.getX() - 2, position.getY() - 2).equals(move.getInterPos().get(move.getInterPos().size() - 1)))) {
+            move.getInterPos().add(position);
+            move = this.getCaptureMove(new Position(position.getX() - 2, position.getY() - 2), board, colour, move);
+        } else if (captureOption(position, board, colour, -1, 1)
+                && !(new Position(position.getX() - 2, position.getY() + 2).equals(move.getInterPos().get(move.getInterPos().size() - 1)))) {
+            move.getInterPos().add(position);
+            move = this.getCaptureMove(new Position(position.getX() - 2, position.getY() + 2), board, colour, move);
+        } else if (captureOption(position, board, colour, 1, -1)
+                && !(new Position(position.getX() + 2, position.getY() - 2).equals(move.getInterPos().get(move.getInterPos().size() - 1)))) {
+            move.getInterPos().add(position);
+            move = this.getCaptureMove(new Position(position.getX() + 2, position.getY() - 2), board, colour, move);
+        } else if (captureOption(position, board, colour, 1, 1)
+                && !(new Position(position.getX() + 2, position.getY() + 2).equals(move.getInterPos().get(move.getInterPos().size() - 1)))) {
+            move.getInterPos().add(position);
+            move = this.getCaptureMove(new Position(position.getX() + 2, position.getY() + 2), board, colour, move);
+        } else {
+            move.setNewPos(position);
+        }
+
+
+        return move;
     }
 
     @Override

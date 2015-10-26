@@ -34,4 +34,8 @@ public class Main {
         game.game();
     }
 
+
+    public static void test() {
+
+    }
 }
