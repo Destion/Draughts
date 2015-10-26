@@ -30,27 +30,26 @@ public class GameController {
     }
 
     public void play(){
-        this.temporaryTUI();
         while (!board.gameOver()) {
+
+
             if (counter % PLAYERCOUNT == 0) {
-                //player1
+                this.temporaryTUI(player1);
                 List<Move> possibleMoves = board.generatePossibleMoves(player1.getColour());
                 player1.makeMove(board, possibleMoves);
-                this.temporaryTUI();
-
             } else {
-                //player2
+                this.temporaryTUI(player2);
                 List<Move> possibleMoves = board.generatePossibleMoves(player2.getColour());
                 player2.makeMove(board, possibleMoves);
-                this.temporaryTUI();
             }
+
             counter++;
         }
     }
 
-    public void temporaryTUI(){
+    public void temporaryTUI(Player player) {
         Map<Position, Piece> grid = board.getGrid();
-
+        System.out.println("For player " + player.getName());
         for (int j = Board.BOARDSIZE; j >= 1; j--) {
 
             String s = j + ". ";

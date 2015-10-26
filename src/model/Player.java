@@ -14,6 +14,10 @@ public abstract class Player {
         this.colour = colour;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void makeMove(Board board, List<Move> possibleMoves){
         Move move = this.determineMove(board, possibleMoves);
         if (move != null ){

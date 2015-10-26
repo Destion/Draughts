@@ -41,29 +41,35 @@ public class Board {
         numberBlack = NUMPIECES;
     }
 
+    public Map<Position, Piece> deepCopy() {
+        Map<Position, Piece> result = new HashMap<>();
+        for (Position position : grid.keySet()) {
+            result.put(position, grid.get(position));
+        }
+        return result;
+    }
+
     public void move(Move move, Colour colour) {
         Position oldPosition = move.getOldPos();
         Piece piece = grid.get(oldPosition);
-        if (piece.validMove(move, this, colour)) {
-            grid.put(move.getNewPos(), grid.get(oldPosition));
-            grid.remove(oldPosition);
-            if (move.getCaptured().size() > 0) {
-                for (Position position : move.getCaptured()) {
-                    Piece tmpPiece = grid.get(position);
-                    if (tmpPiece != null && tmpPiece.getColour() == Colour.WHITE) {
-                        numberWhite--;
-                    } else {
-                        numberBlack--;
-                    }
-                    grid.remove(position);
+
+        grid.put(move.getNewPos(), grid.get(oldPosition));
+        grid.remove(oldPosition);
+        if (move.getCaptured().size() > 0) {
+            for (Position position : move.getCaptured()) {
+                Piece tmpPiece = grid.get(position);
+                if (tmpPiece != null && tmpPiece.getColour() == Colour.WHITE) {
+                    numberWhite--;
+                } else {
+                    numberBlack--;
                 }
-            }
-            if ((piece.getColour() == Colour.WHITE && move.getNewPos().getY() == 10)
-                    || (piece.getColour() == Colour.BLACK && move.getNewPos().getY() == 1)) {
-                this.promotePiece(move.getNewPos(), piece);
+                grid.remove(position);
             }
         }
-
+        if ((piece.getColour() == Colour.WHITE && move.getNewPos().getY() == 10)
+                || (piece.getColour() == Colour.BLACK && move.getNewPos().getY() == 1)) {
+            this.promotePiece(move.getNewPos(), piece);
+        }
     }
 
     private void promotePiece(Position position, Piece piece) {
