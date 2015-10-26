@@ -49,7 +49,19 @@ public class GameController {
 
     public void temporaryTUI(){
         Map<Position, Piece> grid = board.getGrid();
-        System.out.println();
+
+        for (int i = 1; i <= Board.BOARDSIZE; i++) {
+            String s = "";
+            for (int j = 1; j <= Board.BOARDSIZE; j++) {
+                if (grid.containsKey(new Position(i, j))) {
+                    s = s + grid.get(new Position(i, j)).getColour().toString() + grid.get(new Position(i, j)).toString() + " |";
+                } else {
+                    s = s + "   |";
+                }
+            }
+            System.out.println(s);
+        }
+
     }
 
 }

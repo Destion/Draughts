@@ -10,8 +10,8 @@ public class Board {
     private Map<Position, Piece> grid;
     public static final int BOARDSIZE = 10;
     public static final int NUMPIECES = 20;
-    public int numberWhite;
-    public int numberBlack;
+    private int numberWhite;
+    private int numberBlack;
 
     public Map<Position, Piece> getGrid() {
         return grid;

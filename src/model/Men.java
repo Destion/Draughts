@@ -62,4 +62,9 @@ public class Men implements Piece {
     public Colour getColour() {
         return colour;
     }
+
+    @Override
+    public String toString() {
+        return "M";
+    }
 }

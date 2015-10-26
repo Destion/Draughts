@@ -27,6 +27,13 @@ public class Position {
         return y == position.y;
     }
 
+    @Override
+    public int hashCode() {
+        int result = x;
+        result = 31 * result + y;
+        return result;
+    }
+
     public String toString() {
         String result = "";
         switch (x) {

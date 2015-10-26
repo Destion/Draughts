@@ -31,7 +31,8 @@ public class Main {
         Player player1 = new HumanPlayer("Rogier", Colour.WHITE);
         Player player2 = new HumanPlayer("Barry", Colour.BLACK);
         GameController game = new GameController(player1, player2);
-        game.game();
+        game.setup();
+        game.temporaryTUI();
     }
 
 }
