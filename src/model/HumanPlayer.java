@@ -19,9 +19,8 @@ public class HumanPlayer extends Player {
     public Move determineMove(Board board, List<Move> possibleMoves) {
         int i = possibleMoves.size();
         this.temporaryTUI(possibleMoves);
-//    TODO System.in
         int choice = this.getInput();
-        return null;
+        return possibleMoves.get(choice);
     }
 
     public void temporaryTUI(List<Move> possibleMoves) {

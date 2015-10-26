@@ -24,6 +24,7 @@ It also has methods to mutate the board:
 - move(Move, Colour) takes the move object to make the move on the board
 - promotePiece(Position,Piece) promotes a Man to a King on the board
 - generatePossibleMoves(Colour) generates all possible move for a player
+- deepCopy() return a hard copy the of Map
 
 generatePossibleMoves(Colour) is the main function to forward to the player. 
 If a player must capture another piece, then the only possibility is to capture. If not then the only possibilty is the move a piece.

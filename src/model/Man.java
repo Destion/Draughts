@@ -27,12 +27,25 @@ public class Man implements Piece {
 
     public boolean canCapture(Position position, Board board, Colour colour) {
         boolean canCapture = false;
-        // TODO check if next to is black
-        // check if free spot
-        // loop this for multiple capture
-
-
+        if (captureOption(position, board, colour, -1, -1) || captureOption(position, board, colour, -1, 1)
+                || captureOption(position, board, colour, 1, -1) || captureOption(position, board, colour, 1, 1)) {
+            canCapture = true;
+        }
         return canCapture;
+    }
+
+    public boolean captureOption(Position position, Board board, Colour colour, int i, int j) {
+        boolean option = false;
+        Position option1 = new Position(position.getX() + i, position.getY() + j);
+        if (board.getGrid().containsKey(option1)) {
+            if (board.getGrid().get(option1).getColour() == colour.other()) {
+                if (board.freePosition(new Position(option1.getX() + i, option1.getY() + j))) {
+                    option = true;
+
+                }
+            }
+        }
+        return option;
     }
 
     @Override
@@ -55,6 +68,10 @@ public class Man implements Piece {
     @Override
     public List<Move> capturesOnPosition(Position position, Board board, Colour colour) {
         //        TODO Implementation
+        List<Move> possibleMoves = new ArrayList<>();
+        if (captureOption(position, board, colour, -1, -1)) {
+
+        }
         return null;
     }
 
