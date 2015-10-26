@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,8 +21,8 @@ public class Men implements Piece {
 
     public boolean canMove(Position position, Board board, Colour colour) {
         int var = (colour == Colour.WHITE) ? 1 : -1;
-        return !board.getGrid().containsKey(new Position(position.getX() + 1, position.getY() + var))
-                || !board.getGrid().containsKey(new Position(position.getX() - 1, position.getY() + var));
+        return board.freePosition(new Position(position.getX() + 1, position.getY() + var))
+                || board.freePosition(new Position(position.getX() - 1, position.getY() + var));
     }
 
     public boolean canCapture(Position position, Board board, Colour colour) {
@@ -36,8 +37,19 @@ public class Men implements Piece {
 
     @Override
     public List<Move> movesOnPosition(Position position, Board board, Colour colour) {
-//        TODO Implementation
-        return null;
+        List<Move> possibleMoves = new ArrayList<>();
+        int var = (colour == Colour.WHITE) ? 1 : -1;
+        Position option1 = new Position(position.getX() + 1, position.getY() + var);
+        Position option2 = new Position(position.getX() - 1, position.getY() + var);
+        if (board.freePosition(option1)) {
+            Move move = new Move(position, option1, null);
+            possibleMoves.add(move);
+        }
+        if (board.freePosition(option2)) {
+            Move move = new Move(position, option2, null);
+            possibleMoves.add(move);
+        }
+        return possibleMoves;
     }
 
     @Override

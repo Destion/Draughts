@@ -111,6 +111,10 @@ public class Board {
         return winner;
     }
 
+    public boolean freePosition(Position position) {
+        return !grid.containsKey(position) || position.getX() < 1 || position.getX() > 10 || position.getY() < 1 || position.getY() > 10;
+    }
+
     public boolean draw() {
         //        TODO Implementation
         return false;

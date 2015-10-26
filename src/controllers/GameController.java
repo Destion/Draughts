@@ -11,6 +11,7 @@ public class GameController {
     private Player player1;
     private Player player2;
     private int counter;
+    public static final int PLAYERCOUNT = 2;
 
     public GameController(Player player1, Player player2) {
         this.player1 = player1;
@@ -30,7 +31,7 @@ public class GameController {
 
     public void play(){
         while (!board.gameOver()) {
-            if (counter % 2 == 0) {
+            if (counter % PLAYERCOUNT == 0) {
                 //player1
                 List<Move> possibleMoves = board.generatePossibleMoves(player1.getColour());
                 player1.makeMove(board, possibleMoves);
