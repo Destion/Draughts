@@ -14,12 +14,15 @@ public class King implements Piece {
 
     @Override
     public boolean canMove(Position position, Board board, Colour colour) {
-        //        TODO Implementation
-        return false;
+
+        return board.freePosition(new Position(position.getX() + 1, position.getY() + 1))
+                || board.freePosition(new Position(position.getX() - 1, position.getY() + 1))
+                || board.freePosition(new Position(position.getX() + 1, position.getY() - 1))
+                || board.freePosition(new Position(position.getX() - 1, position.getY() - 1));
     }
 
     @Override
-    public boolean canCapture(Position position, Board board, Colour colour) {
+    public boolean canCapture(Position currentPosition, Position oldPosition, Board board, Colour colour) {
         //        TODO Implementation
         return false;
     }

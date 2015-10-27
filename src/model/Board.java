@@ -84,7 +84,7 @@ public class Board {
         boolean mustCapture = false;
         for (Position position : grid.keySet()) {
             if (grid.get(position).getColour() == colour) {
-                if (grid.get(position).canCapture(position, this, colour)) {
+                if (grid.get(position).canCapture(position, null, this, colour)) {
                     possibleMoves.addAll(grid.get(position).capturesOnPosition(position, this, colour));
                     mustCapture = true;
                 }
