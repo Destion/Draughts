@@ -12,6 +12,9 @@ public class Board {
     public static final int NUMPIECES = 20;
     private int numberWhite;
     private int numberBlack;
+    private Colour winner;
+    private int threeKingCounter;
+    private int twoKingOneManCounter;
 
     public Map<Position, Piece> getGrid() {
         return grid;
@@ -49,6 +52,8 @@ public class Board {
         }
         numberWhite = NUMPIECES;
         numberBlack = NUMPIECES;
+        threeKingCounter = 0;
+        twoKingOneManCounter = 0;
     }
 
     public Map<Position, Piece> deepCopy() {
@@ -125,12 +130,11 @@ public class Board {
     }
 
     public boolean hasWinner() {
-        return numberWhite == 0 || numberBlack == 0;
+        return Colour.WHITE == winner() || Colour.BLACK == winner();
     }
 
 
     public Colour winner() {
-        Colour winner;
         if (numberBlack == 0) {
             winner = Colour.WHITE;
         } else if (numberWhite == 0) {
@@ -141,13 +145,51 @@ public class Board {
         return winner;
     }
 
+    public Colour getWinner() {
+        return winner;
+    }
+
+    public void setWinner(Colour winner) {
+        this.winner = winner;
+    }
+
     public boolean freePosition(Position position) {
         return !grid.containsKey(position) && position.getX() >= 1 && position.getX() <= 10 && position.getY() >= 1 && position.getY() <= 10;
     }
 
     public boolean draw() {
         //        TODO Implementation
-        return false;
+
+        boolean result = false;
+        if (grid.size() < 4) {
+            List<Piece> pieces = new ArrayList<Piece>();
+            for (Position position : grid.keySet()) {
+                pieces.add(grid.get(position));
+            }
+            if (pieces.size() == 2 && pieces.get(0) instanceof King && pieces.get(1) instanceof King) {
+                result = true;
+
+            }
+            if (pieces.size() == 3 && pieces.get(0) instanceof King && pieces.get(1) instanceof King && pieces.get(2) instanceof King) {
+                if (threeKingCounter > 4) {
+                    result = true;
+                } else {
+                    threeKingCounter++;
+                }
+            }
+            if (pieces.size() == 3 && (pieces.get(0) instanceof King && pieces.get(1) instanceof King)
+                    || (pieces.get(0) instanceof King && pieces.get(2) instanceof King)
+                    || (pieces.get(1) instanceof King && pieces.get(2) instanceof King)) {
+                if (twoKingOneManCounter > 15) {
+                    result = true;
+                } else {
+                    twoKingOneManCounter++;
+                }
+            }
+        }
+
+
+        return result;
     }
 
     public boolean gameOver() {

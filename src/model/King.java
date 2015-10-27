@@ -21,42 +21,19 @@ public class King implements Piece {
     }
 
     public boolean canCapture(Position currentPosition, Position oldPosition, Board board, Colour colour) {
+        return canCaptureWithDirection(currentPosition, oldPosition, board, colour, -1, -1)
+                || canCaptureWithDirection(currentPosition, oldPosition, board, colour, -1, 1)
+                || canCaptureWithDirection(currentPosition, oldPosition, board, colour, 1, -1)
+                || canCaptureWithDirection(currentPosition, oldPosition, board, colour, 1, 1);
+    }
+
+    public boolean canCaptureWithDirection(Position currentPosition, Position oldPosition, Board board, Colour colour, int x, int y) {
         boolean canCapture = false;
-        if (numberOfFreeSpots(currentPosition, board, -1, -1) >= 0) {
-            int spacesInFront = numberOfFreeSpots(currentPosition, board, -1, -1);
-            Position option1 = new Position(currentPosition.getX() - (1 + spacesInFront), currentPosition.getY() - (1 + spacesInFront));
+        if (numberOfFreeSpots(currentPosition, board, x, y) >= 0) {
+            int spacesInFront = numberOfFreeSpots(currentPosition, board, x, y);
+            Position option1 = new Position(currentPosition.getX() + x * (1 + spacesInFront), currentPosition.getY() + y * (1 + spacesInFront));
             if (board.getGrid().containsKey(option1) && board.getGrid().get(option1).getColour() == colour.other()) {
-                if (numberOfFreeSpots(new Position(option1.getX(), option1.getY()), board, -1, -1) > 0) {
-                    canCapture = true;
-                }
-
-            }
-        }
-        if (numberOfFreeSpots(currentPosition, board, -1, 1) >= 0) {
-            int spacesInFront = numberOfFreeSpots(currentPosition, board, -1, 1);
-            Position option1 = new Position(currentPosition.getX() - (1 + spacesInFront), currentPosition.getY() + (1 + spacesInFront));
-            if (board.getGrid().containsKey(option1) && board.getGrid().get(option1).getColour() == colour.other()) {
-                if (numberOfFreeSpots(new Position(option1.getX(), option1.getY()), board, -1, 1) > 0) {
-                    canCapture = true;
-                }
-
-            }
-        }
-        if (numberOfFreeSpots(currentPosition, board, 1, -1) >= 0) {
-            int spacesInFront = numberOfFreeSpots(currentPosition, board, 1, -1);
-            Position option1 = new Position(currentPosition.getX() + (1 + spacesInFront), currentPosition.getY() - (1 + spacesInFront));
-            if (board.getGrid().containsKey(option1) && board.getGrid().get(option1).getColour() == colour.other()) {
-                if (numberOfFreeSpots(new Position(option1.getX(), option1.getY()), board, 1, -1) > 0) {
-                    canCapture = true;
-                }
-
-            }
-        }
-        if (numberOfFreeSpots(currentPosition, board, 1, 1) >= 0) {
-            int spacesInFront = numberOfFreeSpots(currentPosition, board, 1, 1);
-            Position option1 = new Position(currentPosition.getX() + (1 + spacesInFront), currentPosition.getY() + (1 + spacesInFront));
-            if (board.getGrid().containsKey(option1) && board.getGrid().get(option1).getColour() == colour.other()) {
-                if (numberOfFreeSpots(new Position(option1.getX(), option1.getY()), board, 1, 1) > 0) {
+                if (numberOfFreeSpots(new Position(option1.getX(), option1.getY()), board, x, y) > 0) {
                     canCapture = true;
                 }
 
@@ -64,6 +41,7 @@ public class King implements Piece {
         }
         return canCapture;
     }
+
 
     public int numberOfFreeSpots(Position currentPosition, Board board, int x, int y) {
         int result = 0;
@@ -97,9 +75,29 @@ public class King implements Piece {
 
 
     public List<Move> capturesOnPosition(Position position, Board board, Colour colour) {
-        //        TODO Implementation
+        // free spots
+        // check other colour
+        // free spots after
+        //  for every free spot
+        //      do other method
+        List<Move> possibleMoves = new ArrayList<Move>();
+        if (this.canCaptureWithDirection(position, null, board, colour, -1, -1)) {
 
-        return null;
+        }
+        if (this.canCaptureWithDirection(position, null, board, colour, -1, 1)) {
+
+        }
+        if (this.canCaptureWithDirection(position, null, board, colour, 1, -1)) {
+
+        }
+        if (this.canCaptureWithDirection(position, null, board, colour, 1, 1)) {
+
+        }
+        return possibleMoves;
+    }
+
+    public void multipleCapture(Position currentPosition, Board board, Colour colour, Move move, List<Move> possibleMoves) {
+
     }
 
     public Colour getColour() {

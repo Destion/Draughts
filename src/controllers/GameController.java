@@ -3,7 +3,6 @@ package controllers;
 
 import model.*;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,6 +22,7 @@ public class GameController {
     public void game() {
         this.setup();
         this.play();
+        this.displayWinner();
     }
 
     public void setup(){
@@ -32,20 +32,30 @@ public class GameController {
 
     public void play(){
         while (!board.gameOver()) {
-
-
             if (counter % PLAYERCOUNT == 0) {
                 this.temporaryTUI(player1);
                 List<Move> possibleMoves = board.generatePossibleMoves(player1.getColour());
+                if (possibleMoves.size() == 0) {
+                    board.setWinner(player2.getColour());
+                    break;
+                }
                 player1.makeMove(board, possibleMoves);
             } else {
                 this.temporaryTUI(player2);
                 List<Move> possibleMoves = board.generatePossibleMoves(player2.getColour());
+                if (possibleMoves.size() == 0) {
+                    board.setWinner(player1.getColour());
+                    break;
+                }
                 player2.makeMove(board, possibleMoves);
             }
 
             counter++;
         }
+    }
+
+    public void displayWinner() {
+        System.out.println(board.getWinner());
     }
 
     public void temporaryTUI(Player player) {
@@ -63,7 +73,7 @@ public class GameController {
                 }
             }
             System.out.println(s);
-            System.out.println("--------------------------------------------------");
+            System.out.println("----------------------------------------------------");
         }
         System.out.println("    a  | b  | c  | d  | e  | f  | g  | h  | i  | j");
 
