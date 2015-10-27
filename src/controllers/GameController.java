@@ -3,6 +3,7 @@ package controllers;
 
 import model.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -68,5 +69,8 @@ public class GameController {
 
     }
 
+    public Map<Position, Piece> getGrid(){
+        return this.board.getGrid();
+    }
 
 }

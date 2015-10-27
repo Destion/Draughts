@@ -14,4 +14,6 @@ public interface Piece {
     List<Move> capturesOnPosition(Position position, Board board, Colour colour);
 
     Colour getColour();
+
+
 }

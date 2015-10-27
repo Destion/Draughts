@@ -1,7 +1,8 @@
 package controllers;
 
+import model.Colour;
+import model.HumanPlayer;
 import view.drawables.Drawable;
-import view.drawables.Man;
 import view.drawables.Square;
 import view.listeners.ClickListener;
 
@@ -12,12 +13,21 @@ import java.util.ArrayList;
 public class GuiController extends JPanel {
 
     private ArrayList<Drawable> drawQueue;
+    private ArrayList<Square> boardQueue;
+    private ModelAccessObject MAO;
+    private GameController gc;
 
     public GuiController(){
         super();
 
+        this.gc = new GameController(new HumanPlayer("Jan", Colour.BLACK), new HumanPlayer("Henk", Colour.WHITE));
+        gc.setup();
+        MAO = new ModelAccessObject(this.gc, this);
+
         this.drawQueue = new ArrayList<>();
+        this.boardQueue = new ArrayList<>();
         this.initBoard();
+
 
         JFrame window = new JFrame();
         window.setSize(1920, 1080);
@@ -47,8 +57,18 @@ public class GuiController extends JPanel {
         return null;
     }
 
+    public ArrayList<Drawable> getQueue(){
+        return this.drawQueue;
+    }
+
     public void paintComponent(Graphics g){
         super.paintComponents(g);
+
+        this.MAO.makeDraw(gc.getGrid());
+
+        for (Square sq : boardQueue){
+            sq.draw(g);
+        }
 
         for (Drawable drawable : this.drawQueue) {
             drawable.draw(g);
@@ -85,44 +105,44 @@ public class GuiController extends JPanel {
             int x = 460 + ((i % 10) * 100);
             int y = 40 + ((i / 10) * 100);
 
-            this.drawQueue.add(new Square(x, y, colors.get(0)));
+            this.boardQueue.add(new Square(x, y, colors.get(0)));
 
             colors.remove(0);
         }
 
 
         //initial placement for all the red man pieces
-        for (int z=0; z<40; z++) {
-            if ((z < 10 && z >= 0 ) || ( z < 30 && z >= 20)){
-                if (z % 2 != 0) {
-                    int manx = 460 + 10 + ((z % 10) * 100);
-                    int many = 40 + 10 + ((z / 10) * 100);
-                    this.drawQueue.add(new Man(manx, many, new Color(255,255,0)));
-                }
-            } else {
-                if (z % 2 == 0){
-                    int manx = 460 + 10 + ((z % 10) * 100);
-                    int many = 40 + 10 + ((z / 10) * 100);
-                    this.drawQueue.add(new Man(manx, many, new Color(255,255,0)));
-                }
-            }
-        }
+//        for (int z=0; z<40; z++) {
+//            if ((z < 10 && z >= 0 ) || ( z < 30 && z >= 20)){
+//                if (z % 2 != 0) {
+//                    int manx = 460 + 10 + ((z % 10) * 100);
+//                    int many = 40 + 10 + ((z / 10) * 100);
+//                    this.drawQueue.add(new Man(manx, many, new Color(255,255,0)));
+//                }
+//            } else {
+//                if (z % 2 == 0){
+//                    int manx = 460 + 10 + ((z % 10) * 100);
+//                    int many = 40 + 10 + ((z / 10) * 100);
+//                    this.drawQueue.add(new Man(manx, many, new Color(255,255,0)));
+//                }
+//            }
+//        }
 
         //initial placement for all the white man pieces
-        for (int z=0; z<40; z++) {
-            if ((z < 10 && z >= 0 ) || ( z < 30 && z >= 20)){
-                if (z % 2 != 0) {
-                    int manx = 460 + 10 + ((z % 10) * 100);
-                    int many = 600 + 40 + 10 + ((z / 10) * 100);
-                    this.drawQueue.add(new Man(manx, many, new Color(204,0,0)));
-                }
-            } else {
-                if (z % 2 == 0){
-                    int manx = 460 + 10 + ((z % 10) * 100);
-                    int many = 600 + 40 + 10 + ((z / 10) * 100);
-                    this.drawQueue.add(new Man(manx, many, new Color(204,0,0)));
-                }
-            }
-        }
+//        for (int z=0; z<40; z++) {
+//            if ((z < 10 && z >= 0 ) || ( z < 30 && z >= 20)){
+//                if (z % 2 != 0) {
+//                    int manx = 460 + 10 + ((z % 10) * 100);
+//                    int many = 600 + 40 + 10 + ((z / 10) * 100);
+//                    this.drawQueue.add(new Man(manx, many, new Color(204,0,0)));
+//                }
+//            } else {
+//                if (z % 2 == 0){
+//                    int manx = 460 + 10 + ((z % 10) * 100);
+//                    int many = 600 + 40 + 10 + ((z / 10) * 100);
+//                    this.drawQueue.add(new Man(manx, many, new Color(204,0,0)));
+//                }
+//            }
+//        }
     }
 }

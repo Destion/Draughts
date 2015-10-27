@@ -11,10 +11,12 @@ public class ClickListener implements MouseListener {
 
     private GuiController gui;
     private Color prevCol;
+    private boolean canplace;
 
     public ClickListener(GuiController g){
         super();
         this.gui = g;
+        this.canplace = false;
     }
 
     @Override
@@ -33,25 +35,25 @@ public class ClickListener implements MouseListener {
         int ypos = 40 + 10 + ((((mousey - 40) / 100)) *100 ) ;
 
         prevCol = gui.removeDrawable(xpos, ypos);
-
+        this.canplace = true;
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
         //On release draw new circle
 
-        int mousex = MouseInfo.getPointerInfo().getLocation().x;
-        int mousey = MouseInfo.getPointerInfo().getLocation().y;
+        if (this.   canplace) {
+            int mousex = MouseInfo.getPointerInfo().getLocation().x;
+            int mousey = MouseInfo.getPointerInfo().getLocation().y;
 
-        int xpos = 460 + 10 + ((((mousex - 460) / 100) % 10) * 100);
-        int ypos = 40 + 10 + ((((mousey - 40) / 100)) *100 ) ;
+            int xpos = 460 + 10 + ((((mousex - 460) / 100) % 10) * 100);
+            int ypos = 40 + 10 + ((((mousey - 40) / 100)) * 100);
 
-        System.out.println(mousey);
-        System.out.println(ypos);
+            this.gui.addDrawable(new Man(xpos, ypos, prevCol));
 
-        this.gui.addDrawable(new Man(xpos, ypos, prevCol));
-
-        this.gui.repaint();
+            this.gui.repaint();
+            this.canplace = false;
+        }
     }
 
     @Override
