@@ -64,7 +64,7 @@ public class Man implements Piece {
         List<Move> possibleMoves = new ArrayList<>();
         if (this.canCapture(currentPosition, null, board, colour)) {
             if (this.captureOption(currentPosition, null, board, colour, -1, -1) != null) {
-                Move move1 = new Move(currentPosition, null, new ArrayList<>());
+                Move move1 = new Move(currentPosition, null, new ArrayList<Position>());
                 if (canCapture(new Position(currentPosition.getX() - 2, currentPosition.getY() - 2), currentPosition, board, colour)) {
                     this.multipleCapture(new Position(currentPosition.getX() - 2, currentPosition.getY() - 2), board, colour, move1, possibleMoves);
                 } else {
@@ -73,7 +73,7 @@ public class Man implements Piece {
                 }
             }
             if (this.captureOption(currentPosition, null, board, colour, -1, 1) != null) {
-                Move move1 = new Move(currentPosition, null, new ArrayList<>());
+                Move move1 = new Move(currentPosition, null, new ArrayList<Position>());
                 if (canCapture(new Position(currentPosition.getX() - 2, currentPosition.getY() + 2), currentPosition, board, colour)) {
 
                     this.multipleCapture(new Position(currentPosition.getX() - 2, currentPosition.getY() + 2), board, colour, move1, possibleMoves);
@@ -83,7 +83,7 @@ public class Man implements Piece {
                 }
             }
             if (this.captureOption(currentPosition, null, board, colour, 1, -1) != null) {
-                Move move1 = new Move(currentPosition, null, new ArrayList<>());
+                Move move1 = new Move(currentPosition, null, new ArrayList<Position>());
                 if (canCapture(new Position(currentPosition.getX() + 2, currentPosition.getY() - 2), currentPosition, board, colour)) {
                     this.multipleCapture(new Position(currentPosition.getX() + 2, currentPosition.getY() - 2), board, colour, move1, possibleMoves);
                 } else {
@@ -92,7 +92,7 @@ public class Man implements Piece {
                 }
             }
             if (this.captureOption(currentPosition, null, board, colour, 1, 1) != null) {
-                Move move1 = new Move(currentPosition, null, new ArrayList<>());
+                Move move1 = new Move(currentPosition, null, new ArrayList<Positionfor fadfdfa > ());
                 if (canCapture(new Position(currentPosition.getX() + 2, currentPosition.getY() + 2), currentPosition, board, colour)) {
                     this.multipleCapture(new Position(currentPosition.getX() + 2, currentPosition.getY() + 2), board, colour, move1, possibleMoves);
                 } else {
