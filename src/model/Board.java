@@ -29,7 +29,7 @@ public class Board {
                     }
                 } else {
                     if (y == 2 || y == 4) {
-                        grid.put(new Position(x, y), new Man(Colour.WHITE));
+                        grid.put(new Position(x, y), new King(Colour.WHITE));
                     } else if (y == 8 || y == 10) {
                         grid.put(new Position(x, y), new Man(Colour.BLACK));
                     }
@@ -99,7 +99,19 @@ public class Board {
                 }
             }
         }
-        return possibleMoves;
+        int longestChain = 0;
+        for (Move move : possibleMoves) {
+            if (move.getInterPos() != null && move.getInterPos().size() > longestChain) {
+                longestChain = move.getInterPos().size();
+            }
+        }
+        List<Move> possibleCaptureMoves = new ArrayList<Move>();
+        for (Move move : possibleMoves) {
+            if (move.getInterPos() != null && move.getInterPos().size() == longestChain) {
+                possibleCaptureMoves.add(move);
+            }
+        }
+        return possibleCaptureMoves.size() > 0 ? possibleCaptureMoves : possibleMoves;
     }
 
     public boolean hasWinner() {
