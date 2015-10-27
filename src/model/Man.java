@@ -66,7 +66,6 @@ public class Man implements Piece {
             if (this.captureOption(currentPosition, null, board, colour, -1, -1) != null) {
                 Move move1 = new Move(currentPosition, null, new ArrayList<>());
                 if (canCapture(new Position(currentPosition.getX() - 2, currentPosition.getY() - 2), currentPosition, board, colour)) {
-                    move1.getInterPos().add(new Position(currentPosition.getX() - 2, currentPosition.getY() - 2));
                     this.multipleCapture(new Position(currentPosition.getX() - 2, currentPosition.getY() - 2), board, colour, move1, possibleMoves);
                 } else {
                     move1.setNewPos(new Position(currentPosition.getX() - 2, currentPosition.getY() - 2));
@@ -76,7 +75,7 @@ public class Man implements Piece {
             if (this.captureOption(currentPosition, null, board, colour, -1, 1) != null) {
                 Move move1 = new Move(currentPosition, null, new ArrayList<>());
                 if (canCapture(new Position(currentPosition.getX() - 2, currentPosition.getY() + 2), currentPosition, board, colour)) {
-                    move1.getInterPos().add(new Position(currentPosition.getX() - 2, currentPosition.getY() + 2));
+
                     this.multipleCapture(new Position(currentPosition.getX() - 2, currentPosition.getY() + 2), board, colour, move1, possibleMoves);
                 } else {
                     move1.setNewPos(new Position(currentPosition.getX() - 2, currentPosition.getY() + 2));
@@ -86,7 +85,6 @@ public class Man implements Piece {
             if (this.captureOption(currentPosition, null, board, colour, 1, -1) != null) {
                 Move move1 = new Move(currentPosition, null, new ArrayList<>());
                 if (canCapture(new Position(currentPosition.getX() + 2, currentPosition.getY() - 2), currentPosition, board, colour)) {
-                    move1.getInterPos().add(new Position(currentPosition.getX() + 2, currentPosition.getY() - 2));
                     this.multipleCapture(new Position(currentPosition.getX() + 2, currentPosition.getY() - 2), board, colour, move1, possibleMoves);
                 } else {
                     move1.setNewPos(new Position(currentPosition.getX() + 2, currentPosition.getY() - 2));
@@ -96,7 +94,6 @@ public class Man implements Piece {
             if (this.captureOption(currentPosition, null, board, colour, 1, 1) != null) {
                 Move move1 = new Move(currentPosition, null, new ArrayList<>());
                 if (canCapture(new Position(currentPosition.getX() + 2, currentPosition.getY() + 2), currentPosition, board, colour)) {
-                    move1.getInterPos().add(new Position(currentPosition.getX() + 2, currentPosition.getY() + 2));
                     this.multipleCapture(new Position(currentPosition.getX() + 2, currentPosition.getY() + 2), board, colour, move1, possibleMoves);
                 } else {
                     move1.setNewPos(new Position(currentPosition.getX() + 2, currentPosition.getY() + 2));
@@ -114,7 +111,7 @@ public class Man implements Piece {
         } else {
             oldPosition = move.getInterPos().get(move.getInterPos().size() - 1);
         }
-
+        move.getInterPos().add(currentPosition);
         if (this.captureOption(currentPosition, oldPosition, board, colour, -1, -1) != null) {
             Move move1 = new Move(move.getOldPos(), null, move.getInterPos());
 

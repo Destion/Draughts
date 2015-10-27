@@ -43,4 +43,9 @@ public class King implements Piece {
     public Colour getColour() {
         return colour;
     }
+
+    @Override
+    public String toString() {
+        return "K";
+    }
 }
