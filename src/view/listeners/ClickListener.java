@@ -1,38 +1,40 @@
 package view.listeners;
 
-import view.*;
-import view.Window;
+import controllers.GuiController;
+import view.drawables.Man;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-/**
- * Created by destion on 26-10-15.
- */
 public class ClickListener implements MouseListener {
 
-    JFrame window;
+    GuiController gui;
 
-    public ClickListener(Window w){
+    public ClickListener(GuiController g){
         super();
-        this.window = w;
+        this.gui = g;
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        int mousex = MouseInfo.getPointerInfo().getLocation().x;
-        int mousey = MouseInfo.getPointerInfo().getLocation().y;
-
-        System.out.println("Mouse X: " +mousex);
-        System.out.println("Mouse Y: " +mousey);
 
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
+        int mousex = MouseInfo.getPointerInfo().getLocation().x;
+        int mousey = MouseInfo.getPointerInfo().getLocation().y;
 
+        int xpos = 460 + 10 + ((((mousex - 460) / 100) % 10) * 100);
+        int ypos = 40 + 10 + ((((mousey - 40) / 100)) *100 ) ;
+
+        System.out.println(mousey);
+        System.out.println(ypos);
+
+        this.gui.addDrawable(new Man(xpos, ypos, Color.green));
+
+        this.gui.repaint();
     }
 
     @Override
