@@ -1,6 +1,5 @@
 @Override
     public List<Move> capturesOnPosition(Position position, Board board, Colour colour) {
-        //TODO Implementation with more than 4 options
         List<Move> possibleMoves = new ArrayList<>();
         if (captureOption(position, board, colour, -1, -1)) {
             List<Position> interPos = new ArrayList<>();

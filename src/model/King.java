@@ -72,7 +72,6 @@ public class King implements Piece {
             x = (x >= 0) ? x + 1 : x - 1;
             y = (y >= 0) ? y + 1 : y - 1;
         }
-
         return result;
     }
 

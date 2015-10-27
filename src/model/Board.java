@@ -19,18 +19,28 @@ public class Board {
 
     public void initializeBoard() {
         grid = new HashMap<Position, Piece>();
-        for (int x = 1; x <= BOARDSIZE; x++) {
-            for (int y = 1; y <= BOARDSIZE; y++) {
-                if (x % 2 != 0) {
-                    if (y == 1 || y == 3) {
+        for (int y = 1; y <= 4; y++) {
+            for (int x = 1; x <= BOARDSIZE; x++) {
+                if (y % 2 == 1) {
+                    if (x % 2 == 1) {
                         grid.put(new Position(x, y), new Man(Colour.WHITE));
-                    } else if (y == 7 || y == 9) {
+                    }
+                } else {
+                    if (x % 2 == 0) {
+                        grid.put(new Position(x, y), new Man(Colour.WHITE));
+                    }
+                }
+
+            }
+        }
+        for (int y = 7; y <= 10; y++) {
+            for (int x = 1; x <= BOARDSIZE; x++) {
+                if (y % 2 == 1) {
+                    if (x % 2 == 1) {
                         grid.put(new Position(x, y), new Man(Colour.BLACK));
                     }
                 } else {
-                    if (y == 2 || y == 4) {
-                        grid.put(new Position(x, y), new King(Colour.WHITE));
-                    } else if (y == 8 || y == 10) {
+                    if (x % 2 == 0) {
                         grid.put(new Position(x, y), new Man(Colour.BLACK));
                     }
                 }
