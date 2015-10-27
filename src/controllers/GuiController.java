@@ -1,6 +1,7 @@
 package controllers;
 
 import view.drawables.Drawable;
+import view.drawables.Man;
 import view.drawables.Square;
 import view.listeners.ClickListener;
 
@@ -36,6 +37,16 @@ public class GuiController extends JPanel {
         this.drawQueue.add(d);
     }
 
+    public Color removeDrawable(int x, int y) {
+        for (Drawable d : drawQueue){
+            if (d.getX() == x && d.getY() == y){
+                drawQueue.remove(d);
+                return d.getColor();
+            }
+        }
+        return null;
+    }
+
     public void paintComponent(Graphics g){
         super.paintComponents(g);
 
@@ -48,7 +59,6 @@ public class GuiController extends JPanel {
 
         ArrayList<Color> colors = new ArrayList<>();
 
-        String color;
         for (int row=1; row <= 10; row++){
             for (int col=1; col <= 10; col ++){
                 if (col%2 != 0){
@@ -56,13 +66,13 @@ public class GuiController extends JPanel {
                         if (spot%2!=0){
                             colors.add(Color.white);
                         } else {
-                            colors.add(Color.black);
+                            colors.add(new Color(0,100,0));
                         }
                     }
                 } else {
                     for (int spot2=1; spot2<=10; spot2++){
                         if (spot2%2!=0){
-                            colors.add(Color.black);
+                            colors.add(new Color(0,100,0));
                         } else {
                             colors.add(Color.white);
                         }
@@ -78,6 +88,41 @@ public class GuiController extends JPanel {
             this.drawQueue.add(new Square(x, y, colors.get(0)));
 
             colors.remove(0);
+        }
+
+
+        //initial placement for all the red man pieces
+        for (int z=0; z<40; z++) {
+            if ((z < 10 && z >= 0 ) || ( z < 30 && z >= 20)){
+                if (z % 2 != 0) {
+                    int manx = 460 + 10 + ((z % 10) * 100);
+                    int many = 40 + 10 + ((z / 10) * 100);
+                    this.drawQueue.add(new Man(manx, many, new Color(255,255,0)));
+                }
+            } else {
+                if (z % 2 == 0){
+                    int manx = 460 + 10 + ((z % 10) * 100);
+                    int many = 40 + 10 + ((z / 10) * 100);
+                    this.drawQueue.add(new Man(manx, many, new Color(255,255,0)));
+                }
+            }
+        }
+
+        //initial placement for all the white man pieces
+        for (int z=0; z<40; z++) {
+            if ((z < 10 && z >= 0 ) || ( z < 30 && z >= 20)){
+                if (z % 2 != 0) {
+                    int manx = 460 + 10 + ((z % 10) * 100);
+                    int many = 600 + 40 + 10 + ((z / 10) * 100);
+                    this.drawQueue.add(new Man(manx, many, new Color(204,0,0)));
+                }
+            } else {
+                if (z % 2 == 0){
+                    int manx = 460 + 10 + ((z % 10) * 100);
+                    int many = 600 + 40 + 10 + ((z / 10) * 100);
+                    this.drawQueue.add(new Man(manx, many, new Color(204,0,0)));
+                }
+            }
         }
     }
 }
