@@ -1,9 +1,6 @@
 package controllers;
 
-import model.King;
-import model.Man;
-import model.Piece;
-import model.Position;
+import model.*;
 import view.drawables.Drawable;
 
 import java.awt.*;
@@ -32,7 +29,7 @@ public class ModelAccessObject {
             int y = pos.getY();
 
             int screenx = (460 + 10 + 100*x) - 100;
-            int screeny = (40 + 10 + 100*y) - 100;
+            int screeny = 1000 -((40 + 10 + 100*y) - 100);
 
             boolean whiteMan = false;
             boolean blackMan = false;
@@ -43,7 +40,7 @@ public class ModelAccessObject {
                         break;
                     } else {
                         if (map.get(pos) instanceof Man) {
-                            if (map.get(pos).getColour().toString().equals("B")) {
+                            if (map.get(pos).getColour() == Colour.BLACK) {
                                 blackMan = true;
                             } else {
                                 whiteMan = true;
@@ -56,7 +53,7 @@ public class ModelAccessObject {
                 }
             } else {
                 if (map.get(pos) instanceof Man) {
-                    if (map.get(pos).getColour().toString().equals("Black")) {
+                    if (map.get(pos).getColour() == Colour.BLACK) {
                         gui.addDrawable(new view.drawables.Man(screenx, screeny, new Color(255, 255, 0)));
                     } else {
                         gui.addDrawable(new view.drawables.Man(screenx, screeny, new Color(204, 0, 0)));
