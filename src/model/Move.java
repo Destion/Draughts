@@ -12,11 +12,11 @@ public class Move {
     private List<Position> interPos;
     private List<Position> captured;
 
-    public Move(Position oldPos, Position newPos, List<Position> interPos) {
+    public Move(Position oldPos, Position newPos, List<Position> interPos, List<Position> captured) {
         this.oldPos = oldPos;
         this.newPos = newPos;
         this.interPos = interPos;
-        captured = new ArrayList<Position>();
+        this.captured = captured;
     }
 
     public Position getOldPos() {
@@ -43,24 +43,18 @@ public class Move {
         this.interPos = interPos;
     }
 
-    public void calculateCaptured(){
-        if(interPos != null || Math.abs(oldPos.getY() - newPos.getY()) > 1 ){
-            Position tmp = oldPos;
-            if (interPos != null) {
-                for (Position position : interPos) {
-                    int x = (tmp.getX() + position.getX()) / 2;
-                    int y = (tmp.getY() + position.getY()) / 2;
-                    captured.add(new Position(x, y));
-                    tmp = position;
-                }
-            }
-            int x = (tmp.getX() + newPos.getX())/2;
-            int y = (tmp.getY() + newPos.getY())/2;
-            captured.add(new Position(x, y));
-        }
-    }
+
 
     public List<Position> getCaptured() {
         return captured;
+    }
+
+    public void addCaptured(Position lastCaptured) {
+        if (captured == null) {
+            captured = new ArrayList<Position>();
+            captured.add(lastCaptured);
+        } else {
+            captured.add(lastCaptured);
+        }
     }
 }

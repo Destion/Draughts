@@ -21,7 +21,7 @@ public abstract class Player {
     public void makeMove(Board board, List<Move> possibleMoves){
         Move move = this.determineMove(board, possibleMoves);
         if (move != null ){
-            board.move(move, colour);
+            board.move(move);
         }
     }
 

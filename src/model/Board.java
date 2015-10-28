@@ -64,24 +64,27 @@ public class Board {
         return result;
     }
 
-    public void move(Move move, Colour colour) {
+    public void move(Move move) {
         Position oldPosition = move.getOldPos();
         Piece piece = grid.get(oldPosition);
 
         grid.put(move.getNewPos(), grid.get(oldPosition));
         grid.remove(oldPosition);
-        move.calculateCaptured();
-        if (move.getCaptured().size() > 0) {
+        if (move.getCaptured() != null && move.getCaptured().size() > 0) {
             for (Position position : move.getCaptured()) {
-                System.out.println(position.toString());
                 Piece tmpPiece = grid.get(position);
                 if (tmpPiece != null && tmpPiece.getColour() == Colour.WHITE) {
                     numberWhite--;
-                } else {
+                } else if (tmpPiece != null && tmpPiece.getColour() == Colour.BLACK) {
                     numberBlack--;
+                } else {
+                    System.out.println("Huh");
                 }
                 grid.remove(position);
             }
+        }
+        if (move == null || piece == null) {
+            System.out.println();
         }
         if ((piece.getColour() == Colour.WHITE && move.getNewPos().getY() == 10)
                 || (piece.getColour() == Colour.BLACK && move.getNewPos().getY() == 1)) {
@@ -99,8 +102,8 @@ public class Board {
         boolean mustCapture = false;
         for (Position position : grid.keySet()) {
             if (grid.get(position).getColour() == colour) {
-                if (grid.get(position).canCapture(position, null, this, colour)) {
-                    possibleMoves.addAll(grid.get(position).capturesOnPosition(position, this, colour));
+                if (grid.get(position).canCapture(position, null, this)) {
+                    possibleMoves.addAll(grid.get(position).capturesOnPosition(position, this));
                     mustCapture = true;
                 }
             }
@@ -108,8 +111,8 @@ public class Board {
         if (!mustCapture) {
             for (Position position : grid.keySet()) {
                 if (grid.get(position).getColour() == colour) {
-                    if (grid.get(position).canMove(position, this, colour)) {
-                        possibleMoves.addAll(grid.get(position).movesOnPosition(position, this, colour));
+                    if (grid.get(position).canMove(position, this)) {
+                        possibleMoves.addAll(grid.get(position).movesOnPosition(position, this));
                     }
                 }
             }
@@ -158,8 +161,6 @@ public class Board {
     }
 
     public boolean draw() {
-        //        TODO Implementation
-
         boolean result = false;
         if (grid.size() < 4) {
             List<Piece> pieces = new ArrayList<Piece>();

@@ -52,15 +52,37 @@ public class GameController {
 
             counter++;
         }
+
     }
 
     public void displayWinner() {
+        this.temporaryTUI();
         System.out.println(board.getWinner());
     }
 
     public void temporaryTUI(Player player) {
         Map<Position, Piece> grid = board.getGrid();
         System.out.println("For player " + player.getName());
+        for (int j = Board.BOARDSIZE; j >= 1; j--) {
+
+            String s = j + ". ";
+            s = (j < 10) ? s + " " : s;
+            for (int i = 1; i <= Board.BOARDSIZE; i++) {
+                if (grid.containsKey(new Position(i, j))) {
+                    s = s + grid.get(new Position(i, j)).getColour().toString() + grid.get(new Position(i, j)).toString() + " | ";
+                } else {
+                    s = s + "   | ";
+                }
+            }
+            System.out.println(s);
+            System.out.println("----------------------------------------------------");
+        }
+        System.out.println("    a  | b  | c  | d  | e  | f  | g  | h  | i  | j");
+
+    }
+
+    public void temporaryTUI() {
+        Map<Position, Piece> grid = board.getGrid();
         for (int j = Board.BOARDSIZE; j >= 1; j--) {
 
             String s = j + ". ";
