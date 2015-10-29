@@ -31,17 +31,17 @@ public class King implements Piece {
         boolean canCapture = false;
         if (numberOfFreeSpots(currentPosition, board, x, y) >= 0) {
             int spacesInFront = numberOfFreeSpots(currentPosition, board, x, y);
-            Position option1 = new Position(currentPosition.getX() + x * (1 + spacesInFront), currentPosition.getY() + y * (1 + spacesInFront));
+            Position capturedPiece = new Position(currentPosition.getX() + x * (1 + spacesInFront), currentPosition.getY() + y * (1 + spacesInFront));
             boolean alreadyCaptured = false;
             if (lastCaptured != null) {
                 for (Position capture : lastCaptured) {
-                    if (option1.equals(capture)) {
+                    if (capturedPiece.equals(capture)) {
                         alreadyCaptured = true;
                     }
                 }
             }
-            if (board.getGrid().containsKey(option1) && board.getGrid().get(option1).getColour() == colour.other() && !alreadyCaptured) {
-                if (numberOfFreeSpots(new Position(option1.getX(), option1.getY()), board, x, y) > 0) {
+            if (board.getGrid().containsKey(capturedPiece) && board.getGrid().get(capturedPiece).getColour() == colour.other() && !alreadyCaptured) {
+                if (numberOfFreeSpots(new Position(capturedPiece.getX(), capturedPiece.getY()), board, x, y) > 0) {
                     canCapture = true;
                 }
 
@@ -84,127 +84,51 @@ public class King implements Piece {
 
     public List<Move> capturesOnPosition(Position currentPosition, Board board) {
         List<Move> possibleMoves = new ArrayList<Move>();
-        if (this.canCaptureWithDirection(currentPosition, null, board, -1, -1)) {
-            Position captured = this.getCapturePosition(currentPosition, board, -1, -1);
-            int options = this.numberOfFreeSpots(captured, board, -1, -1);
-            for (int i = 1; i <= options; i++) {
-                Move move = new Move(currentPosition, null, new ArrayList<Position>(), null);
-                move.addCaptured(captured);
-                Position option1 = new Position(captured.getX() - i, captured.getY() - i);
-                if (this.canCapture(option1, move.getCaptured(), board)) {
-                    this.multipleCapture(option1, captured, board, move, possibleMoves);
-                } else {
-                    move.setNewPos(option1);
-                    possibleMoves.add(move);
-                }
-            }
-        }
-        if (this.canCaptureWithDirection(currentPosition, null, board, -1, 1)) {
-            Position captured = this.getCapturePosition(currentPosition, board, -1, 1);
-            int options = this.numberOfFreeSpots(captured, board, -1, 1);
-            for (int i = 1; i <= options; i++) {
-                Move move = new Move(currentPosition, null, new ArrayList<Position>(), null);
-                move.addCaptured(captured);
-                Position option1 = new Position(captured.getX() - i, captured.getY() + i);
-                if (this.canCapture(option1, move.getCaptured(), board)) {
-                    this.multipleCapture(option1, captured, board, move, possibleMoves);
-                } else {
-                    move.setNewPos(option1);
-                    possibleMoves.add(move);
-                }
-            }
-        }
-        if (this.canCaptureWithDirection(currentPosition, null, board, 1, -1)) {
-            Position captured = this.getCapturePosition(currentPosition, board, 1, -1);
-            int options = this.numberOfFreeSpots(captured, board, 1, -1);
-            for (int i = 1; i <= options; i++) {
-                Move move = new Move(currentPosition, null, new ArrayList<Position>(), null);
-                move.addCaptured(captured);
-                Position option1 = new Position(captured.getX() + i, captured.getY() - i);
-                if (this.canCapture(option1, move.getCaptured(), board)) {
-                    this.multipleCapture(option1, captured, board, move, possibleMoves);
-                } else {
-                    move.setNewPos(option1);
-                    possibleMoves.add(move);
-                }
-            }
-        }
-        if (this.canCaptureWithDirection(currentPosition, null, board, 1, 1)) {
-            Position captured = this.getCapturePosition(currentPosition, board, 1, 1);
-            int options = this.numberOfFreeSpots(captured, board, 1, 1);
-            for (int i = 1; i <= options; i++) {
-                Move move = new Move(currentPosition, null, new ArrayList<Position>(), null);
-                move.addCaptured(captured);
-                Position option1 = new Position(captured.getX() + i, captured.getY() + i);
-                if (this.canCapture(option1, move.getCaptured(), board)) {
-                    this.multipleCapture(option1, captured, board, move, possibleMoves);
-                } else {
-                    move.setNewPos(option1);
-                    possibleMoves.add(move);
-                }
-            }
-        }
+        this.captureOnPositionDirection(currentPosition, board, possibleMoves, -1, -1);
+        this.captureOnPositionDirection(currentPosition, board, possibleMoves, -1, 1);
+        this.captureOnPositionDirection(currentPosition, board, possibleMoves, 1, -1);
+        this.captureOnPositionDirection(currentPosition, board, possibleMoves, 1, 1);
         return possibleMoves;
     }
 
-    public void multipleCapture(Position currentPosition, Position lastCaptured, Board board, Move move, List<Move> possibleMoves) {
+    public void captureOnPositionDirection(Position currentPosition, Board board, List<Move> possibleMoves, int x, int y) {
+        if (this.canCaptureWithDirection(currentPosition, null, board, x, y)) {
+            Position captured = this.getCapturePosition(currentPosition, board, x, y);
+            int options = this.numberOfFreeSpots(captured, board, x, y);
+            for (int i = 1; i <= options; i++) {
+                Move move = new Move(currentPosition, null, new ArrayList<Position>(), null);
+                move.addCaptured(captured);
+                Position option1 = new Position(captured.getX() + (i * x), captured.getY() + (i * y));
+                if (this.canCapture(option1, move.getCaptured(), board)) {
+                    this.multipleCapture(option1, board, move, possibleMoves);
+                } else {
+                    move.setNewPos(option1);
+                    possibleMoves.add(move);
+                }
+            }
+        }
+    }
+
+    public void multipleCapture(Position currentPosition, Board board, Move move, List<Move> possibleMoves) {
         move.getInterPos().add(currentPosition);
-        if (this.canCaptureWithDirection(currentPosition, move.getCaptured(), board, -1, -1)) {
-            Position captured = this.getCapturePosition(currentPosition, board, -1, -1);
-            int options = this.numberOfFreeSpots(captured, board, -1, -1);
-            for (int i = 1; i <= options; i++) {
+        this.multipleCaptureDirection(currentPosition, board, move, possibleMoves, -1, -1);
+        this.multipleCaptureDirection(currentPosition, board, move, possibleMoves, -1, 1);
+        this.multipleCaptureDirection(currentPosition, board, move, possibleMoves, 1, -1);
+        this.multipleCaptureDirection(currentPosition, board, move, possibleMoves, 1, 1);
+    }
+
+    public void multipleCaptureDirection(Position currentPosition, Board board, Move move, List<Move> possibleMoves, int x, int y) {
+        if (this.canCaptureWithDirection(currentPosition, move.getCaptured(), board, x, y)) {
+            Position captured = this.getCapturePosition(currentPosition, board, x, y);
+            int optionsOfSameCapture = this.numberOfFreeSpots(captured, board, x, y);
+            for (int i = 1; i <= optionsOfSameCapture; i++) {
                 Move move1 = new Move(move.getOldPos(), null, move.getInterPos(), move.getCaptured());
                 move1.addCaptured(captured);
-                Position option1 = new Position(captured.getX() - i, captured.getY() - i);
-                if (this.canCapture(option1, move1.getCaptured(), board)) {
-                    this.multipleCapture(option1, captured, board, move1, possibleMoves);
+                Position nextPosition = new Position(captured.getX() + (i * x), captured.getY() + (i * y));
+                if (this.canCapture(nextPosition, move1.getCaptured(), board)) {
+                    this.multipleCapture(nextPosition, board, move1, possibleMoves);
                 } else {
-                    move1.setNewPos(option1);
-                    possibleMoves.add(move1);
-                }
-            }
-        }
-        if (this.canCaptureWithDirection(currentPosition, move.getCaptured(), board, -1, 1)) {
-            Position captured = this.getCapturePosition(currentPosition, board, -1, 1);
-            int options = this.numberOfFreeSpots(captured, board, -1, 1);
-            for (int i = 1; i <= options; i++) {
-                Move move1 = new Move(move.getOldPos(), null, move.getInterPos(), move.getCaptured());
-                move1.addCaptured(captured);
-                Position option1 = new Position(captured.getX() - i, captured.getY() + i);
-                if (this.canCapture(option1, move1.getCaptured(), board)) {
-                    this.multipleCapture(option1, captured, board, move1, possibleMoves);
-                } else {
-                    move1.setNewPos(option1);
-                    possibleMoves.add(move1);
-                }
-            }
-        }
-        if (this.canCaptureWithDirection(currentPosition, move.getCaptured(), board, 1, -1)) {
-            Position captured = this.getCapturePosition(currentPosition, board, 1, -1);
-            int options = this.numberOfFreeSpots(captured, board, 1, -1);
-            for (int i = 1; i <= options; i++) {
-                Move move1 = new Move(move.getOldPos(), null, move.getInterPos(), move.getCaptured());
-                move1.addCaptured(captured);
-                Position option1 = new Position(captured.getX() + i, captured.getY() - i);
-                if (this.canCapture(option1, move1.getCaptured(), board)) {
-                    this.multipleCapture(option1, captured, board, move1, possibleMoves);
-                } else {
-                    move1.setNewPos(option1);
-                    possibleMoves.add(move1);
-                }
-            }
-        }
-        if (this.canCaptureWithDirection(currentPosition, move.getCaptured(), board, 1, 1)) {
-            Position captured = this.getCapturePosition(currentPosition, board, 1, 1);
-            int options = this.numberOfFreeSpots(captured, board, 1, 1);
-            for (int i = 1; i <= options; i++) {
-                Move move1 = new Move(move.getOldPos(), null, move.getInterPos(), move.getCaptured());
-                move1.addCaptured(captured);
-                Position option1 = new Position(captured.getX() + i, captured.getY() + i);
-                if (this.canCapture(option1, move1.getCaptured(), board)) {
-                    this.multipleCapture(option1, captured, board, move1, possibleMoves);
-                } else {
-                    move1.setNewPos(option1);
+                    move1.setNewPos(nextPosition);
                     possibleMoves.add(move1);
                 }
             }

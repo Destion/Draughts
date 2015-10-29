@@ -21,22 +21,32 @@ public class BoardView extends JPanel implements Observer {
     private JFrame window;
     private ArrayList<Drawable> drawQueue;
     private Map<Position, model.Piece> grid;
+    private JLabel topLabel;
+    private JButton button;
 
     public BoardView() {
+        super(null);
         this.window = new JFrame();
         window.setSize(1280, 720);
         window.setResizable(false);
         window.setUndecorated(true);
+
         this.boardQueue = new ArrayList<>();
         this.drawQueue = new ArrayList<>();
 
         this.initBoard();
+        topLabel = new JLabel("Welcome", SwingConstants.CENTER);
+        button = new JButton("Play");
+
+        this.add(topLabel);
+        this.add(button);
+        topLabel.setBounds(340, 0, 600, 50);
+        button.setBounds(1040, 0, 60, 50);
         window.getContentPane().add(this);
 
 
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setVisible(true);
-
     }
 
     @Override
@@ -84,7 +94,7 @@ public class BoardView extends JPanel implements Observer {
     }
 
     public void makeDraw() {
-        drawQueue.removeAll(drawQueue);
+        drawQueue.clear();
         for (Position pos : grid.keySet()) {
             int x = pos.getX();
             int y = pos.getY();
@@ -137,12 +147,23 @@ public class BoardView extends JPanel implements Observer {
         }
     }
 
+    public void addButtonListener(ActionListener listener) {
+        button.addActionListener(listener);
+    }
+
+    public void displayMessage(String message) {
+        topLabel.setText(message);
+    }
+
     public void displayWinner(Player player) {
         JOptionPane.showMessageDialog(this, player.getName() + " is the winner!");
         window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
     }
 
-    public void addController(ActionListener controller) {
-
+    public void draw() {
+        JOptionPane.showMessageDialog(this, "It's a draw!");
+        window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
     }
+
+
 }

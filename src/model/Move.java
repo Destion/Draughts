@@ -16,7 +16,12 @@ public class Move {
         this.oldPos = oldPos;
         this.newPos = newPos;
         this.interPos = interPos;
-        this.captured = captured;
+        this.captured = new ArrayList<>();
+        if (captured != null) {
+            for (Position position : captured) {
+                this.captured.add(position);
+            }
+        }
     }
 
     public Position getOldPos() {

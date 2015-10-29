@@ -26,11 +26,11 @@ public class Board extends java.util.Observable {
             for (int x = 1; x <= BOARDSIZE; x++) {
                 if (y % 2 == 1) {
                     if (x % 2 == 1) {
-                        grid.put(new Position(x, y), new King(Colour.WHITE));
+                        grid.put(new Position(x, y), new Man(Colour.WHITE));
                     }
                 } else {
                     if (x % 2 == 0) {
-                        grid.put(new Position(x, y), new King(Colour.WHITE));
+                        grid.put(new Position(x, y), new Man(Colour.WHITE));
                     }
                 }
 
@@ -40,11 +40,11 @@ public class Board extends java.util.Observable {
             for (int x = 1; x <= BOARDSIZE; x++) {
                 if (y % 2 == 1) {
                     if (x % 2 == 1) {
-                        grid.put(new Position(x, y), new King(Colour.BLACK));
+                        grid.put(new Position(x, y), new Man(Colour.BLACK));
                     }
                 } else {
                     if (x % 2 == 0) {
-                        grid.put(new Position(x, y), new King(Colour.BLACK));
+                        grid.put(new Position(x, y), new Man(Colour.BLACK));
                     }
                 }
 
@@ -84,8 +84,6 @@ public class Board extends java.util.Observable {
                     System.out.println("Huh");
                 }
                 grid.remove(position);
-                this.setChanged();
-                this.notifyObservers(grid);
             }
         }
 
@@ -183,9 +181,9 @@ public class Board extends java.util.Observable {
                     threeKingCounter++;
                 }
             }
-            if (pieces.size() == 3 && (pieces.get(0) instanceof King && pieces.get(1) instanceof King)
+            if (pieces.size() == 3 && ((pieces.get(0) instanceof King && pieces.get(1) instanceof King)
                     || (pieces.get(0) instanceof King && pieces.get(2) instanceof King)
-                    || (pieces.get(1) instanceof King && pieces.get(2) instanceof King)) {
+                    || (pieces.get(1) instanceof King && pieces.get(2) instanceof King))) {
                 if (twoKingOneManCounter > 15) {
                     result = true;
                 } else {

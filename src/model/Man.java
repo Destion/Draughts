@@ -123,7 +123,6 @@ public class Man implements Piece {
         move.getInterPos().add(currentPosition);
         if (this.captureOption(currentPosition, move.getCaptured(), board, -1, -1) != null) {
             Move move1 = new Move(move.getOldPos(), null, move.getInterPos(), move.getCaptured());
-
             move1.addCaptured(new Position(currentPosition.getX() - 1, currentPosition.getY() - 1));
             if (this.canCapture(new Position(currentPosition.getX() - 2, currentPosition.getY() - 2), move1.getCaptured(), board)) {
                 multipleCapture(new Position(currentPosition.getX() - 2, currentPosition.getY() - 2), board, move1, possibleMoves);
@@ -166,6 +165,7 @@ public class Man implements Piece {
             }
         }
     }
+
 
     public Colour getColour() {
         return colour;
