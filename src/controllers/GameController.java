@@ -12,11 +12,13 @@ public class GameController {
     private Player player2;
     private int counter;
     public static final int PLAYERCOUNT = 2;
+    private GuiController gui;
 
-    public GameController(Player player1, Player player2) {
+    public GameController(Player player1, Player player2, GuiController gui) {
         this.player1 = player1;
         this.player2 = player2;
         board = new Board();
+        this.gui = gui;
     }
 
     public void game() {
@@ -33,30 +35,28 @@ public class GameController {
     public void play(){
         while (!board.gameOver()) {
             if (counter % PLAYERCOUNT == 0) {
-                this.temporaryTUI(player1);
+                //this.temporaryTUI(player1);
                 List<Move> possibleMoves = board.generatePossibleMoves(player1.getColour());
                 if (possibleMoves.size() == 0) {
                     board.setWinner(player2.getColour());
                     break;
                 }
-                player1.makeMove(board, possibleMoves);
+                //player1.makeMove(board, possibleMoves);
             } else {
-                this.temporaryTUI(player2);
+                //this.temporaryTUI(player2);
                 List<Move> possibleMoves = board.generatePossibleMoves(player2.getColour());
                 if (possibleMoves.size() == 0) {
                     board.setWinner(player1.getColour());
                     break;
                 }
-                player2.makeMove(board, possibleMoves);
+                //player2.makeMove(board, possibleMoves);
             }
 
             counter++;
         }
-
     }
 
     public void displayWinner() {
-        this.temporaryTUI();
         System.out.println(board.getWinner());
     }
 
@@ -81,28 +81,32 @@ public class GameController {
 
     }
 
-    public void temporaryTUI() {
-        Map<Position, Piece> grid = board.getGrid();
-        for (int j = Board.BOARDSIZE; j >= 1; j--) {
-
-            String s = j + ". ";
-            s = (j < 10) ? s + " " : s;
-            for (int i = 1; i <= Board.BOARDSIZE; i++) {
-                if (grid.containsKey(new Position(i, j))) {
-                    s = s + grid.get(new Position(i, j)).getColour().toString() + grid.get(new Position(i, j)).toString() + " | ";
-                } else {
-                    s = s + "   | ";
-                }
-            }
-            System.out.println(s);
-            System.out.println("----------------------------------------------------");
-        }
-        System.out.println("    a  | b  | c  | d  | e  | f  | g  | h  | i  | j");
-
-    }
-
     public Map<Position, Piece> getGrid(){
         return this.board.getGrid();
+    }
+
+    public boolean isValid(List<Move> possibilities, Move move){
+        boolean valid = false;
+
+        for (Move m : possibilities){
+            if ((m.getOldPos().getX() == move.getOldPos().getX())
+                    && (m.getOldPos().getY() == move.getOldPos().getY())
+                    && (m.getNewPos().getX() == move.getNewPos().getX())
+                    && (m.getNewPos().getY() == move.getNewPos().getY())){
+                valid = true;
+                break;
+            }
+        }
+
+        return valid;
+    }
+
+    public List<Move> getPossibilities(Colour col){
+        return this.board.generatePossibleMoves(col);
+    }
+
+    public Board getBoard(){
+        return this.board;
     }
 
 }

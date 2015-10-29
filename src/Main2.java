@@ -1,4 +1,7 @@
+import controllers.GameController;
 import controllers.GuiController;
+import model.Colour;
+import model.HumanPlayer;
 
 /**
  * Created by destion on 27-10-15.

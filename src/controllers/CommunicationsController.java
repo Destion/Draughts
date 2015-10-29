@@ -2,18 +2,11 @@ package controllers;
 
 public class CommunicationsController {
 
-    private CommunicationsController instance;
+    private GameController gc;
 
-    public CommunicationsController getInstance(){
-        if (instance == null){
-            return this.init();
-        } else {
-            return this.instance;
-        }
+    public CommunicationsController(GameController gc){
+        this.gc = gc;
     }
 
-    private CommunicationsController init(){
-        return null;
-    }
 
 }
