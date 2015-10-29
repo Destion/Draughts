@@ -213,8 +213,7 @@ public class King implements Piece {
 
     public Position getCapturePosition(Position currentPosition, Board board, int x, int y) {
         int spacesInFront = numberOfFreeSpots(currentPosition, board, x, y);
-        Position position = new Position(currentPosition.getX() + x * (1 + spacesInFront), currentPosition.getY() + y * (1 + spacesInFront));
-        return position;
+        return new Position(currentPosition.getX() + x * (1 + spacesInFront), currentPosition.getY() + y * (1 + spacesInFront));
     }
 
     public Colour getColour() {

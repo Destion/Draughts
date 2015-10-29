@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class Board {
+public class Board extends java.util.Observable {
     private Map<Position, Piece> grid;
     public static final int BOARDSIZE = 10;
     public static final int NUMPIECES = 20;
@@ -54,7 +54,10 @@ public class Board {
         numberBlack = NUMPIECES;
         threeKingCounter = 0;
         twoKingOneManCounter = 0;
+        this.setChanged();
+        this.notifyObservers(grid);
     }
+
 
     public Map<Position, Piece> deepCopy() {
         Map<Position, Piece> result = new HashMap<>();
@@ -90,6 +93,8 @@ public class Board {
                 || (piece.getColour() == Colour.BLACK && move.getNewPos().getY() == 1)) {
             this.promotePiece(move.getNewPos(), piece);
         }
+        this.setChanged();
+        this.notifyObservers(grid);
     }
 
     private void promotePiece(Position position, Piece piece) {

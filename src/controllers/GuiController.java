@@ -1,11 +1,8 @@
 package controllers;
 
-import model.Colour;
-import model.HumanPlayer;
 import model.Player;
 import view.drawables.Drawable;
 import view.drawables.Square;
-import view.listeners.ClickListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,11 +12,8 @@ public class GuiController extends JPanel {
 
     private ArrayList<Drawable> drawQueue;
     private ArrayList<Square> boardQueue;
-    private ModelAccessObject MAO;
-    private GameController gc;
-    private JOptionPane options;
+    //    private ModelAccessObject MAO;
     private JFrame window;
-    private ClickListener clickListener;
 
     public GuiController() {
         super();
@@ -30,12 +24,6 @@ public class GuiController extends JPanel {
         window.setLocationRelativeTo(null);
 
 
-        this.clickListener = new ClickListener(this);
-        window.addMouseListener(clickListener);
-
-        this.gc = new GameController(new HumanPlayer("Jan", Colour.BLACK), new HumanPlayer("Henk", Colour.WHITE), this);
-        gc.game();
-        MAO = new ModelAccessObject(this.gc, this);
 
         this.drawQueue = new ArrayList<>();
         this.boardQueue = new ArrayList<>();
@@ -48,6 +36,7 @@ public class GuiController extends JPanel {
 
         window.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         window.setVisible(true);
+        repaint();
     }
 
     public void addDrawable(Drawable d) {
@@ -80,7 +69,7 @@ public class GuiController extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponents(g);
 
-        this.MAO.makeDraw(gc.getGrid());
+//        this.MAO.makeDraw(gc.getGrid());
 
         for (Square sq : boardQueue) {
             sq.draw(g);
@@ -127,16 +116,8 @@ public class GuiController extends JPanel {
         }
     }
 
-    public GameController getGC() {
-        return this.gc;
-    }
-
     public void invalidMove(){
         JOptionPane.showMessageDialog(this, "This is not a valid move!");
-    }
-
-    public ClickListener getListener(){
-        return this.clickListener;
     }
 
     public void displayPlayer(Player p){

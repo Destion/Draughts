@@ -81,7 +81,6 @@ public class Man implements Piece {
             Move move1 = new Move(currentPosition, null, new ArrayList<Position>(), null);
             move1.addCaptured(new Position(currentPosition.getX() - 1, currentPosition.getY() + 1));
             if (canCapture(new Position(currentPosition.getX() - 2, currentPosition.getY() + 2), move1.getCaptured(), board)) {
-
                 this.multipleCapture(new Position(currentPosition.getX() - 2, currentPosition.getY() + 2), board, move1, possibleMoves);
             } else {
                 move1.setNewPos(new Position(currentPosition.getX() - 2, currentPosition.getY() + 2));
@@ -112,21 +111,21 @@ public class Man implements Piece {
     }
 
     public void multipleCapture(Position currentPosition, Board board, Move move, List<Move> possibleMoves) {
-        Position lastCaptured;
-        if (move.getInterPos().size() == 0) {
-            Position oldPosition = move.getOldPos();
-            lastCaptured = new Position((currentPosition.getX() + oldPosition.getX()) / 2, (currentPosition.getY() + oldPosition.getY()) / 2);
-        } else {
-            Position oldPosition = move.getInterPos().get(move.getInterPos().size() - 1);
-            lastCaptured = new Position((currentPosition.getX() + oldPosition.getX()) / 2, (currentPosition.getY() + oldPosition.getY()) / 2);
-        }
-
+//        Position lastCaptured;
+//        if (move.getInterPos().size() == 0) {
+//            Position oldPosition = move.getOldPos();
+//            lastCaptured = new Position((currentPosition.getX() + oldPosition.getX()) / 2, (currentPosition.getY() + oldPosition.getY()) / 2);
+//        } else {
+//            Position oldPosition = move.getInterPos().get(move.getInterPos().size() - 1);
+//            lastCaptured = new Position((currentPosition.getX() + oldPosition.getX()) / 2, (currentPosition.getY() + oldPosition.getY()) / 2);
+//        }
+//        System.out.println(lastCaptured);
         move.getInterPos().add(currentPosition);
         if (this.captureOption(currentPosition, move.getCaptured(), board, -1, -1) != null) {
             Move move1 = new Move(move.getOldPos(), null, move.getInterPos(), move.getCaptured());
+
             move1.addCaptured(new Position(currentPosition.getX() - 1, currentPosition.getY() - 1));
             if (this.canCapture(new Position(currentPosition.getX() - 2, currentPosition.getY() - 2), move1.getCaptured(), board)) {
-//                move1.getInterPos().add(new Position(currentPosition.getX() - 2, currentPosition.getY() - 2));
                 multipleCapture(new Position(currentPosition.getX() - 2, currentPosition.getY() - 2), board, move1, possibleMoves);
 
             } else {

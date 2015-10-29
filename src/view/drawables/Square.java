@@ -4,12 +4,12 @@ package view.drawables;
 import java.awt.*;
 
 
-public class Square implements Drawable{
+public class Square implements Drawable {
 
     int x;
     int y;
-    final int WIDTH = 100;
-    final int HEIGHT = 100;
+    final int WIDTH = 60;
+    final int HEIGHT = 60;
     Color color;
 
     public Square(int x, int y, Color color){

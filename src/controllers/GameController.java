@@ -2,27 +2,41 @@ package controllers;
 
 
 import model.*;
+import view.BoardView;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.List;
 import java.util.Map;
 
-public class GameController {
+public class GameController implements ActionListener, MouseListener {
     private Board board;
     private Player player1;
     private Player player2;
     private int counter;
     public static final int PLAYERCOUNT = 2;
-    private GuiController gui;
+    private BoardView view;
+    private boolean canMove;
+    private int mouseCount;
+    private Move input;
+    private Position oldPosition;
 
-    public GameController(Player player1, Player player2, GuiController gui) {
+    public GameController(Player player1, Player player2) {
         this.player1 = player1;
         this.player2 = player2;
         board = new Board();
-        this.gui = gui;
+
+
+        view = new BoardView();
+        board.addObserver(view);
+        this.setup();
+        canMove = false;
     }
 
-    public void game() {
-        this.setup();
+    public void run() {
         this.play();
         this.displayWinner();
     }
@@ -34,14 +48,18 @@ public class GameController {
 
     public void play(){
         while (!board.gameOver()) {
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             if (counter % PLAYERCOUNT == 0) {
-                //this.temporaryTUI(player1);
                 List<Move> possibleMoves = board.generatePossibleMoves(player1.getColour());
                 if (possibleMoves.size() == 0) {
                     board.setWinner(player2.getColour());
                     break;
                 }
-                //player1.makeMove(board, possibleMoves);
+                this.move(player1, possibleMoves);
             } else {
                 //this.temporaryTUI(player2);
                 List<Move> possibleMoves = board.generatePossibleMoves(player2.getColour());
@@ -49,11 +67,68 @@ public class GameController {
                     board.setWinner(player1.getColour());
                     break;
                 }
-                //player2.makeMove(board, possibleMoves);
+                this.move(player2, possibleMoves);
             }
 
             counter++;
         }
+    }
+
+    public void move(Player player, List<Move> possibleMoves) {
+        if (player instanceof HumanPlayer) {
+            canMove = true;
+            mouseCount = 0;
+            while (mouseCount < 2 || input == null || !possibleMoves.contains(input)) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            board.move(input);
+        } else {
+            player.makeMove(board, possibleMoves);
+        }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        if (canMove && mouseCount == 0) {
+            int mousex = MouseInfo.getPointerInfo().getLocation().x;
+            int mousey = MouseInfo.getPointerInfo().getLocation().y;
+            int x = 340 + 5 + ((((mousex - 340) / 60) % 10) * 60);
+            int y = 60 + 5 + ((((mousey - 60) / 60)) * 60);
+            oldPosition = new Position(x, y);
+            System.out.println(oldPosition);
+
+        } else if (mouseCount == 1) {
+
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
     }
 
     public void displayWinner() {
