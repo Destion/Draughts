@@ -101,9 +101,12 @@ public class BoardView extends JPanel implements Observer {
                 } else {
                     this.drawQueue.add(new view.drawables.Man(screenx, screeny, new Color(204, 0, 0)));
                 }
-            } else if (grid.get(pos).getClass().isInstance(King.class)) {
-                break;
-                //TODO implement drawing of kings
+            } else if (grid.get(pos) instanceof King) {
+                if(grid.get(pos).getColour() == Colour.BLACK){
+                    this.drawQueue.add(new view.drawables.King(screenx, screeny, new Color(255, 255, 0)));
+                } else {
+                    this.drawQueue.add(new view.drawables.King(screenx, screeny, new Color(204, 0, 0)));
+                }
             }
 
 

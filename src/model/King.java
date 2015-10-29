@@ -88,7 +88,7 @@ public class King implements Piece {
             Position captured = this.getCapturePosition(currentPosition, board, -1, -1);
             int options = this.numberOfFreeSpots(captured, board, -1, -1);
             for (int i = 1; i <= options; i++) {
-                Move move = new Move(currentPosition, null, new ArrayList<>(), null);
+                Move move = new Move(currentPosition, null, new ArrayList<Position>(), null);
                 move.addCaptured(captured);
                 Position option1 = new Position(captured.getX() - i, captured.getY() - i);
                 if (this.canCapture(option1, move.getCaptured(), board)) {
@@ -103,7 +103,7 @@ public class King implements Piece {
             Position captured = this.getCapturePosition(currentPosition, board, -1, 1);
             int options = this.numberOfFreeSpots(captured, board, -1, 1);
             for (int i = 1; i <= options; i++) {
-                Move move = new Move(currentPosition, null, new ArrayList<>(), null);
+                Move move = new Move(currentPosition, null, new ArrayList<Position>(), null);
                 move.addCaptured(captured);
                 Position option1 = new Position(captured.getX() - i, captured.getY() + i);
                 if (this.canCapture(option1, move.getCaptured(), board)) {
@@ -118,7 +118,7 @@ public class King implements Piece {
             Position captured = this.getCapturePosition(currentPosition, board, 1, -1);
             int options = this.numberOfFreeSpots(captured, board, 1, -1);
             for (int i = 1; i <= options; i++) {
-                Move move = new Move(currentPosition, null, new ArrayList<>(), null);
+                Move move = new Move(currentPosition, null, new ArrayList<Position>(), null);
                 move.addCaptured(captured);
                 Position option1 = new Position(captured.getX() + i, captured.getY() - i);
                 if (this.canCapture(option1, move.getCaptured(), board)) {
@@ -133,7 +133,7 @@ public class King implements Piece {
             Position captured = this.getCapturePosition(currentPosition, board, 1, 1);
             int options = this.numberOfFreeSpots(captured, board, 1, 1);
             for (int i = 1; i <= options; i++) {
-                Move move = new Move(currentPosition, null, new ArrayList<>(), null);
+                Move move = new Move(currentPosition, null, new ArrayList<Position>(), null);
                 move.addCaptured(captured);
                 Position option1 = new Position(captured.getX() + i, captured.getY() + i);
                 if (this.canCapture(option1, move.getCaptured(), board)) {

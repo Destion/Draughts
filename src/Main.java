@@ -1,6 +1,7 @@
 import controllers.GameController;
 import model.Colour;
 import model.ComputerPlayer;
+import model.HumanPlayer;
 import model.Player;
 
 public class Main {

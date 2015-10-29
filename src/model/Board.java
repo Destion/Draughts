@@ -26,11 +26,11 @@ public class Board extends java.util.Observable {
             for (int x = 1; x <= BOARDSIZE; x++) {
                 if (y % 2 == 1) {
                     if (x % 2 == 1) {
-                        grid.put(new Position(x, y), new Man(Colour.WHITE));
+                        grid.put(new Position(x, y), new King(Colour.WHITE));
                     }
                 } else {
                     if (x % 2 == 0) {
-                        grid.put(new Position(x, y), new Man(Colour.WHITE));
+                        grid.put(new Position(x, y), new King(Colour.WHITE));
                     }
                 }
 
@@ -40,11 +40,11 @@ public class Board extends java.util.Observable {
             for (int x = 1; x <= BOARDSIZE; x++) {
                 if (y % 2 == 1) {
                     if (x % 2 == 1) {
-                        grid.put(new Position(x, y), new Man(Colour.BLACK));
+                        grid.put(new Position(x, y), new King(Colour.BLACK));
                     }
                 } else {
                     if (x % 2 == 0) {
-                        grid.put(new Position(x, y), new Man(Colour.BLACK));
+                        grid.put(new Position(x, y), new King(Colour.BLACK));
                     }
                 }
 
