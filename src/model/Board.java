@@ -84,11 +84,11 @@ public class Board extends java.util.Observable {
                     System.out.println("Huh");
                 }
                 grid.remove(position);
+                this.setChanged();
+                this.notifyObservers(grid);
             }
         }
-        if (move == null || piece == null) {
-            System.out.println();
-        }
+
         if ((piece.getColour() == Colour.WHITE && move.getNewPos().getY() == 10)
                 || (piece.getColour() == Colour.BLACK && move.getNewPos().getY() == 1)) {
             this.promotePiece(move.getNewPos(), piece);

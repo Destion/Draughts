@@ -7,6 +7,7 @@ import view.drawables.Square;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Observable;
@@ -134,6 +135,11 @@ public class BoardView extends JPanel implements Observer {
                 drawable.draw(g);
             }
         }
+    }
+
+    public void displayWinner(Player player) {
+        JOptionPane.showMessageDialog(this, player.getName() + " is the winner!");
+        window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
     }
 
     public void addController(ActionListener controller) {

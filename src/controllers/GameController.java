@@ -49,7 +49,7 @@ public class GameController implements ActionListener, MouseListener {
     public void play(){
         while (!board.gameOver()) {
             try {
-                Thread.sleep(500);
+                Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
