@@ -6,6 +6,7 @@ import view.drawables.Square;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class BoardView extends JPanel implements Observer {
     private Map<Position, model.Piece> grid;
     private JLabel topLabel;
     private JButton button;
+    private JButton closebutton;
 
     public BoardView() {
         super(null);
@@ -39,11 +41,20 @@ public class BoardView extends JPanel implements Observer {
         this.initBoard();
         topLabel = new JLabel("Welcome", SwingConstants.CENTER);
         button = new JButton("Play");
+        closebutton = new JButton("Exit");
+        button.setBounds(1040, 0, 100, 50);
+        closebutton.setBounds(100, 0, 100, 50);
+        closebutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
 
         this.add(topLabel);
         this.add(button);
+        this.add(closebutton);
         topLabel.setBounds(340, 0, 600, 50);
-        button.setBounds(1040, 0, 60, 50);
         window.getContentPane().add(this);
 
 
@@ -158,6 +169,7 @@ public class BoardView extends JPanel implements Observer {
     }
 
     public void displayMessage(String message) {
+        window.repaint();
         topLabel.setText(message);
     }
 
