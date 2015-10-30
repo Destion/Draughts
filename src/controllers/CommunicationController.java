@@ -59,10 +59,14 @@ public class CommunicationController {
 
         for (int i=0; i<10; i++){
             for (int j=0; j<15; j+=3){
-                int temp = bytes.get(0);
-                int bit1 = temp / 100;
-                int bit2 = (temp % 100) / 10;
-                int bit3 = temp % 10;
+                //int temp = bytes.get(0);
+                //int bit1 = temp / 100;
+                //int bit2 = (temp % 100) / 10;
+                //int bit3 = temp % 10;
+
+                int  bit1 = 1;
+                int bit2 = 0;
+                int bit3 = 1;
 
                 if (bit1 == 1){
                     gpio.high(pins.get(j));
