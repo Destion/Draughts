@@ -32,6 +32,7 @@ public class CommunicationController {
         GpioPinDigitalMultipurpose pin13 = gpio.provisionDigitalMultipurposePin(RaspiPin.GPIO_13, PinMode.DIGITAL_OUTPUT);
         GpioPinDigitalMultipurpose pin14 = gpio.provisionDigitalMultipurposePin(RaspiPin.GPIO_14, PinMode.DIGITAL_OUTPUT);
         GpioPinDigitalMultipurpose pin15 = gpio.provisionDigitalMultipurposePin(RaspiPin.GPIO_15, PinMode.DIGITAL_OUTPUT);
+        GpioPinDigitalMultipurpose pin16 = gpio.provisionDigitalMultipurposePin(RaspiPin.GPIO_16, PinMode.DIGITAL_OUTPUT);
         pins = new ArrayList<>();
         pins.add(pin0);
         pins.add(pin1);
@@ -49,6 +50,7 @@ public class CommunicationController {
         pins.add(pin13);
         pins.add(pin14);
         pins.add(pin15);
+        pins.add(pin16);
     }
 
     public void sendBytes(ArrayList<Integer> bytes){
@@ -84,5 +86,7 @@ public class CommunicationController {
             gpio.high(pins.get(15));
             gpio.low(pins.get(15));
         }
+
+        gpio.high(pins.get(16));
     }
 }
