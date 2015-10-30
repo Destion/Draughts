@@ -1,8 +1,6 @@
 package controllers;
 
-import com.pi4j.io.*;
 import com.pi4j.io.gpio.*;
-import com.pi4j.wiringpi.Gpio;
 
 import java.util.ArrayList;
 

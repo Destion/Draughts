@@ -95,7 +95,7 @@ public class Board extends java.util.Observable {
         this.notifyObservers(grid);
     }
 
-    private void promotePiece(Position position, Piece piece) {
+    public void promotePiece(Position position, Piece piece) {
         grid.remove(position);
         grid.put(position, new King(piece.getColour()));
     }
@@ -198,6 +198,22 @@ public class Board extends java.util.Observable {
 
     public boolean gameOver() {
         return this.hasWinner() || this.draw();
+    }
+
+    public int getNumberWhite() {
+        return numberWhite;
+    }
+
+    public void setNumberWhite(int numberWhite) {
+        this.numberWhite = numberWhite;
+    }
+
+    public int getNumberBlack() {
+        return numberBlack;
+    }
+
+    public void setNumberBlack(int numberBlack) {
+        this.numberBlack = numberBlack;
     }
 
     // does not work this way

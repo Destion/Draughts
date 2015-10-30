@@ -13,6 +13,8 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import static java.awt.RenderingHints.KEY_ANTIALIASING;
+import static java.awt.RenderingHints.VALUE_ANTIALIAS_ON;
 /**
  * Created by Rogier on 29-10-15
  */
@@ -132,6 +134,10 @@ public class BoardView extends JPanel implements Observer {
     }
 
     public void paintComponent(Graphics g) {
+
+        Graphics2D graphics2d = (Graphics2D) g;
+        graphics2d.setRenderingHint(KEY_ANTIALIASING,
+                VALUE_ANTIALIAS_ON);
         super.paintComponents(g);
 
 

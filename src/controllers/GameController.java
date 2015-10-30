@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Semaphore;
 
 public class GameController implements ActionListener, MouseListener {
     private Board board;
@@ -20,10 +21,11 @@ public class GameController implements ActionListener, MouseListener {
     public static final int PLAYERCOUNT = 2;
     private BoardView view;
     private boolean canMove;
-    private boolean play = false;
     private int mouseCount;
     private Move input;
     private List<Move> possibleMoves;
+    private Semaphore semaphore = new Semaphore(0);
+    private Semaphore play = new Semaphore(0);
 
     public GameController(Player player1, Player player2) {
         this.player1 = player1;
@@ -40,12 +42,10 @@ public class GameController implements ActionListener, MouseListener {
     }
 
     public void run() {
-        while (!play) {
-            try {
-                Thread.sleep(50);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        try {
+            play.acquire();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         this.play();
         this.displayWinner();
@@ -85,12 +85,11 @@ public class GameController implements ActionListener, MouseListener {
             canMove = true;
             mouseCount = 0;
             ((HumanPlayer) player).temporaryTUI(possibleMoves);
-            while (mouseCount < 2 || input == null) {
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+
+            try {
+                semaphore.acquire();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
 
             board.move(input);
@@ -107,7 +106,7 @@ public class GameController implements ActionListener, MouseListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Play")) {
-            play = true;
+            play.release();
 
         }
     }
@@ -120,7 +119,7 @@ public class GameController implements ActionListener, MouseListener {
             int x = 1 + ((mouseX - 340) / 60);
             int y = 10 - ((mouseY - 85) / 60);
             Position oldPosition = new Position(x, y);
-//            System.out.println("Old Position: " + oldPosition);
+            view.displayMessage("Old Position: " + oldPosition);
             boolean wrongMove = true;
             for (Move move : possibleMoves) {
                 if (move.getOldPos().equals(oldPosition)) {
@@ -131,7 +130,7 @@ public class GameController implements ActionListener, MouseListener {
                 }
             }
             if (wrongMove) {
-                view.displayMessage("Wrong move!");
+                view.displayMessage("Wrong move " + oldPosition);
             }
 //
         } else if (canMove && mouseCount == 1) {
@@ -141,7 +140,7 @@ public class GameController implements ActionListener, MouseListener {
             int y = 10 - ((mouseY - 85) / 60);
             Position newPosition = new Position(x, y);
 //            System.out.println("x: " + mousex + ", y: " + mousey);
-//            System.out.println("New Position: " + newPosition);
+            view.displayMessage("New Position: " + newPosition);
             boolean wrongMove = true;
             for (Move move : possibleMoves) {
                 if (move.getNewPos().equals(newPosition) && (move.equals(input) || move.getOldPos().equals(input.getOldPos()))) {
@@ -155,10 +154,11 @@ public class GameController implements ActionListener, MouseListener {
             if (wrongMove) {
                 mouseCount--;
 //                display message
-                view.displayMessage("Wrong move, try again!");
+                view.displayMessage("Wrong move " + newPosition + ", try again!");
             } else {
-                view.displayMessage("Succes!");
+                view.displayMessage("Succes " + input.getOldPos() + " - " + input.getNewPos() + "!");
             }
+            semaphore.release();
         }
     }
 
