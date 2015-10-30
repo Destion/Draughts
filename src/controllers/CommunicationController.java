@@ -40,6 +40,6 @@ public class CommunicationController {
 
     public void initOut(){
         gpio = GpioFactory.getInstance();
-        pin1 = gpio.provisionDigitalMultipurposePin(RaspiPin.GPIO_01)
+        //pin1 = gpio.provisionDigitalMultipurposePin(RaspiPin.GPIO_01)
     }
 }
