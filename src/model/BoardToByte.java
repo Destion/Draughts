@@ -8,11 +8,11 @@ import java.util.Map;
  */
 public class BoardToByte {
 
-    public static final int EMPTY = 0;
-    public static final int BLACK_MEN = 4;
-    public static final int WHITE_MEN = 6;
-    public static final int BLACK_KING = 5;
-    public static final int WHITE_KING = 7;
+    public static final int EMPTY = 000;
+    public static final int BLACK_MEN = 100;
+    public static final int WHITE_MEN = 110;
+    public static final int BLACK_KING = 101;
+    public static final int WHITE_KING = 111;
 
 
     public static int getInteger(Piece piece) {
