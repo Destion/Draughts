@@ -43,6 +43,8 @@ public class BoardView extends JPanel implements Observer {
         closebutton = new JButton("Exit");
         button.setBounds(1000, 85, 100, 50);
         closebutton.setBounds(1100, 85, 100, 50);
+        button.setBorder(null);
+        closebutton.setBorder(null);
         closebutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
