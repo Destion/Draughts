@@ -1,4 +1,8 @@
+import com.pi4j.io.gpio.*;
+import com.pi4j.wiringpi.Gpio;
 import controllers.CommunicationController;
+import model.Board;
+import model.BoardToByte;
 
 import java.util.ArrayList;
 
@@ -7,18 +11,9 @@ import java.util.ArrayList;
  */
 public class Testding   {
     public static void main(String[] args) {
-        CommunicationController comcont = new CommunicationController();
-
-        ArrayList<Integer> array = new ArrayList<>();
-        array.add(111);
-        array.add(110);
-        array.add(000);
-        array.add(011);
-        array.add(101);
-        array.add(001);
-        array.add(000);
-        array.add(100);
-
-        comcont.sendBytes(array);
+        Board board = new Board();
+        board.initializeBoard();
+        CommunicationController cc = new CommunicationController();
+        cc.sendBytes(BoardToByte.convertToBytes(board.getGrid()));
     }
 }
