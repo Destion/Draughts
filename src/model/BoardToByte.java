@@ -35,13 +35,13 @@ public class BoardToByte {
         ArrayList<Integer> array = new ArrayList<>();
         for (int y = 10; y >= 1; y--) {
             for (int x = 1; x <= 10; x++) {
-                if (y % 2 == 0 && x % 2 == 1) {
+                if (y % 2 == 0 && x % 2 == 0) {
                     if (grid.containsKey(new Position(x, y))) {
                         array.add(getInteger(grid.get(new Position(x, y))));
                     } else {
                         array.add(EMPTY);
                     }
-                } else if (y % 2 == 1 && x % 2 == 0) {
+                } else if (y % 2 == 1 && x % 2 == 1) {
                     if (grid.containsKey(new Position(x, y))) {
                         array.add(getInteger(grid.get(new Position(x, y))));
                     } else {
