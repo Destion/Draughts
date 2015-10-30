@@ -1,26 +1,20 @@
 package model;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
 
 /**
  * Created by Rogier on 24-10-15.
  */
 public class HumanPlayer extends Player {
-    private BufferedReader reader;
 
     public HumanPlayer(String name, Colour colour) {
         super(name, colour);
-        reader = new BufferedReader(new InputStreamReader(System.in));
     }
 
     public Move determineMove(Board board, List<Move> possibleMoves) {
         int i = possibleMoves.size();
         this.temporaryTUI(possibleMoves);
-        int choice = this.getInput();
-        return possibleMoves.get(choice);
+        return null;
     }
 
     public void temporaryTUI(List<Move> possibleMoves) {
@@ -40,18 +34,4 @@ public class HumanPlayer extends Player {
 
     }
 
-    public int getInput() {
-        boolean intRead = false;
-        int choice = 0;
-        do {
-            try {
-                choice = Integer.parseInt(reader.readLine());
-                intRead = true;
-            } catch (IOException | NumberFormatException e) {
-                System.out.println("ERROR: Enter a number");
-            }
-        } while (!intRead);
-        return choice;
-
-    }
 }

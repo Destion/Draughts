@@ -20,11 +20,10 @@ public class GameController implements ActionListener, MouseListener {
     private int counter;
     public static final int PLAYERCOUNT = 2;
     private BoardView view;
-    private boolean canMove;
     private int mouseCount;
     private Move input;
     private List<Move> possibleMoves;
-    private Semaphore semaphore = new Semaphore(0);
+    private Semaphore needsInput = new Semaphore(0);
     private Semaphore play = new Semaphore(0);
 
     public GameController(Player player1, Player player2) {
@@ -37,18 +36,23 @@ public class GameController implements ActionListener, MouseListener {
         board.addObserver(view);
         view.addMouseListener(this);
         view.addButtonListener(this);
-        this.setup();
-        canMove = false;
     }
 
     public void run() {
-        try {
-            play.acquire();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        while (1 < 2) {
+            this.setup();
+            view.setButtonText("Play");
+            view.setButtonActive();
+            try {
+                play.acquire();
+                view.setButtonText("Playing...");
+                view.setButtonInactive();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            this.play();
+            this.displayWinner();
         }
-        this.play();
-        this.displayWinner();
     }
 
     public void setup(){
@@ -82,12 +86,10 @@ public class GameController implements ActionListener, MouseListener {
 
     public void move(Player player) {
         if (player instanceof HumanPlayer) {
-            canMove = true;
             mouseCount = 0;
-            ((HumanPlayer) player).temporaryTUI(possibleMoves);
-
+//            ((HumanPlayer) player).temporaryTUI(possibleMoves);
             try {
-                semaphore.acquire();
+                needsInput.acquire();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -107,13 +109,14 @@ public class GameController implements ActionListener, MouseListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Play")) {
             play.release();
-
+            view.displayMessage("Play by clicking a piece");
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if (canMove && mouseCount == 0) {
+
+        if (mouseCount == 0) {
             int mouseX = MouseInfo.getPointerInfo().getLocation().x;
             int mouseY = MouseInfo.getPointerInfo().getLocation().y;
             int x = 1 + ((mouseX - 340) / 60);
@@ -133,19 +136,17 @@ public class GameController implements ActionListener, MouseListener {
                 view.displayMessage("Wrong move " + oldPosition);
             }
 //
-        } else if (canMove && mouseCount == 1) {
+        } else if (mouseCount == 1) {
             int mouseX = MouseInfo.getPointerInfo().getLocation().x;
             int mouseY = MouseInfo.getPointerInfo().getLocation().y;
             int x = 1 + ((mouseX - 340) / 60);
             int y = 10 - ((mouseY - 85) / 60);
             Position newPosition = new Position(x, y);
-//            System.out.println("x: " + mousex + ", y: " + mousey);
             view.displayMessage("New Position: " + newPosition);
             boolean wrongMove = true;
             for (Move move : possibleMoves) {
                 if (move.getNewPos().equals(newPosition) && (move.equals(input) || move.getOldPos().equals(input.getOldPos()))) {
                     mouseCount++;
-                    canMove = false;
                     input = move;
                     wrongMove = false;
                     break;
@@ -156,9 +157,10 @@ public class GameController implements ActionListener, MouseListener {
 //                display message
                 view.displayMessage("Wrong move " + newPosition + ", try again!");
             } else {
+                needsInput.release();
                 view.displayMessage("Succes " + input.getOldPos() + " - " + input.getNewPos() + "!");
             }
-            semaphore.release();
+
         }
     }
 

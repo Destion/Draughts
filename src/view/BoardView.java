@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Observable;
@@ -39,7 +38,7 @@ public class BoardView extends JPanel implements Observer {
         this.drawQueue = new ArrayList<>();
 
         this.initBoard();
-        topLabel = new JLabel("Welcome", SwingConstants.CENTER);
+        topLabel = new JLabel("Welcome, click Play to start", SwingConstants.CENTER);
         button = new JButton("Play");
         closebutton = new JButton("Exit");
         button.setBounds(1000, 85, 100, 50);
@@ -173,14 +172,25 @@ public class BoardView extends JPanel implements Observer {
         topLabel.setText(message);
     }
 
+    public void setButtonText(String message) {
+        window.repaint();
+        button.setText(message);
+    }
+
+    public void setButtonInactive() {
+        button.setEnabled(false);
+    }
+
+    public void setButtonActive() {
+        button.setEnabled(true);
+    }
+
     public void displayWinner(Player player) {
         JOptionPane.showMessageDialog(this, player.getName() + " is the winner!");
-        window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
     }
 
     public void draw() {
         JOptionPane.showMessageDialog(this, "It's a draw!");
-        window.dispatchEvent(new WindowEvent(window, WindowEvent.WINDOW_CLOSING));
     }
 
 
