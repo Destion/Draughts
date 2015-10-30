@@ -84,6 +84,7 @@ public class GameController implements ActionListener, MouseListener {
         if (player instanceof HumanPlayer) {
             canMove = true;
             mouseCount = 0;
+            ((HumanPlayer) player).temporaryTUI(possibleMoves);
             while (mouseCount < 2 || input == null) {
                 try {
                     Thread.sleep(100);
@@ -91,6 +92,7 @@ public class GameController implements ActionListener, MouseListener {
                     e.printStackTrace();
                 }
             }
+
             board.move(input);
         } else {
             try {
@@ -106,12 +108,12 @@ public class GameController implements ActionListener, MouseListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Play")) {
             play = true;
+
         }
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
         if (canMove && mouseCount == 0) {
             int mouseX = MouseInfo.getPointerInfo().getLocation().x;
             int mouseY = MouseInfo.getPointerInfo().getLocation().y;
