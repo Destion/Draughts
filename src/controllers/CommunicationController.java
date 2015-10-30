@@ -30,6 +30,7 @@ public class CommunicationController {
         GpioPinDigitalMultipurpose pin13 = gpio.provisionDigitalMultipurposePin(RaspiPin.GPIO_13, PinMode.DIGITAL_OUTPUT);
         GpioPinDigitalMultipurpose pin14 = gpio.provisionDigitalMultipurposePin(RaspiPin.GPIO_14, PinMode.DIGITAL_OUTPUT);
         GpioPinDigitalMultipurpose pin15 = gpio.provisionDigitalMultipurposePin(RaspiPin.GPIO_15, PinMode.DIGITAL_OUTPUT);
+        GpioPinDigitalMultipurpose pin16 = gpio.provisionDigitalMultipurposePin(RaspiPin.GPIO_16, PinMode.DIGITAL_OUTPUT);
         pins = new ArrayList<>();
         pins.add(pin0);
         pins.add(pin1);
@@ -47,19 +48,23 @@ public class CommunicationController {
         pins.add(pin13);
         pins.add(pin14);
         pins.add(pin15);
+        pins.add(pin16);
     }
 
     public void sendBytes(ArrayList<Integer> bytes){
 
+        long time = System.currentTimeMillis();
+        System.out.println(time);
+
         for (GpioPinDigitalMultipurpose pin : pins){
             pin.setMode(PinMode.DIGITAL_OUTPUT);
+            gpio.low(pin);
         }
 
         for (int i=0; i<10; i++){
-            for (int j=0; j<15; j+=3){
-                //int temp = bytes.get(0);
+            for (int j=14; j>=0; j-=3){
+                int temp = bytes.get(0);
 
-                int temp = 101;
                 int bit1 = temp / 100;
                 int bit2 = (temp % 100) / 10;
                 int bit3 = temp % 10;
@@ -70,18 +75,45 @@ public class CommunicationController {
                     gpio.low(pins.get(j));
                 }
                 if (bit2 == 1){
-                    gpio.high(pins.get(j+1));
+                    gpio.high(pins.get(j-1));
                 } else {
-                    gpio.low(pins.get(j+1));
+                    gpio.low(pins.get(j-1));
                 }
                 if (bit3 == 1){
-                    gpio.high(pins.get(j+2));
+                    gpio.high(pins.get(j-2));
                 } else {
-                    gpio.low(pins.get(j+2));
+                    gpio.low(pins.get(j-2));
                 }
             }
             gpio.high(pins.get(15));
             gpio.low(pins.get(15));
         }
+
+        gpio.high(pins.get(16));
+        System.out.println(System.currentTimeMillis()-time);
+        System.out.println(this.getInput());
+    }
+
+    public int getInput(){
+
+        String temp = "";
+
+        for (GpioPinDigitalMultipurpose pin : pins){
+            pin.setMode(PinMode.DIGITAL_INPUT);
+            pin.setPullResistance(PinPullResistance.PULL_DOWN);
+        }
+
+        for (GpioPinDigitalMultipurpose pi : pins){
+            if (pi.getState().isHigh()){
+                temp += "1";
+            } else {
+                temp += "0";
+            }
+        }
+
+        int res = Integer.parseInt(temp);
+
+        return res;
     }
 }
+
