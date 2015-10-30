@@ -71,14 +71,14 @@ public class CommunicationController {
                     gpio.low(pins.get(j));
                 }
                 if (bit2 == 1){
-                    gpio.high(pins.get(j+1));
+                    gpio.high(pins.get(j-1));
                 } else {
-                    gpio.low(pins.get(j+1));
+                    gpio.low(pins.get(j-1));
                 }
                 if (bit3 == 1){
-                    gpio.high(pins.get(j+2));
+                    gpio.high(pins.get(j-2));
                 } else {
-                    gpio.low(pins.get(j+2));
+                    gpio.low(pins.get(j-2));
                 }
             }
             gpio.high(pins.get(15));
