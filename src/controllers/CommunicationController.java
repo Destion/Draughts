@@ -1,6 +1,11 @@
 package controllers;
 
-//import com.pi4j.wiringpi.Gpio;
+import com.pi4j.io.*;
+import com.pi4j.io.gpio.GpioController;
+import com.pi4j.io.gpio.GpioFactory;
+import com.pi4j.io.gpio.GpioPinDigitalOutput;
+import com.pi4j.io.gpio.RaspiPin;
+import com.pi4j.wiringpi.Gpio;
 
 import java.util.ArrayList;
 
@@ -9,9 +14,12 @@ import java.util.ArrayList;
  */
 public class CommunicationController {
 
+    GpioPinDigitalOutput pin1;
+    GpioController gpio;
 
 
     public void sendBytes(ArrayList<Integer> bytes){
+
         for (int i=0; i<10; i++){
             for (int j=0; j<15; j+=3){
                 int temp = bytes.get(0);
@@ -28,5 +36,10 @@ public class CommunicationController {
             Gpio.digitalWrite(15, 1);
             Gpio.digitalWrite(15, 0);
         }
+    }
+
+    public void initOut(){
+        gpio = GpioFactory.getInstance();
+        pin1 = gpio.provisionDigitalMultipurposePin(RaspiPin.GPIO_01)
     }
 }
