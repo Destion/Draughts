@@ -42,8 +42,8 @@ public class BoardView extends JPanel implements Observer {
         topLabel = new JLabel("Welcome", SwingConstants.CENTER);
         button = new JButton("Play");
         closebutton = new JButton("Exit");
-        button.setBounds(1040, 0, 100, 50);
-        closebutton.setBounds(100, 0, 100, 50);
+        button.setBounds(1000, 85, 100, 50);
+        closebutton.setBounds(1100, 85, 100, 50);
         closebutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
