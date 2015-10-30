@@ -1,13 +1,19 @@
 import com.pi4j.io.gpio.*;
 import com.pi4j.wiringpi.Gpio;
+import controllers.CommunicationController;
+import model.Board;
+import model.BoardToByte;
+
+import java.util.ArrayList;
 
 /**
  * Created by destion on 29-10-15.
  */
 public class Testding   {
     public static void main(String[] args) {
-        GpioController gpio = GpioFactory.getInstance();
-        GpioPinDigitalMultipurpose pin = gpio.provisionDigitalMultipurposePin(RaspiPin.GPIO_01, PinMode.DIGITAL_OUTPUT);
-        gpio.high(pin);
+        Board board = new Board();
+        board.initializeBoard();
+        CommunicationController cc = new CommunicationController();
+        cc.sendBytes(BoardToByte.convertToBytes(board.getGrid()));
     }
 }
