@@ -57,6 +57,7 @@ public class CommunicationController {
 
         for (GpioPinDigitalMultipurpose pin : pins){
             pin.setMode(PinMode.DIGITAL_OUTPUT);
+            gpio.low(pin);
         }
 
         for (int i=0; i<10; i++){
