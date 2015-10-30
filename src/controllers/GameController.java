@@ -116,7 +116,7 @@ public class GameController implements ActionListener, MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
 
-        if (mouseCount == 0) {
+        if (mouseCount == 0 && possibleMoves != null) {
             int mouseX = MouseInfo.getPointerInfo().getLocation().x;
             int mouseY = MouseInfo.getPointerInfo().getLocation().y;
             int x = 1 + ((mouseX - 340) / 60);
@@ -136,7 +136,7 @@ public class GameController implements ActionListener, MouseListener {
                 view.displayMessage("Wrong move " + oldPosition);
             }
 //
-        } else if (mouseCount == 1) {
+        } else if (mouseCount == 1 && possibleMoves != null) {
             int mouseX = MouseInfo.getPointerInfo().getLocation().x;
             int mouseY = MouseInfo.getPointerInfo().getLocation().y;
             int x = 1 + ((mouseX - 340) / 60);
