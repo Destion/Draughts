@@ -1,27 +1,24 @@
+import controllers.CommunicationController;
+
+import java.util.ArrayList;
+
 /**
  * Created by destion on 29-10-15.
  */
 public class Testding   {
     public static void main(String[] args) {
+        CommunicationController comcont = new CommunicationController();
 
-        System.out.println("111");
-        System.out.println(111/100);
-        System.out.println((111%100)/10);
-        System.out.println(111%10);
+        ArrayList<Integer> array = new ArrayList<>();
+        array.add(111);
+        array.add(110);
+        array.add(000);
+        array.add(011);
+        array.add(101);
+        array.add(001);
+        array.add(000);
+        array.add(100);
 
-        System.out.println("100");
-        System.out.println(100/100);
-        System.out.println((100%100)/10);
-        System.out.println(100%10);
-
-        System.out.println("000");
-        System.out.println(000/100);
-        System.out.println((000%100)/10);
-        System.out.println(000%10);
-
-        System.out.println("011");
-        System.out.println(011/100);
-        System.out.println((011%100)/10);
-        System.out.println(011%10);
+        comcont.sendBytes(array);
     }
 }
