@@ -24,6 +24,7 @@ public class HumanPlayer extends Player {
     }
 
     public void temporaryTUI(List<Move> possibleMoves) {
+        System.out.println("Possible Moves: ");
         int i = 0;
         for (Move move : possibleMoves) {
             String s = i + " " + move.getOldPos().toString() + " ";
