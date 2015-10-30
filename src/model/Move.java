@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Rogier on 24-10-15.
+ * Created by Rogier on 24-10-15
  */
 public class Move {
     private Position oldPos;
@@ -15,7 +15,12 @@ public class Move {
     public Move(Position oldPos, Position newPos, List<Position> interPos, List<Position> captured) {
         this.oldPos = oldPos;
         this.newPos = newPos;
-        this.interPos = interPos;
+        this.interPos = new ArrayList<>();
+        if (interPos != null) {
+            for (Position position : captured) {
+                this.interPos.add(position);
+            }
+        }
         this.captured = new ArrayList<>();
         if (captured != null) {
             for (Position position : captured) {
@@ -26,10 +31,6 @@ public class Move {
 
     public Position getOldPos() {
         return oldPos;
-    }
-
-    public void setOldPos(Position oldPos) {
-        this.oldPos = oldPos;
     }
 
     public Position getNewPos() {
@@ -44,12 +45,6 @@ public class Move {
         return interPos;
     }
 
-    public void setInterPos(List<Position> interPos) {
-        this.interPos = interPos;
-    }
-
-
-
     public List<Position> getCaptured() {
         return captured;
     }
@@ -60,6 +55,15 @@ public class Move {
             captured.add(lastCaptured);
         } else {
             captured.add(lastCaptured);
+        }
+    }
+
+    public void addInterPosition(Position interPosition) {
+        if (interPos == null) {
+            interPos = new ArrayList<Position>();
+            interPos.add(interPosition);
+        } else {
+            interPos.add(interPosition);
         }
     }
 }

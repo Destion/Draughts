@@ -9,11 +9,10 @@ public interface Piece {
 
     boolean canCapture(Position currentPosition, List<Position> lastCaptured, Board board);
 
-    List<Move> movesOnPosition(Position position, Board board);
+    List<Move> normalMoves(Position currentPosition, Board board);
 
-    List<Move> capturesOnPosition(Position position, Board board);
+    List<Move> captureMoves(Position currentPosition, Board board);
 
     Colour getColour();
-
 
 }

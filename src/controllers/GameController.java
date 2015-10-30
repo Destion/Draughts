@@ -55,12 +55,12 @@ public class GameController implements ActionListener, MouseListener {
         }
     }
 
-    public void setup(){
+    private void setup() {
         board.initializeBoard();
         counter = 0;
     }
 
-    public void play(){
+    private void play() {
         while (!board.gameOver()) {
 
             if (counter % PLAYERCOUNT == 0) {
@@ -84,7 +84,7 @@ public class GameController implements ActionListener, MouseListener {
         }
     }
 
-    public void move(Player player) {
+    private void move(Player player) {
         if (player instanceof HumanPlayer) {
             mouseCount = 0;
 //            ((HumanPlayer) player).temporaryTUI(possibleMoves);
@@ -185,7 +185,7 @@ public class GameController implements ActionListener, MouseListener {
     }
 
 
-    public void displayWinner() {
+    private void displayWinner() {
         Colour winner = board.getWinner();
         if (winner == player1.getColour()) {
             view.displayWinner(player1);

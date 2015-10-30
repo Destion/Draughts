@@ -1,7 +1,5 @@
 package model;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
@@ -9,7 +7,7 @@ import java.util.concurrent.Semaphore;
 /**
  * Created by Rogier on 27-10-15.
  */
-public class ComputerPlayer extends Player implements ActionListener {
+public class ComputerPlayer extends Player {
     private Semaphore semaphore = new Semaphore(0);
 
 
@@ -22,7 +20,6 @@ public class ComputerPlayer extends Player implements ActionListener {
         int choice = (int) Math.floor(Math.random() * (possibleMoves.size()));
         Move move = possibleMoves.get(choice);
 
-
         return move;
     }
 
@@ -32,10 +29,6 @@ public class ComputerPlayer extends Player implements ActionListener {
         return null;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-    }
 
     public void move(Move move, Board board) {
         Position oldPosition = move.getOldPos();

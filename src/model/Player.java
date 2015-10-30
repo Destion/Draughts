@@ -25,7 +25,7 @@ public abstract class Player {
         }
     }
 
-    public abstract Move determineMove(Board board, List<Move> possibleMoves);
+    protected abstract Move determineMove(Board board, List<Move> possibleMoves);
 
     public Colour getColour() {
         return colour;

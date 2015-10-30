@@ -29,7 +29,8 @@ public class BoardView extends JPanel implements Observer {
 
     public BoardView() {
         super(null);
-        this.window = new JFrame();
+        this.window = new JFrame("Draughts");
+
         window.setSize(1280, 720);
         window.setResizable(false);
         window.setUndecorated(true);
@@ -71,7 +72,7 @@ public class BoardView extends JPanel implements Observer {
         }
     }
 
-    public void initBoard() {
+    private void initBoard() {
 
         ArrayList<Color> colors = new ArrayList<>();
 
@@ -107,7 +108,7 @@ public class BoardView extends JPanel implements Observer {
         }
     }
 
-    public void makeDraw() {
+    private void makeDraw() {
         drawQueue.clear();
         for (Position pos : grid.keySet()) {
             int x = pos.getX();
@@ -132,13 +133,6 @@ public class BoardView extends JPanel implements Observer {
                 } else {
                     this.drawQueue.add(new view.drawables.King(screenx, screeny, new Color(204, 0, 0)));
                 }
-            }
-
-
-            if (blackMan) {
-                this.drawQueue.add(new view.drawables.Man(screenx, screeny, new Color(255, 255, 0)));
-            } else if (whiteMan) {
-                this.drawQueue.add(new view.drawables.Man(screenx, screeny, new Color(204, 0, 0)));
             }
         }
 

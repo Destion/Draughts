@@ -106,7 +106,7 @@ public class Board extends java.util.Observable {
         for (Position position : grid.keySet()) {
             if (grid.get(position).getColour() == colour) {
                 if (grid.get(position).canCapture(position, null, this)) {
-                    possibleMoves.addAll(grid.get(position).capturesOnPosition(position, this));
+                    possibleMoves.addAll(grid.get(position).captureMoves(position, this));
                     mustCapture = true;
                 }
             }
@@ -115,7 +115,7 @@ public class Board extends java.util.Observable {
             for (Position position : grid.keySet()) {
                 if (grid.get(position).getColour() == colour) {
                     if (grid.get(position).canMove(position, this)) {
-                        possibleMoves.addAll(grid.get(position).movesOnPosition(position, this));
+                        possibleMoves.addAll(grid.get(position).normalMoves(position, this));
                     }
                 }
             }
@@ -163,7 +163,7 @@ public class Board extends java.util.Observable {
         return !grid.containsKey(position) && position.getX() >= 1 && position.getX() <= 10 && position.getY() >= 1 && position.getY() <= 10;
     }
 
-    public boolean draw() {
+    private boolean draw() {
         boolean result = false;
         if (grid.size() < 4) {
             List<Piece> pieces = new ArrayList<Piece>();
@@ -200,21 +200,6 @@ public class Board extends java.util.Observable {
         return this.hasWinner() || this.draw();
     }
 
-    public int getNumberWhite() {
-        return numberWhite;
-    }
-
-    public void setNumberWhite(int numberWhite) {
-        this.numberWhite = numberWhite;
-    }
-
-    public int getNumberBlack() {
-        return numberBlack;
-    }
-
-    public void setNumberBlack(int numberBlack) {
-        this.numberBlack = numberBlack;
-    }
 
     // does not work this way
     // a10 b10 c10 d10 e10 f10 g10 h10 i10
