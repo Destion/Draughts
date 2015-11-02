@@ -105,8 +105,8 @@ public class CommunicationController {
 
         for(int i=0; i<10; i++){
 
-            while (!gpio.isHigh(pins.get(16))){
-                if (gpio.isHigh(pins.get(16))){
+            while (!gpio.isHigh(pins.get(15))){
+                if (gpio.isHigh(pins.get(15))){
                     break;
                 }
             }
