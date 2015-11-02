@@ -96,6 +96,11 @@ public class CommunicationController {
 
     public ArrayList<Integer> getInput() {
 
+        for (GpioPinDigitalMultipurpose pin : pins) {
+            pin.setMode(PinMode.DIGITAL_INPUT);
+            pin.setPullResistance(PinPullResistance.PULL_DOWN);
+        }
+
         ArrayList<Integer> ints = new ArrayList<>();
 
         for(int i=0; i<10; i++){
@@ -133,6 +138,15 @@ public class CommunicationController {
 //        int res = Integer.parseInt(temp);
 //
 //        return res;
+
+        String temp = "";
+
+        for (Integer i : ints){
+            temp += i;
+        }
+
+        System.out.println(temp);
+        System.out.println(temp.length());
 
         return ints;
     }
