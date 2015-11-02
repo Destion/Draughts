@@ -25,7 +25,6 @@ public class BoardView extends JPanel implements Observer {
     private Map<Position, model.Piece> grid;
     private JLabel topLabel;
     private JButton button;
-    private JButton closebutton;
 
     public BoardView() {
         super(null);
@@ -34,17 +33,27 @@ public class BoardView extends JPanel implements Observer {
         window.setResizable(false);
         window.setUndecorated(true);
 
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+
         this.boardQueue = new ArrayList<>();
         this.drawQueue = new ArrayList<>();
 
         this.initBoard();
         topLabel = new JLabel("Welcome, click Play to start", SwingConstants.CENTER);
+        topLabel.setFont(new Font("Roboto", Font.BOLD, 14));
         button = new JButton("Play");
-        closebutton = new JButton("Exit");
+        JButton closebutton = new JButton("Exit");
         button.setBounds(1000, 85, 100, 50);
-        closebutton.setBounds(1100, 85, 100, 50);
-        button.setBorder(null);
-        closebutton.setBorder(null);
+        closebutton.setBounds(1110, 85, 100, 50);
         closebutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -195,5 +204,11 @@ public class BoardView extends JPanel implements Observer {
         JOptionPane.showMessageDialog(this, "It's a draw!");
     }
 
-
+    public void recolor(Color c, int x, int y){
+        for (Drawable d : drawQueue){
+            if(d.getX() == x && d.getY() == y){
+                d.setColor(c);
+            }
+        }
+    }
 }

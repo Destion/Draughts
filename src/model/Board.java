@@ -196,6 +196,10 @@ public class Board extends java.util.Observable {
         return result;
     }
 
+    public void emptyMap(){
+        this.grid = null;
+    }
+
     public boolean gameOver() {
         return this.hasWinner() || this.draw();
     }
