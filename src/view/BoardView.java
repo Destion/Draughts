@@ -48,7 +48,7 @@ public class BoardView extends JPanel implements Observer {
 
         this.initBoard();
         topLabel = new JLabel("Welcome, click Play to start", SwingConstants.CENTER);
-        topLabel.setFont(new Font("Roboto", Font.BOLD, 14));
+        topLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
         button = new JButton("Play");
         JButton closebutton = new JButton("Exit");
         button.setBounds(1000, 85, 100, 50);

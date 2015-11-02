@@ -2,7 +2,6 @@ package controllers;
 
 
 import com.pi4j.io.gpio.*;
-import com.pi4j.wiringpi.Gpio;
 
 import java.util.ArrayList;
 
@@ -105,12 +104,13 @@ public class CommunicationController {
 
         for(int i=0; i<10; i++){
 
-//            while (!gpio.isHigh(pins.get(15))){
-//                if (gpio.isHigh(pins.get(15))){
-//                    System.out.println("Break");
-//                    break;
-//                }
-//            }
+            while (!gpio.isHigh(pins.get(15))) {
+                try {
+                    Thread.sleep(20);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
 
             for (int j=0; j<15; j++){
                 System.out.println(gpio.getState(pins.get(j)));
