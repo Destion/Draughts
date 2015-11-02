@@ -5,15 +5,12 @@ import com.pi4j.io.gpio.*;
 
 import java.util.ArrayList;
 
-/**
- * Created by destion on 30-10-15.
- */
 public class CommunicationController {
 
     GpioController gpio;
     ArrayList<GpioPinDigitalMultipurpose> pins;
 
-    public CommunicationController(){
+    public CommunicationController() {
         this.gpio = GpioFactory.getInstance();
         GpioPinDigitalMultipurpose pin0 = gpio.provisionDigitalMultipurposePin(RaspiPin.GPIO_00, PinMode.DIGITAL_OUTPUT);
         GpioPinDigitalMultipurpose pin1 = gpio.provisionDigitalMultipurposePin(RaspiPin.GPIO_01, PinMode.DIGITAL_OUTPUT);
@@ -52,60 +49,61 @@ public class CommunicationController {
         pins.add(pin16);
     }
 
-    public void sendBytes(ArrayList<Integer> bytes){
+    public void sendBytes(ArrayList<Integer> bytes) {
 
         long time = System.currentTimeMillis();
         System.out.println(time);
 
-        for (GpioPinDigitalMultipurpose pin : pins){
+        for (GpioPinDigitalMultipurpose pin : pins) {
             pin.setMode(PinMode.DIGITAL_OUTPUT);
             gpio.low(pin);
         }
 
-        for (int i=0; i<10; i++){
-            for (int j=14; j>=0; j-=3){
+        for (int i = 0; i < 10; i++) {
+            for (int j = 14; j >= 0; j -= 3) {
                 int temp = bytes.get(0);
 
                 int bit1 = temp / 100;
                 int bit2 = (temp % 100) / 10;
                 int bit3 = temp % 10;
 
-                if (bit1 == 1){
+                if (bit1 == 1) {
                     gpio.high(pins.get(j));
                 } else {
                     gpio.low(pins.get(j));
                 }
-                if (bit2 == 1){
-                    gpio.high(pins.get(j-1));
+                if (bit2 == 1) {
+                    gpio.high(pins.get(j - 1));
                 } else {
-                    gpio.low(pins.get(j-1));
+                    gpio.low(pins.get(j - 1));
                 }
-                if (bit3 == 1){
-                    gpio.high(pins.get(j-2));
+                if (bit3 == 1) {
+                    gpio.high(pins.get(j - 2));
                 } else {
-                    gpio.low(pins.get(j-2));
+                    gpio.low(pins.get(j - 2));
                 }
             }
             gpio.high(pins.get(15));
             gpio.low(pins.get(15));
         }
 
+        //TODO verwerk input
         gpio.high(pins.get(16));
-        System.out.println(System.currentTimeMillis()-time);
+        System.out.println(System.currentTimeMillis() - time);
         System.out.println(this.getInput());
     }
 
-    public int getInput(){
+    public int getInput() {
 
         String temp = "";
 
-        for (GpioPinDigitalMultipurpose pin : pins){
+        for (GpioPinDigitalMultipurpose pin : pins) {
             pin.setMode(PinMode.DIGITAL_INPUT);
             pin.setPullResistance(PinPullResistance.PULL_DOWN);
         }
 
-        for (GpioPinDigitalMultipurpose pi : pins){
-            if (pi.getState().isHigh()){
+        for (GpioPinDigitalMultipurpose pi : pins) {
+            if (pi.getState().isHigh()) {
                 temp += "1";
             } else {
                 temp += "0";

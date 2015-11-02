@@ -3,6 +3,7 @@ package controllers;
 
 import model.*;
 import view.BoardView;
+import view.Log;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -25,6 +26,7 @@ public class GameController implements ActionListener, MouseListener {
     private List<Move> possibleMoves;
     private Semaphore needsInput = new Semaphore(0);
     private Semaphore play = new Semaphore(0);
+    private Log log;
 
     public GameController(Player player1, Player player2) {
         this.player1 = player1;
@@ -38,31 +40,47 @@ public class GameController implements ActionListener, MouseListener {
         view.addButtonListener(this);
     }
 
+    public GameController(Player player1, Player player2, String yn) {
+        this.player1 = player1;
+        this.player2 = player2;
+        board = new Board();
+
+        log = new Log();
+
+        view = new BoardView();
+        board.addObserver(view);
+        view.addMouseListener(this);
+        view.addButtonListener(this);
+    }
+
     public void run() {
-        while (1 < 2) {
+        while (true) {
             this.setup();
-//            view.setButtonText("Play");
-//            view.setButtonActive();
-//            try {
-//                play.acquire();
-//                view.setButtonText("Playing...");
-//                view.setButtonInactive();
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+            view.setButtonText("Play");
+            view.setButtonActive();
+            try {
+                play.acquire();
+                view.setButtonText("Playing...");
+                if (log != null) {
+                    log.addMessage("Game started.");
+                }
+                view.setButtonInactive();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             this.play();
-//            this.displayWinner();
+            this.displayWinner();
         }
     }
 
-    private void setup() {
+    public void setup() {
         board.initializeBoard();
         counter = 0;
     }
 
-    private void play() {
+    public void play() {
         while (!board.gameOver()) {
-
             if (counter % PLAYERCOUNT == 0) {
                 possibleMoves = board.generatePossibleMoves(player1.getColour());
                 if (possibleMoves.size() == 0) {
@@ -84,10 +102,10 @@ public class GameController implements ActionListener, MouseListener {
         }
     }
 
-    private void move(Player player) {
+    public void move(Player player) {
         if (player instanceof HumanPlayer) {
             mouseCount = 0;
-            ((HumanPlayer) player).temporaryTUI(possibleMoves);
+//            ((HumanPlayer) player).temporaryTUI(possibleMoves);
             try {
                 needsInput.acquire();
             } catch (InterruptedException e) {
@@ -123,6 +141,9 @@ public class GameController implements ActionListener, MouseListener {
             int y = 10 - ((mouseY - 85) / 60);
             Position oldPosition = new Position(x, y);
             view.displayMessage("Old Position: " + oldPosition);
+            if (log != null) {
+                log.addMessage("New move from: " + oldPosition + ".");
+            }
             boolean wrongMove = true;
             for (Move move : possibleMoves) {
                 if (move.getOldPos().equals(oldPosition)) {
@@ -134,8 +155,10 @@ public class GameController implements ActionListener, MouseListener {
             }
             if (wrongMove) {
                 view.displayMessage("Wrong move " + oldPosition);
+                if (log != null) {
+                    log.addMessage("Invalid.");
+                }
             }
-//
         } else if (mouseCount == 1 && possibleMoves != null) {
             int mouseX = MouseInfo.getPointerInfo().getLocation().x;
             int mouseY = MouseInfo.getPointerInfo().getLocation().y;
@@ -143,6 +166,9 @@ public class GameController implements ActionListener, MouseListener {
             int y = 10 - ((mouseY - 85) / 60);
             Position newPosition = new Position(x, y);
             view.displayMessage("New Position: " + newPosition);
+            if (log != null) {
+                log.addMessage("Moved to " + newPosition + ".");
+            }
             boolean wrongMove = true;
             for (Move move : possibleMoves) {
                 if (move.getNewPos().equals(newPosition) && (move.equals(input) || move.getOldPos().equals(input.getOldPos()))) {
@@ -156,6 +182,9 @@ public class GameController implements ActionListener, MouseListener {
                 mouseCount--;
 //                display message
                 view.displayMessage("Wrong move " + newPosition + ", try again!");
+                if (log != null) {
+                    log.addMessage("Invalid move to: " + newPosition + ".");
+                }
             } else {
                 needsInput.release();
                 view.displayMessage("Succes " + input.getOldPos() + " - " + input.getNewPos() + "!");
@@ -185,14 +214,23 @@ public class GameController implements ActionListener, MouseListener {
     }
 
 
-    private void displayWinner() {
+    public void displayWinner() {
         Colour winner = board.getWinner();
         if (winner == player1.getColour()) {
             view.displayWinner(player1);
+            if (log != null) {
+                log.addMessage("Game over, winner: Player 1.");
+            }
         } else if (winner == player2.getColour()) {
             view.displayWinner(player2);
+            if (log != null) {
+                log.addMessage("Game over, winner: Player 2.");
+            }
         } else {
             view.draw();
+            if (log != null) {
+                log.addMessage("Game over: Draw.");
+            }
         }
     }
 
@@ -217,7 +255,7 @@ public class GameController implements ActionListener, MouseListener {
 
     }
 
-    public Board getBoard(){
+    public Board getBoard() {
         return this.board;
     }
 

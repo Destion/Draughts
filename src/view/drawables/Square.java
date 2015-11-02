@@ -12,7 +12,7 @@ public class Square implements Drawable {
     final int HEIGHT = 60;
     Color color;
 
-    public Square(int x, int y, Color color){
+    public Square(int x, int y, Color color) {
         this.x = x;
         this.y = y;
         this.color = color;
@@ -22,12 +22,6 @@ public class Square implements Drawable {
     public void draw(Graphics g) {
         g.setColor(color);
         g.fillRect(x, y, WIDTH, HEIGHT);
-    }
-
-    @Override
-    public void setPos(int x, int y) {
-        this.x = x;
-        this.y = y;
     }
 
     @Override
@@ -43,10 +37,5 @@ public class Square implements Drawable {
     @Override
     public int getY() {
         return this.y;
-    }
-
-    @Override
-    public Color getColor() {
-        return this.color;
     }
 }
