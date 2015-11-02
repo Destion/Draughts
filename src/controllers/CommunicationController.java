@@ -90,8 +90,6 @@ public class CommunicationController {
 
         //TODO verwerk input
         gpio.high(pins.get(16));
-        System.out.println(System.currentTimeMillis() - time);
-        System.out.println(this.getInput());
     }
 
     public ArrayList<Integer> getInput() {
