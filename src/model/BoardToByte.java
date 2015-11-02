@@ -3,9 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.Map;
 
-/**
- * Created by Rogier on 30-10-15.
- */
 public class BoardToByte {
 
     public static final int EMPTY = 000;

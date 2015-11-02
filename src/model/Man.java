@@ -3,9 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Rogier on 23-10-15.
- */
 public class Man implements Piece {
     private Colour colour;
 

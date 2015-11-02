@@ -23,11 +23,6 @@ public class Man implements Drawable {
     }
 
     @Override
-    public void setColor(Color col) {
-        this.color = col;
-    }
-
-    @Override
     public int getX() {
         return this.x;
     }

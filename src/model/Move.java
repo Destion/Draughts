@@ -3,9 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Rogier on 24-10-15
- */
 public class Move {
     private Position oldPos;
     private Position newPos;

@@ -12,9 +12,6 @@ import java.util.Observer;
 import static java.awt.RenderingHints.KEY_ANTIALIASING;
 import static java.awt.RenderingHints.VALUE_ANTIALIAS_ON;
 
-/**
- * Created by Rogier on 31-10-15
- */
 public class ImprovedBoardView extends JPanel implements Observer {
     private Map<Position, Piece> grid;
     private JFrame window;

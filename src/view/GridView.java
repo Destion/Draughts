@@ -5,9 +5,6 @@ import model.Board;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by Rogier on 31-10-15
- */
 public class GridView extends JComponent {
     public GridView() {
         super();

@@ -4,9 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
 
-/**
- * Created by Rogier on 27-10-15.
- */
+
 public class ComputerPlayer extends Player {
     private Semaphore semaphore = new Semaphore(0);
 

@@ -27,14 +27,6 @@ public class King implements Drawable {
             g.setColor(new Color(150, 0, 0));
         }
         g.fillOval(x + 10, y + 10, 30, 30);
-
-
-        //TODO Also implement a way to draw a crown on top of the king
-    }
-
-    @Override
-    public void setColor(Color col) {
-        this.color = col;
     }
 
     @Override

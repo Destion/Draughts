@@ -2,6 +2,7 @@ package controllers;
 
 
 import com.pi4j.io.gpio.*;
+import com.pi4j.wiringpi.Gpio;
 
 import java.util.ArrayList;
 
@@ -93,26 +94,47 @@ public class CommunicationController {
         System.out.println(this.getInput());
     }
 
-    public int getInput() {
+    public ArrayList<Integer> getInput() {
 
-        String temp = "";
+        ArrayList<Integer> ints = new ArrayList<>();
 
-        for (GpioPinDigitalMultipurpose pin : pins) {
-            pin.setMode(PinMode.DIGITAL_INPUT);
-            pin.setPullResistance(PinPullResistance.PULL_DOWN);
-        }
+        for(int i=0; i<10; i++){
 
-        for (GpioPinDigitalMultipurpose pi : pins) {
-            if (pi.getState().isHigh()) {
-                temp += "1";
-            } else {
-                temp += "0";
+            while (!gpio.isHigh(pins.get(16))){
+                if (gpio.isHigh(pins.get(16))){
+                    break;
+                }
+            }
+
+            for (int j=0; j<15; j++){
+                if (gpio.isHigh(pins.get(j))){
+                    ints.add(1);
+                } else {
+                    ints.add(0);
+                }
             }
         }
 
-        int res = Integer.parseInt(temp);
+//        String temp = "";
+//
+//        for (GpioPinDigitalMultipurpose pin : pins) {
+//            pin.setMode(PinMode.DIGITAL_INPUT);
+//            pin.setPullResistance(PinPullResistance.PULL_DOWN);
+//        }
+//
+//        for (GpioPinDigitalMultipurpose pi : pins) {
+//            if (pi.getState().isHigh()) {
+//                temp += "1";
+//            } else {
+//                temp += "0";
+//            }
+//        }
+//
+//        int res = Integer.parseInt(temp);
+//
+//        return res;
 
-        return res;
+        return ints;
     }
 }
 
