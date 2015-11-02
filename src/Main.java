@@ -3,9 +3,6 @@ import model.Colour;
 import model.ComputerPlayer;
 import model.HumanPlayer;
 import model.Player;
-import view.Log;
-
-import javax.swing.*;
 
 public class Main {
 

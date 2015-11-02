@@ -2,9 +2,6 @@ package model;
 
 import java.util.List;
 
-/**
- * Created by Rogier on 23-10-15.
- */
 public abstract class Player {
     private String name;
     private Colour colour;
@@ -18,9 +15,9 @@ public abstract class Player {
         return name;
     }
 
-    public void makeMove(Board board, List<Move> possibleMoves){
+    public void makeMove(Board board, List<Move> possibleMoves) {
         Move move = this.determineMove(board, possibleMoves);
-        if (move != null ){
+        if (move != null) {
             board.move(move);
         }
     }

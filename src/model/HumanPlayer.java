@@ -2,9 +2,6 @@ package model;
 
 import java.util.List;
 
-/**
- * Created by Rogier on 24-10-15.
- */
 public class HumanPlayer extends Player {
 
     public HumanPlayer(String name, Colour colour) {

@@ -28,9 +28,6 @@ public class Move {
         return oldPos;
     }
 
-    public void setOldPos(Position oldPos) {
-        this.oldPos = oldPos;
-    }
 
     public Position getNewPos() {
         return newPos;
@@ -44,19 +41,13 @@ public class Move {
         return interPos;
     }
 
-    public void setInterPos(List<Position> interPos) {
-        this.interPos = interPos;
-    }
-
-
-
     public List<Position> getCaptured() {
         return captured;
     }
 
     public void addCaptured(Position lastCaptured) {
         if (captured == null) {
-            captured = new ArrayList<Position>();
+            captured = new ArrayList<>();
             captured.add(lastCaptured);
         } else {
             captured.add(lastCaptured);

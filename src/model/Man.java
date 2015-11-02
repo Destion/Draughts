@@ -3,9 +3,6 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Rogier on 23-10-15.
- */
 public class Man implements Piece {
     private Colour colour;
 
@@ -111,15 +108,6 @@ public class Man implements Piece {
     }
 
     public void multipleCapture(Position currentPosition, Board board, Move move, List<Move> possibleMoves) {
-//        Position lastCaptured;
-//        if (move.getInterPos().size() == 0) {
-//            Position oldPosition = move.getOldPos();
-//            lastCaptured = new Position((currentPosition.getX() + oldPosition.getX()) / 2, (currentPosition.getY() + oldPosition.getY()) / 2);
-//        } else {
-//            Position oldPosition = move.getInterPos().get(move.getInterPos().size() - 1);
-//            lastCaptured = new Position((currentPosition.getX() + oldPosition.getX()) / 2, (currentPosition.getY() + oldPosition.getY()) / 2);
-//        }
-//        System.out.println(lastCaptured);
         move.getInterPos().add(currentPosition);
         if (this.captureOption(currentPosition, move.getCaptured(), board, -1, -1) != null) {
             Move move1 = new Move(move.getOldPos(), null, move.getInterPos(), move.getCaptured());

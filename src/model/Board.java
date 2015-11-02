@@ -21,7 +21,7 @@ public class Board extends java.util.Observable {
     }
 
     public void initializeBoard() {
-        grid = new HashMap<Position, Piece>();
+        grid = new HashMap<>();
         for (int y = 1; y <= 4; y++) {
             for (int x = 1; x <= BOARDSIZE; x++) {
                 if (y % 2 == 1) {
@@ -196,7 +196,7 @@ public class Board extends java.util.Observable {
         return result;
     }
 
-    public void emptyMap(){
+    public void emptyMap() {
         this.grid = null;
     }
 

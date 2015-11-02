@@ -15,9 +15,7 @@ import java.util.Observer;
 
 import static java.awt.RenderingHints.KEY_ANTIALIASING;
 import static java.awt.RenderingHints.VALUE_ANTIALIAS_ON;
-/**
- * Created by Rogier on 29-10-15
- */
+
 public class BoardView extends JPanel implements Observer {
     private ArrayList<Square> boardQueue;
     private JFrame window;
@@ -136,7 +134,7 @@ public class BoardView extends JPanel implements Observer {
                     this.drawQueue.add(new view.drawables.Man(screenx, screeny, new Color(204, 0, 0)));
                 }
             } else if (grid.get(pos) instanceof King) {
-                if(grid.get(pos).getColour() == Colour.BLACK){
+                if (grid.get(pos).getColour() == Colour.BLACK) {
                     this.drawQueue.add(new view.drawables.King(screenx, screeny, new Color(255, 255, 0)));
                 } else {
                     this.drawQueue.add(new view.drawables.King(screenx, screeny, new Color(204, 0, 0)));
@@ -202,13 +200,5 @@ public class BoardView extends JPanel implements Observer {
 
     public void draw() {
         JOptionPane.showMessageDialog(this, "It's a draw!");
-    }
-
-    public void recolor(Color c, int x, int y){
-        for (Drawable d : drawQueue){
-            if(d.getX() == x && d.getY() == y){
-                d.setColor(c);
-            }
-        }
     }
 }
