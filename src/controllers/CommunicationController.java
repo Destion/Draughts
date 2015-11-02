@@ -52,6 +52,9 @@ public class CommunicationController {
 
     public void sendBytes(ArrayList<Integer> bytes) {
 
+        long time = System.currentTimeMillis();
+        System.out.println(time);
+
         for (GpioPinDigitalMultipurpose pin : pins) {
             pin.setMode(PinMode.DIGITAL_OUTPUT);
             gpio.low(pin);
@@ -87,6 +90,7 @@ public class CommunicationController {
 
         //TODO verwerk input
         gpio.high(pins.get(16));
+        System.out.println(System.currentTimeMillis() - time);
         System.out.println(this.getInput());
     }
 
@@ -134,6 +138,14 @@ public class CommunicationController {
 //        int res = Integer.parseInt(temp);
 //
 //        return res;
+
+        String temp = "";
+
+        for (Integer i : ints){
+            temp += i;
+        }
+
+        System.out.println(temp);
 
         return ints;
     }
