@@ -90,6 +90,7 @@ public class CommunicationController {
 
         //TODO verwerk input
         gpio.high(pins.get(16));
+        getInput();
     }
 
     public ArrayList<Integer> getInput() {
