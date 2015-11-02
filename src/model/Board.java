@@ -67,6 +67,10 @@ public class Board extends java.util.Observable {
         return result;
     }
 
+    public void setGrid(Map<Position, Piece> grid) {
+        this.grid = grid;
+    }
+
     public void move(Move move) {
         Position oldPosition = move.getOldPos();
         Piece piece = grid.get(oldPosition);

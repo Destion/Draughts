@@ -41,17 +41,17 @@ public class GameController implements ActionListener, MouseListener {
     public void run() {
         while (1 < 2) {
             this.setup();
-            view.setButtonText("Play");
-            view.setButtonActive();
-            try {
-                play.acquire();
-                view.setButtonText("Playing...");
-                view.setButtonInactive();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//            view.setButtonText("Play");
+//            view.setButtonActive();
+//            try {
+//                play.acquire();
+//                view.setButtonText("Playing...");
+//                view.setButtonInactive();
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
             this.play();
-            this.displayWinner();
+//            this.displayWinner();
         }
     }
 
@@ -87,7 +87,7 @@ public class GameController implements ActionListener, MouseListener {
     private void move(Player player) {
         if (player instanceof HumanPlayer) {
             mouseCount = 0;
-//            ((HumanPlayer) player).temporaryTUI(possibleMoves);
+            ((HumanPlayer) player).temporaryTUI(possibleMoves);
             try {
                 needsInput.acquire();
             } catch (InterruptedException e) {

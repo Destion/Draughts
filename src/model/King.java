@@ -95,7 +95,7 @@ public class King implements Piece {
             Position captured = this.getCapturedPosition(currentPosition, board, x, y);
             int options = this.numberOfFreeSpots(captured, board, x, y);
             for (int i = 1; i <= options; i++) {
-                Move move = new Move(currentPosition, null, new ArrayList<Position>(), null);
+                Move move = new Move(currentPosition, null, null, null);
                 move.addCaptured(captured);
                 Position option1 = new Position(captured.getX() + (i * x), captured.getY() + (i * y));
                 if (this.canCapture(option1, move.getCaptured(), board)) {
