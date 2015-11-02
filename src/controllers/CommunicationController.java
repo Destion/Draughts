@@ -107,6 +107,7 @@ public class CommunicationController {
 
             while (!gpio.isHigh(pins.get(15))){
                 if (gpio.isHigh(pins.get(15))){
+                    System.out.println("Break");
                     break;
                 }
             }
