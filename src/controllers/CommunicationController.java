@@ -112,6 +112,7 @@ public class CommunicationController {
             }
 
             for (int j=0; j<15; j++){
+                System.out.println(gpio.getState(pins.get(j)));
                 if (gpio.isHigh(pins.get(j))){
                     ints.add(1);
                 } else {
