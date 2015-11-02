@@ -146,7 +146,6 @@ public class CommunicationController {
         }
 
         System.out.println(temp);
-        System.out.println(temp.length());
 
         return ints;
     }
