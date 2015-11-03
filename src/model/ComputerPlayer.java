@@ -1,5 +1,6 @@
 package model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Semaphore;
@@ -15,17 +16,27 @@ public class ComputerPlayer extends Player {
 
     @Override
     public Move determineMove(Board board, List<Move> possibleMoves) {
+        List<Move> moves = new ArrayList<>();
+        for (Move possibleMove : possibleMoves) {
+            Board newBoard = new Board();
+            newBoard.setGrid(board.deepCopy());
+            this.move(possibleMove, newBoard);
+            List<Move> nextMoves = newBoard.generatePossibleMoves(this.getColour().other());
+            if (nextMoves != null && nextMoves.size() > 0 && nextMoves.get(0).getCaptured() != null && nextMoves.get(0).getCaptured().size() > 0) {
+                moves.add(possibleMove);
+            }
+        }
+        if (possibleMoves.size() > moves.size()) {
+            possibleMoves.removeAll(moves);
+        }
+
         int choice = (int) Math.floor(Math.random() * (possibleMoves.size()));
         Move move = possibleMoves.get(choice);
 
         return move;
     }
 
-    public Move minMax(Board board, List<Move> possibleMoves) {
 
-
-        return null;
-    }
 
 
     public void move(Move move, Board board) {
