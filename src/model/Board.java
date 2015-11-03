@@ -282,6 +282,9 @@ public class Board extends java.util.Observable {
                 if ((tempPiece != null) && (tempPos != null)) {
                     res.put(tempPos, tempPiece);
                 }
+                ints.remove(j+2);
+                ints.remove(j+1);
+                ints.remove(j);
             }
         }
         return res;
