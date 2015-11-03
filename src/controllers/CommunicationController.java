@@ -50,7 +50,7 @@ public class CommunicationController {
         pins.add(pin16);
     }
 
-    public ArrayList<Integer> sendBytes(ArrayList<Integer> bytes) {
+    public int sendBytes(ArrayList<Integer> bytes) {
 
         long time = System.currentTimeMillis();
         System.out.println(time);
@@ -130,7 +130,7 @@ public class CommunicationController {
         return this.getInput();
     }
 
-    public ArrayList<Integer> getInput() {
+    public int getInput() {
 
         for (int x=0; x<=15; x++){
             pins.get(x).setMode(PinMode.DIGITAL_INPUT);
@@ -138,62 +138,19 @@ public class CommunicationController {
             System.out.println("Pin nummer: " + x + "met modus" + pins.get(x).getMode() + " met waarde: " + pins.get(x).isHigh());
         }
 
-        ArrayList<Integer> ints = new ArrayList<>();
-        int[] ints1 = new int[150];
-        boolean wasLow = false;
-
-        for(int i=0; i<10; i++){
-
-            while (!wasLow){
-                while (!gpio.isHigh(pins.get(15))){
-                    wasLow = true;
-                    try {
-                        Thread.sleep(1);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-
-            for (int j=0; j<15; j++){
-                if (gpio.isHigh(pins.get(j))){
-                    ints.add(1);
-                    ints1[i*10+j] = 1;
-                    System.out.println(ints.size());
-
-                } else {
-                    ints.add(0);
-                    ints1[i*10+j] = 0;
-                    System.out.println(ints.size());
-                }
-            }
-            wasLow = false;
-
-            String temporary = "";
-
-            for (int z : ints){
-                temporary += z;
-            }
-            System.out.println(Arrays.toString(ints1));
-            System.out.println(temporary);
-        }
-
         String temp = "";
 
-        for (Integer i : ints){
-            temp += i;
+        for (int i=0; i<15; i++){
+            if (pins.get(i).isHigh()){
+                temp += "1";
+            } else {
+                temp += "0";
+            }
         }
-
 
         System.out.println(temp);
 
-        System.out.println(Arrays.toString(ints1));
-
-        System.out.println(ints.size());
-
-        gpio.high(pins.get(16));
-
-        return ints;
+        return (Integer.parseInt(temp));
     }
 }
 
