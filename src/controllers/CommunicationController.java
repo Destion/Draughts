@@ -105,6 +105,7 @@ public class CommunicationController {
         for (int x=0; x<=15; x++){
             pins.get(x).setMode(PinMode.DIGITAL_INPUT);
             pins.get(x).setPullResistance(PinPullResistance.PULL_UP);
+            System.out.println("Pin nummer: " + x + " met waarde: " + pins.get(x).isHigh());
         }
 
         ArrayList<Integer> ints = new ArrayList<>();
