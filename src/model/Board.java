@@ -236,9 +236,9 @@ public class Board extends java.util.Observable {
 
             for (int j=0; j<15; j+=3){
                 String temp = "";
-                temp += ints.get(j);
-                temp += ints.get(j+1);
-                temp += ints.get(j+2);
+                temp += ints.get(0);
+                temp += ints.get(1);
+                temp += ints.get(2);
 
                 Piece tempPiece = null;
                 Position tempPos = null;
@@ -282,9 +282,9 @@ public class Board extends java.util.Observable {
                 if ((tempPiece != null) && (tempPos != null)) {
                     res.put(tempPos, tempPiece);
                 }
-                ints.remove(j+2);
-                ints.remove(j+1);
-                ints.remove(j);
+                ints.remove(2);
+                ints.remove(1);
+                ints.remove(0);
             }
         }
         return res;
