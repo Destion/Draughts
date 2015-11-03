@@ -141,6 +141,15 @@ public class CommunicationController {
         String temp = "";
 
         for (int i=0; i<15; i++){
+            if (i==0 && pins.get(i).isHigh()){
+                for(int x=0;x<16;x++) {
+                    temp += "1";
+                }
+            } else if (i==0){
+                for(int x=0;x<16;x++) {
+                    temp += "0";
+                }
+            }
             if (pins.get(i).isHigh()){
                 temp += "1";
             } else {
@@ -150,7 +159,7 @@ public class CommunicationController {
 
         System.out.println(temp);
 
-        return (Integer.parseInt(temp));
+        return Integer.parseInt(temp);
     }
 }
 
