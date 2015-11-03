@@ -139,7 +139,7 @@ public class CommunicationController {
 
         ArrayList<Integer> ints = new ArrayList<>();
 
-        boolean wasLow = true;
+        boolean wasLow = false;
 
         for(int i=0; i<10; i++){
 
