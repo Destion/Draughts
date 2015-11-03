@@ -139,15 +139,9 @@ public class CommunicationController {
 
         ArrayList<Integer> ints = new ArrayList<>();
 
-        boolean wasLow = true;
+        boolean wasLow = false;
 
         for(int i=0; i<10; i++){
-
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
 
             while (!wasLow){
                 while (!gpio.isHigh(pins.get(15))){
