@@ -95,9 +95,9 @@ public class CommunicationController {
 
     public ArrayList<Integer> getInput() {
 
-        for (GpioPinDigitalMultipurpose pin : pins) {
-            pin.setMode(PinMode.DIGITAL_INPUT);
-            pin.setPullResistance(PinPullResistance.PULL_DOWN);
+        for (int x=0; x<=15; x++){
+            pins.get(x).setMode(PinMode.DIGITAL_INPUT);
+            pins.get(x).setPullResistance(PinPullResistance.PULL_UP);
         }
 
         ArrayList<Integer> ints = new ArrayList<>();
