@@ -108,6 +108,8 @@ public class CommunicationController {
                 } else {
                     gpio.low(pins.get(j - 2));
                 }
+
+                System.out.println(bit1 + " " + bit2 + " " + bit3);
             }
             gpio.high(pins.get(15));
             try {
