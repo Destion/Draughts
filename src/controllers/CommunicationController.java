@@ -129,7 +129,10 @@ public class CommunicationController {
             temp += i;
         }
 
+
         System.out.println(temp);
+
+        System.out.println(ints.size());
 
         return ints;
     }
