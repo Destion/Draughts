@@ -105,13 +105,13 @@ public class CommunicationController {
 
         for(int i=0; i<10; i++){
 
-            while (!gpio.isHigh(pins.get(15))){
-                try {
-                    Thread.sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
+//            while (!gpio.isHigh(pins.get(15))){
+//                try {
+//                    Thread.sleep(1);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
 
             for (int j=0; j<15; j++){
                 System.out.println(gpio.getState(pins.get(j)));
