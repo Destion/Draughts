@@ -62,7 +62,11 @@ public class CommunicationController {
         String temp2 = "";
 
         for (Integer x : bytes){
-            temp2 += x;
+            if (x == 0){
+                temp2 += "000";
+            } else {
+                temp2 += x;
+            }
         }
 
         System.out.println(temp2);
@@ -82,6 +86,13 @@ public class CommunicationController {
                 int bit2 = (temp % 100) / 10;
                 int bit3 = temp % 10;
 
+                if (temp == 0){
+                    bit1 = 0;
+                    bit2 = 0;
+                    bit3 = 0;
+                }
+
+
                 if (bit1 == 1) {
                     gpio.high(pins.get(j));
                 } else {
@@ -99,6 +110,11 @@ public class CommunicationController {
                 }
             }
             gpio.high(pins.get(15));
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             gpio.low(pins.get(15));
         }
 
