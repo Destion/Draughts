@@ -106,7 +106,7 @@ public class CommunicationController {
 
             while (!gpio.isHigh(pins.get(15))){
                 try {
-                    Thread.sleep(1);
+                    Thread.sleep(20);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
