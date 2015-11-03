@@ -159,7 +159,7 @@ public class CommunicationController {
 
         System.out.println(temp);
 
-        return Integer.parseInt(temp);
+        return Integer.parseInt(temp, 2);
     }
 }
 
