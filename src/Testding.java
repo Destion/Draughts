@@ -8,7 +8,7 @@ public class Testding {
         board.initializeBoard();
         board.printBoard();
         CommunicationController cc = new CommunicationController();
-        board.setGrid(board.bytetoMap(cc.sendBytes(BoardToByte.convertToInteger(board.getGrid()))));
+        cc.sendBytes(BoardToByte.convertToInteger(board.getGrid()));
         board.printBoard();
     }
 }
