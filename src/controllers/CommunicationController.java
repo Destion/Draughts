@@ -138,7 +138,7 @@ public class CommunicationController {
         }
 
         ArrayList<Integer> ints = new ArrayList<>();
-
+        int[] ints1 = new int[150];
         boolean wasLow = false;
 
         for(int i=0; i<10; i++){
@@ -157,9 +157,12 @@ public class CommunicationController {
             for (int j=0; j<15; j++){
                 if (gpio.isHigh(pins.get(j))){
                     ints.add(1);
+                    ints1[i*10+j] = 1;
                     System.out.println(ints.size());
+
                 } else {
                     ints.add(0);
+                    ints1[i*10+j] = 0;
                     System.out.println(ints.size());
                 }
             }
@@ -182,6 +185,8 @@ public class CommunicationController {
 
 
         System.out.println(temp);
+
+        System.out.println(ints1.toString());
 
         System.out.println(ints.size());
 
