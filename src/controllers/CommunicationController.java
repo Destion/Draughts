@@ -61,6 +61,13 @@ public class CommunicationController {
 
         for (int i = 0; i < 10; i++) {
             for (int j = 14; j >= 0; j -= 3) {
+
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
                 int temp = bytes.get(0);
 
                 int bit1 = temp / 100;
