@@ -143,6 +143,12 @@ public class CommunicationController {
 
         for(int i=0; i<10; i++){
 
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             while (!wasLow){
                 while (!gpio.isHigh(pins.get(15))){
                     wasLow = true;
