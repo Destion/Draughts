@@ -232,7 +232,7 @@ public class Board extends java.util.Observable {
 
         HashMap<Position, Piece> res = new HashMap<>();
 
-        for (int i=0; i<10; i++){
+        for (int i=10; i>0; i--){
 
             for (int j=0; j<15; j+=3){
                 String temp = "";
