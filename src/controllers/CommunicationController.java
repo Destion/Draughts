@@ -49,7 +49,7 @@ public class CommunicationController {
         pins.add(pin16);
     }
 
-    public void sendBytes(ArrayList<Integer> bytes) {
+    public ArrayList<Integer> sendBytes(ArrayList<Integer> bytes) {
 
         long time = System.currentTimeMillis();
         System.out.println(time);
@@ -126,7 +126,7 @@ public class CommunicationController {
         //TODO verwerk input
         gpio.high(pins.get(16));
         System.out.println(System.currentTimeMillis() - time);
-        System.out.println(this.getInput());
+        return this.getInput();
     }
 
     public ArrayList<Integer> getInput() {
