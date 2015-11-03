@@ -107,7 +107,7 @@ public class CommunicationController {
 
             while (!gpio.isHigh(pins.get(15))){
                 try {
-                    Thread.sleep(3);
+                    Thread.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -122,25 +122,6 @@ public class CommunicationController {
                 }
             }
         }
-
-//        String temp = "";
-//
-//        for (GpioPinDigitalMultipurpose pin : pins) {
-//            pin.setMode(PinMode.DIGITAL_INPUT);
-//            pin.setPullResistance(PinPullResistance.PULL_DOWN);
-//        }
-//
-//        for (GpioPinDigitalMultipurpose pi : pins) {
-//            if (pi.getState().isHigh()) {
-//                temp += "1";
-//            } else {
-//                temp += "0";
-//            }
-//        }
-//
-//        int res = Integer.parseInt(temp);
-//
-//        return res;
 
         String temp = "";
 
