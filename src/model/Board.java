@@ -228,6 +228,65 @@ public class Board extends java.util.Observable {
 
     }
 
+    public HashMap<Position, Piece> bytetoMap(ArrayList<Integer> ints){
+
+        HashMap<Position, Piece> res = new HashMap<>();
+
+        for (int i=0; i<10; i++){
+
+            for (int j=0; j<15; j+=3){
+                String temp = "";
+                temp += ints.get(j);
+                temp += ints.get(j+1);
+                temp += ints.get(j+2);
+
+                Piece tempPiece = null;
+                Position tempPos = null;
+
+                if (!temp.equals("000")){
+                    if (temp.equals("001")){
+                        tempPiece = new Man(Colour.BLACK);
+                    } else if (temp.equals("011")){
+                        tempPiece = new Man(Colour.WHITE);
+                    } else if (temp.equals("101")){
+                        tempPiece = new King(Colour.BLACK);
+                    } else if (temp.equals("111")){
+                        tempPiece = new King(Colour.WHITE);
+                    }
+                }
+                if (i%2 == 0){
+                    if (j>=0 && j<=2){
+                        tempPos = new Position(2, i);
+                    } else if (j>=3 && j<=5) {
+                        tempPos = new Position(4, i);
+                    } else if (j>=6 && j<=8) {
+                        tempPos = new Position(6, i);
+                    } else if (j>=8 && j<=11) {
+                        tempPos = new Position(8, i);
+                    } else if (j>=12 && j<=14) {
+                        tempPos = new Position(10, i);
+                    }
+                } else {
+                    if (j>=0 && j<=2){
+                        tempPos = new Position(1, i);
+                    } else if (j>=3 && j<=5) {
+                        tempPos = new Position(3, i);
+                    } else if (j>=6 && j<=8) {
+                        tempPos = new Position(5, i);
+                    } else if (j>=8 && j<=11){
+                        tempPos = new Position(7, i);
+                    } else if (j>=12 && j<=14) {
+                        tempPos = new Position(9, i);
+                    }
+                }
+                if ((tempPiece != null) && (tempPos != null)) {
+                    res.put(tempPos, tempPiece);
+                }
+            }
+        }
+        return res;
+    }
+
 
     // does not work this way
     // a10 b10 c10 d10 e10 f10 g10 h10 i10

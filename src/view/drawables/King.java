@@ -26,7 +26,7 @@ public class King implements Drawable {
         } else {
             g.setColor(new Color(150, 0, 0));
         }
-        g.fillOval(x + 10, y + 10, 30, 30);
+        g.fillOval(x + 10, y + 10, 60, 60);
     }
 
     @Override

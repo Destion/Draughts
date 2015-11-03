@@ -2,7 +2,6 @@ package controllers;
 
 
 import com.pi4j.io.gpio.*;
-import com.pi4j.wiringpi.Gpio;
 
 import java.util.ArrayList;
 
@@ -60,13 +59,41 @@ public class CommunicationController {
             gpio.low(pin);
         }
 
+        String temp2 = "";
+
+        for (Integer x : bytes){
+            if (x == 0){
+                temp2 += "000";
+            } else {
+                temp2 += x;
+            }
+        }
+
+        System.out.println(temp2);
+        int count = 0;
+
         for (int i = 0; i < 10; i++) {
             for (int j = 14; j >= 0; j -= 3) {
+
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+
                 int temp = bytes.get(0);
+                bytes.remove(0);
 
                 int bit1 = temp / 100;
                 int bit2 = (temp % 100) / 10;
                 int bit3 = temp % 10;
+
+                if (temp == 0){
+                    bit1 = 0;
+                    bit2 = 0;
+                    bit3 = 0;
+                }
+
 
                 if (bit1 == 1) {
                     gpio.high(pins.get(j));
@@ -83,8 +110,16 @@ public class CommunicationController {
                 } else {
                     gpio.low(pins.get(j - 2));
                 }
+                count++;
+                System.out.println(bit1 + " " + bit2 + " " + bit3);
+                System.out.println(count);
             }
             gpio.high(pins.get(15));
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             gpio.low(pins.get(15));
         }
 
@@ -96,51 +131,48 @@ public class CommunicationController {
 
     public ArrayList<Integer> getInput() {
 
-        for (GpioPinDigitalMultipurpose pin : pins) {
-            pin.setMode(PinMode.DIGITAL_INPUT);
-            pin.setPullResistance(PinPullResistance.PULL_DOWN);
+        for (int x=0; x<=15; x++){
+            pins.get(x).setMode(PinMode.DIGITAL_INPUT);
+            pins.get(x).setPullResistance(PinPullResistance.PULL_DOWN);
+            System.out.println("Pin nummer: " + x + "met modus" + pins.get(x).getMode() + " met waarde: " + pins.get(x).isHigh());
         }
 
         ArrayList<Integer> ints = new ArrayList<>();
 
+        boolean wasLow = true;
+
         for(int i=0; i<10; i++){
 
-            while (!gpio.isHigh(pins.get(15))){
-                try {
-                    Thread.sleep(3);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            while (!wasLow){
+                while (!gpio.isHigh(pins.get(15))){
+                    wasLow = true;
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
             for (int j=0; j<15; j++){
-                System.out.println(gpio.getState(pins.get(j)));
                 if (gpio.isHigh(pins.get(j))){
                     ints.add(1);
+                    System.out.println(ints.size());
                 } else {
                     ints.add(0);
+                    System.out.println(ints.size());
                 }
             }
-        }
+            wasLow = false;
 
-//        String temp = "";
-//
-//        for (GpioPinDigitalMultipurpose pin : pins) {
-//            pin.setMode(PinMode.DIGITAL_INPUT);
-//            pin.setPullResistance(PinPullResistance.PULL_DOWN);
-//        }
-//
-//        for (GpioPinDigitalMultipurpose pi : pins) {
-//            if (pi.getState().isHigh()) {
-//                temp += "1";
-//            } else {
-//                temp += "0";
-//            }
-//        }
-//
-//        int res = Integer.parseInt(temp);
-//
-//        return res;
+            String temporary = "";
+
+            for (int z : ints){
+                temporary += z;
+            }
+
+            System.out.println(temporary);
+        }
 
         String temp = "";
 
@@ -148,7 +180,12 @@ public class CommunicationController {
             temp += i;
         }
 
+
         System.out.println(temp);
+
+        System.out.println(ints.size());
+
+        gpio.high(pins.get(16));
 
         return ints;
     }
