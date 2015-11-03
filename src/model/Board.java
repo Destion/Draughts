@@ -256,27 +256,27 @@ public class Board extends java.util.Observable {
                 }
                 if (i%2 == 0){
                     if (j>=0 && j<=2){
-                        tempPos = new Position(2, i+1);
+                        tempPos = new Position(2, i);
                     } else if (j>=3 && j<=5) {
-                        tempPos = new Position(4, i+1);
+                        tempPos = new Position(4, i);
                     } else if (j>=6 && j<=8) {
-                        tempPos = new Position(6, i+1);
+                        tempPos = new Position(6, i);
                     } else if (j>=8 && j<=11) {
-                        tempPos = new Position(8, i+1);
+                        tempPos = new Position(8, i);
                     } else if (j>=12 && j<=14) {
-                        tempPos = new Position(10, i+1);
+                        tempPos = new Position(10, i);
                     }
                 } else {
                     if (j>=0 && j<=2){
-                        tempPos = new Position(1, i+1);
+                        tempPos = new Position(1, i);
                     } else if (j>=3 && j<=5) {
-                        tempPos = new Position(3, i+1);
+                        tempPos = new Position(3, i);
                     } else if (j>=6 && j<=8) {
-                        tempPos = new Position(5, i+1);
+                        tempPos = new Position(5, i);
                     } else if (j>=8 && j<=11){
-                        tempPos = new Position(7, i+1);
+                        tempPos = new Position(7, i);
                     } else if (j>=12 && j<=14) {
-                        tempPos = new Position(9, i+1);
+                        tempPos = new Position(9, i);
                     }
                 }
                 if ((tempPiece != null) && (tempPos != null)) {
