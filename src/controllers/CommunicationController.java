@@ -173,7 +173,7 @@ public class CommunicationController {
             for (int z : ints){
                 temporary += z;
             }
-
+            System.out.println(ints1.toString());
             System.out.println(temporary);
         }
 
