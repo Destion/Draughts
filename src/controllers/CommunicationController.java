@@ -159,6 +159,14 @@ public class CommunicationController {
                 }
             }
             wasLow = false;
+
+            String temporary = "";
+
+            for (int z : ints){
+                temporary += z;
+            }
+
+            System.out.println(temporary);
         }
 
         String temp = "";
