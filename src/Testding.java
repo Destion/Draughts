@@ -7,6 +7,6 @@ public class Testding {
         Board board = new Board();
         board.initializeBoard();
         CommunicationController cc = new CommunicationController();
-        cc.sendBytes(BoardToByte.convertToBytes(board.getGrid()));
+        cc.sendBytes(BoardToByte.convertToInteger(board.getGrid()));
     }
 }

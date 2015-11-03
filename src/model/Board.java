@@ -208,6 +208,26 @@ public class Board extends java.util.Observable {
         return this.hasWinner() || this.draw();
     }
 
+    public void printBoard() {
+
+        for (int j = Board.BOARDSIZE; j >= 1; j--) {
+
+            String s = j + ". ";
+            s = (j < 10) ? s + " " : s;
+            for (int i = 1; i <= Board.BOARDSIZE; i++) {
+                if (grid.containsKey(new Position(i, j))) {
+                    s = s + grid.get(new Position(i, j)).getColour().toString() + grid.get(new Position(i, j)).toString() + " | ";
+                } else {
+                    s = s + "   | ";
+                }
+            }
+            System.out.println(s);
+            System.out.println("----------------------------------------------------");
+        }
+        System.out.println("    a  | b  | c  | d  | e  | f  | g  | h  | i  | j");
+
+    }
+
 
     // does not work this way
     // a10 b10 c10 d10 e10 f10 g10 h10 i10
