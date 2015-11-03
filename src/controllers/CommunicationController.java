@@ -113,11 +113,12 @@ public class CommunicationController {
             }
 
             for (int j=0; j<15; j++){
-                System.out.println(gpio.getState(pins.get(j)));
                 if (gpio.isHigh(pins.get(j))){
                     ints.add(1);
+                    System.out.println(ints.size());
                 } else {
                     ints.add(0);
+                    System.out.println(ints.size());
                 }
             }
         }
@@ -132,6 +133,8 @@ public class CommunicationController {
         System.out.println(temp);
 
         System.out.println(ints.size());
+
+        gpio.high(pins.get(16));
 
         return ints;
     }
