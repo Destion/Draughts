@@ -82,6 +82,7 @@ public class CommunicationController {
                 }
 
                 int temp = bytes.get(0);
+                bytes.remove(0);
 
                 int bit1 = temp / 100;
                 int bit2 = (temp % 100) / 10;
