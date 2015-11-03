@@ -134,14 +134,18 @@ public class CommunicationController {
 
         ArrayList<Integer> ints = new ArrayList<>();
 
+        boolean wasLow = true;
+
         for(int i=0; i<10; i++){
 
-            while (!gpio.isHigh(pins.get(15))){
-                try {
-                    System.out.println("Sleep");
-                    Thread.sleep(200);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
+            while (!wasLow){
+                while (!gpio.isHigh(pins.get(15))){
+                    wasLow = true;
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
 
@@ -154,6 +158,7 @@ public class CommunicationController {
                     System.out.println(ints.size());
                 }
             }
+            wasLow = false;
         }
 
         String temp = "";
