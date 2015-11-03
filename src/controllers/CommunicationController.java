@@ -70,6 +70,7 @@ public class CommunicationController {
         }
 
         System.out.println(temp2);
+        int count = 0;
 
         for (int i = 0; i < 10; i++) {
             for (int j = 14; j >= 0; j -= 3) {
@@ -108,8 +109,9 @@ public class CommunicationController {
                 } else {
                     gpio.low(pins.get(j - 2));
                 }
-
+                count++;
                 System.out.println(bit1 + " " + bit2 + " " + bit3);
+                System.out.println(count);
             }
             gpio.high(pins.get(15));
             try {
