@@ -180,7 +180,6 @@ public class GameController implements ActionListener, MouseListener {
             }
             if (wrongMove) {
                 mouseCount--;
-//                display message
                 view.displayMessage("Wrong move " + newPosition + ", try again!");
                 if (log != null) {
                     log.addMessage("Invalid move to: " + newPosition + ".");
