@@ -59,6 +59,14 @@ public class CommunicationController {
             gpio.low(pin);
         }
 
+        String temp2 = "";
+
+        for (Integer x : bytes){
+            temp2 += x;
+        }
+
+        System.out.println(temp2);
+
         for (int i = 0; i < 10; i++) {
             for (int j = 14; j >= 0; j -= 3) {
 
