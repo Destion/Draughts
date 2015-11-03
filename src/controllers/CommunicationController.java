@@ -142,11 +142,11 @@ public class CommunicationController {
 
         for (int i=0; i<15; i++){
             if (i==0 && pins.get(i).isHigh()){
-                for(int x=0;x<16;x++) {
+                for(int x=0;x<17;x++) {
                     temp += "1";
                 }
             } else if (i==0){
-                for(int x=0;x<16;x++) {
+                for(int x=0;x<17;x++) {
                     temp += "0";
                 }
             }
