@@ -76,7 +76,7 @@ public class CommunicationController {
             for (int j = 14; j >= 0; j -= 3) {
 
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(10);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
