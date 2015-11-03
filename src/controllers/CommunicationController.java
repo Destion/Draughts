@@ -141,7 +141,7 @@ public class CommunicationController {
 
         boolean wasLow = false;
 
-        for(int i=0; i<=10; i++){
+        for(int i=0; i<10; i++){
 
             while (!wasLow){
                 while (!gpio.isHigh(pins.get(15))){
