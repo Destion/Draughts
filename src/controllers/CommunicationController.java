@@ -123,6 +123,25 @@ public class CommunicationController {
             }
         }
 
+//        String temp = "";
+//
+//        for (GpioPinDigitalMultipurpose pin : pins) {
+//            pin.setMode(PinMode.DIGITAL_INPUT);
+//            pin.setPullResistance(PinPullResistance.PULL_DOWN);
+//        }
+//
+//        for (GpioPinDigitalMultipurpose pi : pins) {
+//            if (pi.getState().isHigh()) {
+//                temp += "1";
+//            } else {
+//                temp += "0";
+//            }
+//        }
+//
+//        int res = Integer.parseInt(temp);
+//
+//        return res;
+
         String temp = "";
 
         for (Integer i : ints){
