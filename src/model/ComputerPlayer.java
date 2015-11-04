@@ -1,5 +1,7 @@
 package model;
 
+import controllers.CommunicationController;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -30,10 +32,25 @@ public class ComputerPlayer extends Player {
             possibleMoves.removeAll(moves);
         }
 
+        Move FPGAMove = null;
+        int bestScore = 0;
+        for (Move possibleMove : possibleMoves) {
+            Board newBoard = new Board();
+            newBoard.setGrid(board.deepCopy());
+            this.move(possibleMove, board);
+            CommunicationController communicationController = new CommunicationController();
+            communicationController.sendBytes(BoardToByte.convertToInteger(newBoard.getGrid()));
+            int score = communicationController.getInput();
+            if (score > bestScore) {
+                bestScore = score;
+                FPGAMove = possibleMove;
+
+            }
+        }
         int choice = (int) Math.floor(Math.random() * (possibleMoves.size()));
         Move move = possibleMoves.get(choice);
 
-        return move;
+        return FPGAMove != null ? FPGAMove : move;
     }
 
 
@@ -65,5 +82,38 @@ public class ComputerPlayer extends Player {
             board.promotePiece(move.getNewPos(), piece);
         }
 
+    }
+
+    public static Move generateMove(Map<Position, Piece> oldBoard, Map<Position, Piece> newBoard, Colour colour) {
+        List<Position> difference = new ArrayList<>();
+        List<Position> captured = new ArrayList<>();
+
+        for (Position position : oldBoard.keySet()) {
+            if (oldBoard.get(position).getColour() == colour && !newBoard.containsKey(position)) {
+                difference.add(position);
+            }
+
+        }
+
+        for (Position position : newBoard.keySet()) {
+            if (newBoard.get(position).getColour() == colour && !oldBoard.containsKey(position)) {
+                difference.add(position);
+            }
+        }
+
+        for (Position position : oldBoard.keySet()) {
+            if (oldBoard.get(position).getColour() == colour.other() && !newBoard.containsKey(position)) {
+                captured.add(position);
+            }
+
+        }
+
+        Move move = null;
+        if (difference.size() >= 2) {
+            move = new Move(difference.get(0), difference.get(1), null, captured);
+        }
+
+
+        return move;
     }
 }
