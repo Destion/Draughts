@@ -28,9 +28,10 @@ public class BoardView extends JPanel implements Observer {
         super(null);
         this.window = new JFrame("Draughts");
 
-        window.setSize(1280, 720);
+        window.setSize(1920, 1080);
         window.setResizable(false);
         window.setUndecorated(true);
+        window.setLocationRelativeTo(null);
 
         try {
             for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
@@ -51,8 +52,8 @@ public class BoardView extends JPanel implements Observer {
         topLabel.setFont(new Font("Helvetica Neue", Font.BOLD, 14));
         button = new JButton("Play");
         JButton closebutton = new JButton("Exit");
-        button.setBounds(1000, 85, 100, 50);
-        closebutton.setBounds(1110, 85, 100, 50);
+        button.setBounds(1440, 85, 100, 50);
+        closebutton.setBounds(1540, 85, 100, 50);
         closebutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -63,7 +64,7 @@ public class BoardView extends JPanel implements Observer {
         this.add(topLabel);
         this.add(button);
         this.add(closebutton);
-        topLabel.setBounds(340, 0, 600, 50);
+        topLabel.setBounds(360, 0, 1000, 50);
         window.getContentPane().add(this);
 
 
@@ -106,8 +107,8 @@ public class BoardView extends JPanel implements Observer {
         }
 
         for (int i = 0; i < 100; i++) {
-            int x = 340 + ((i % 10) * 60);
-            int y = 60 + ((i / 10) * 60);
+            int x = 360 + ((i % 10) * 100);
+            int y = 40 + ((i / 10) * 100);
 
             this.boardQueue.add(new Square(x, y, colors.get(0)));
 
@@ -121,8 +122,8 @@ public class BoardView extends JPanel implements Observer {
             int x = pos.getX();
             int y = pos.getY();
 
-            int screenx = (340 + 5 + 60 * x) - 60;
-            int screeny = 600 - ((60 + 5 + 60 * y) - 130);
+            int screenx = (360 + 10 + 100 * x) - 100;
+            int screeny = 1000 - ((80 + 100 * y) - 130);
 
             boolean whiteMan = false;
             boolean blackMan = false;
