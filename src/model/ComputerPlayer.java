@@ -39,8 +39,7 @@ public class ComputerPlayer extends Player {
             newBoard.setGrid(board.deepCopy());
             this.move(possibleMove, board);
             CommunicationController communicationController = new CommunicationController();
-            communicationController.sendBytes(BoardToByte.convertToInteger(newBoard.getGrid()));
-            int score = communicationController.getInput();
+            int score = communicationController.sendBytes(BoardToByte.convertToInteger(newBoard.getGrid()));
             if (score > bestScore) {
                 bestScore = score;
                 FPGAMove = possibleMove;
