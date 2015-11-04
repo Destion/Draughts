@@ -23,6 +23,7 @@ public class BoardView extends JPanel implements Observer {
     private Map<Position, model.Piece> grid;
     private JLabel topLabel;
     private JButton button;
+    private JTextField explain;
 
     public BoardView() {
         super(null);
@@ -44,6 +45,16 @@ public class BoardView extends JPanel implements Observer {
             e.printStackTrace();
         }
 
+        explain = new JTextField();
+        explain.setSize(300, 300);
+        explain.setLocation(1440, 390);
+        explain.setText("How to play: \n" +
+                "1) Click on the red piece you want to move.\n" +
+                "2) Click on the space you want to move to.\n" +
+                "Notes: \n" +
+                "- You have to capture as many times as possible.\n" +
+                "- You have to lose to the AI because it is superior.");
+
         this.boardQueue = new ArrayList<>();
         this.drawQueue = new ArrayList<>();
 
@@ -64,6 +75,7 @@ public class BoardView extends JPanel implements Observer {
         this.add(topLabel);
         this.add(button);
         this.add(closebutton);
+        this.add(explain);
         topLabel.setBounds(360, 0, 1000, 50);
         window.getContentPane().add(this);
 
