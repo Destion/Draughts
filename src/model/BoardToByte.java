@@ -64,7 +64,6 @@ public class BoardToByte {
                 }
             }
         }
-        System.out.println(array.size());
         return array;
     }
 

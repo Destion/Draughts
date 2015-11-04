@@ -52,8 +52,7 @@ public class CommunicationController {
 
     public int sendBytes(ArrayList<Integer> bytes) {
 
-        long time = System.currentTimeMillis();
-        System.out.println(time);
+
 
         for (GpioPinDigitalMultipurpose pin : pins) {
             pin.setMode(PinMode.DIGITAL_OUTPUT);
@@ -70,14 +69,13 @@ public class CommunicationController {
             }
         }
 
-        System.out.println(temp2);
         int count = 0;
 
         for (int i = 0; i < 10; i++) {
             for (int j = 14; j >= 0; j -= 3) {
 
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(1);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -112,12 +110,10 @@ public class CommunicationController {
                     gpio.low(pins.get(j - 2));
                 }
                 count++;
-                System.out.println(bit1 + " " + bit2 + " " + bit3);
-                System.out.println(count);
             }
             gpio.high(pins.get(15));
             try {
-                Thread.sleep(100);
+                Thread.sleep(1);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -126,16 +122,16 @@ public class CommunicationController {
 
         //TODO verwerk input
         gpio.high(pins.get(16));
-        System.out.println(System.currentTimeMillis() - time);
         return this.getInput();
     }
 
     public int getInput() {
 
+        long time = System.currentTimeMillis();
+
         for (int x=0; x<=15; x++){
             pins.get(x).setMode(PinMode.DIGITAL_INPUT);
             pins.get(x).setPullResistance(PinPullResistance.PULL_DOWN);
-            System.out.println("Pin nummer: " + x + "met modus" + pins.get(x).getMode() + " met waarde: " + pins.get(x).isHigh());
         }
 
         String temp = "";

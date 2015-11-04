@@ -137,8 +137,8 @@ public class GameController implements ActionListener, MouseListener {
         if (mouseCount == 0 && possibleMoves != null) {
             int mouseX = MouseInfo.getPointerInfo().getLocation().x;
             int mouseY = MouseInfo.getPointerInfo().getLocation().y;
-            int x = 1 + ((mouseX - 340) / 60);
-            int y = 10 - ((mouseY - 85) / 60);
+            int x = 1 + ((mouseX - 360) / 100);
+            int y = 10 - ((mouseY - 40) / 100);
             Position oldPosition = new Position(x, y);
             view.displayMessage("Old Position: " + oldPosition);
             if (log != null) {
@@ -162,8 +162,8 @@ public class GameController implements ActionListener, MouseListener {
         } else if (mouseCount == 1 && possibleMoves != null) {
             int mouseX = MouseInfo.getPointerInfo().getLocation().x;
             int mouseY = MouseInfo.getPointerInfo().getLocation().y;
-            int x = 1 + ((mouseX - 340) / 60);
-            int y = 10 - ((mouseY - 85) / 60);
+            int x = 1 + ((mouseX - 360) / 100);
+            int y = 10 - ((mouseY - 40) / 100);
             Position newPosition = new Position(x, y);
             view.displayMessage("New Position: " + newPosition);
             if (log != null) {
