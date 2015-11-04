@@ -3,6 +3,7 @@ package controllers;
 
 import com.pi4j.io.gpio.*;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 
 public class CommunicationController {
@@ -156,16 +157,8 @@ public class CommunicationController {
             }
         }
 
-        System.out.println(temp);
-        int negative;
-        if (temp.charAt(0) == '1') {
-            negative = Integer.MIN_VALUE;
-            temp = temp.substring(1);
-        } else {
-            negative = 0;
-            temp = temp.substring(1);
-        }
-        int result = negative + Integer.parseInt(temp, 2);
+        int result = new BigInteger(temp, 2).intValue();
+
         return result;
     }
 }
