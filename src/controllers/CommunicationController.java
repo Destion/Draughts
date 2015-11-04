@@ -4,7 +4,6 @@ package controllers;
 import com.pi4j.io.gpio.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class CommunicationController {
 
@@ -158,8 +157,16 @@ public class CommunicationController {
         }
 
         System.out.println(temp);
-
-        return Integer.parseInt(temp, 2);
+        int negative;
+        if (temp.charAt(0) == '1') {
+            negative = Integer.MIN_VALUE;
+            temp = temp.substring(1);
+        } else {
+            negative = 0;
+            temp = temp.substring(1);
+        }
+        int result = negative + Integer.parseInt(temp, 2);
+        return result;
     }
 }
 
