@@ -35,7 +35,7 @@ public class ComputerPlayer extends Player {
         }
 
         Move FPGAMove = null;
-        int bestScore = 0;
+        int bestScore = Integer.MIN_VALUE;
         for (Move possibleMove : possibleMoves) {
             Board newBoard = new Board();
             newBoard.setGrid(board.deepCopy());
