@@ -10,10 +10,12 @@ import java.util.concurrent.Semaphore;
 
 public class ComputerPlayer extends Player {
     private Semaphore semaphore = new Semaphore(0);
+    CommunicationController communicationController;
 
 
-    public ComputerPlayer(String name, Colour colour) {
+    public ComputerPlayer(String name, Colour colour, CommunicationController communicationController) {
         super(name, colour);
+        this.communicationController = communicationController;
     }
 
     @Override
@@ -38,7 +40,7 @@ public class ComputerPlayer extends Player {
             Board newBoard = new Board();
             newBoard.setGrid(board.deepCopy());
             this.move(possibleMove, newBoard);
-            CommunicationController communicationController = new CommunicationController();
+
             int score = communicationController.sendBytes(BoardToByte.convertToInteger(newBoard.getGrid()));
             if (score > bestScore) {
                 bestScore = score;
