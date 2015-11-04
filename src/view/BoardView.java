@@ -190,7 +190,11 @@ public class BoardView extends JPanel implements Observer {
     }
 
     public void displayWinner(Player player) {
-        JOptionPane.showMessageDialog(this, player.getName() + " is the winner!");
+        if (player.getName().equals("AI")){
+            JOptionPane.showMessageDialog(this, "You have lost!");
+        } else {
+            JOptionPane.showMessageDialog(this, player.getName() + " is the winner!");
+        }
     }
 
     public void draw() {

@@ -127,6 +127,8 @@ public class CommunicationController {
 
     public int getInput() {
 
+        long time = System.currentTimeMillis();
+
         for (int x=0; x<=15; x++){
             pins.get(x).setMode(PinMode.DIGITAL_INPUT);
             pins.get(x).setPullResistance(PinPullResistance.PULL_DOWN);
