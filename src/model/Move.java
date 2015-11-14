@@ -63,4 +63,20 @@ public class Move {
             interPos.add(interPosition);
         }
     }
+
+    @Override
+    public String toString() {
+        String result = "Move ";
+        if (oldPos != null && newPos != null) {
+            result = result + oldPos.toString() + "-";
+            if (interPos != null) {
+                for (Position position : interPos) {
+                    result = result + position.toString() + "-";
+                }
+            }
+            result = result + newPos.toString();
+        }
+        return result;
+    }
+
 }

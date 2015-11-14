@@ -15,6 +15,8 @@ public class Board extends java.util.Observable {
     private Colour winner;
     private int threeKingCounter;
     private int twoKingOneManCounter;
+    private static Map<Position, Integer> heuristics = new HashMap<>();
+
 
     public Map<Position, Piece> getGrid() {
         return grid;
@@ -62,7 +64,11 @@ public class Board extends java.util.Observable {
     public Map<Position, Piece> deepCopy() {
         Map<Position, Piece> result = new HashMap<>();
         for (Position position : grid.keySet()) {
-            result.put(position, grid.get(position));
+            if (grid.get(position) instanceof Man) {
+                result.put(new Position(position.getX(), position.getY()), new Man(grid.get(position).getColour()));
+            } else if (grid.get(position) instanceof King) {
+                result.put(new Position(position.getX(), position.getY()), new King(grid.get(position).getColour()));
+            }
         }
         return result;
     }
@@ -72,6 +78,34 @@ public class Board extends java.util.Observable {
     }
 
     public void move(Move move) {
+        Position oldPosition = move.getOldPos();
+        Piece piece = grid.get(oldPosition);
+
+        grid.put(move.getNewPos(), grid.get(oldPosition));
+        grid.remove(oldPosition);
+        if (move.getCaptured() != null && move.getCaptured().size() > 0) {
+            for (Position position : move.getCaptured()) {
+                Piece tmpPiece = grid.get(position);
+                if (tmpPiece != null && tmpPiece.getColour() == Colour.WHITE) {
+                    numberWhite--;
+                } else if (tmpPiece != null && tmpPiece.getColour() == Colour.BLACK) {
+                    numberBlack--;
+                } else {
+                    System.out.println("Huh " + position);
+                }
+                grid.remove(position);
+            }
+        }
+
+        if ((piece.getColour() == Colour.WHITE && move.getNewPos().getY() == 10)
+                || (piece.getColour() == Colour.BLACK && move.getNewPos().getY() == 1)) {
+            this.promotePiece(move.getNewPos(), piece);
+        }
+        this.setChanged();
+        this.notifyObservers(grid);
+    }
+
+    public void computeMove(Move move) {
         Position oldPosition = move.getOldPos();
         Piece piece = grid.get(oldPosition);
 
@@ -95,8 +129,7 @@ public class Board extends java.util.Observable {
                 || (piece.getColour() == Colour.BLACK && move.getNewPos().getY() == 1)) {
             this.promotePiece(move.getNewPos(), piece);
         }
-        this.setChanged();
-        this.notifyObservers(grid);
+
     }
 
     public void promotePiece(Position position, Piece piece) {
@@ -290,6 +323,21 @@ public class Board extends java.util.Observable {
         return res;
     }
 
+    public int getNumberWhite() {
+        return numberWhite;
+    }
+
+    public int getNumberBlack() {
+        return numberBlack;
+    }
+
+    public void setNumberWhite(int numberWhite) {
+        this.numberWhite = numberWhite;
+    }
+
+    public void setNumberBlack(int numberBlack) {
+        this.numberBlack = numberBlack;
+    }
 
     // does not work this way
     // a10 b10 c10 d10 e10 f10 g10 h10 i10

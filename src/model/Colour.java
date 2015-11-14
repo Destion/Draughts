@@ -12,4 +12,5 @@ public enum Colour {
     public String toString() {
         return (this == BLACK) ? "B" : "W";
     }
+
 }

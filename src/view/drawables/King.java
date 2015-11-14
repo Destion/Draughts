@@ -6,8 +6,8 @@ public class King implements Drawable {
 
     private int x;
     private int y;
-    public static final int WIDTH = 80;
-    public static final int HEIGHT = 80;
+    public static final int WIDTH = 50;
+    public static final int HEIGHT = 50;
     private Color color;
 
     public King(int x, int y, Color color) {
@@ -26,7 +26,7 @@ public class King implements Drawable {
         } else {
             g.setColor(new Color(150, 0, 0));
         }
-        g.fillOval(x + 10, y + 10, 60, 60);
+        g.fillOval(x + 10, y + 10, 30, 30);
     }
 
     @Override

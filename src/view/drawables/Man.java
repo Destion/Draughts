@@ -6,8 +6,8 @@ public class Man implements Drawable {
 
     private int x;
     private int y;
-    public static final int WIDTH = 80;
-    public static final int HEIGHT = 80;
+    public static final int WIDTH = 50;
+    public static final int HEIGHT = 50;
     private Color color;
 
     public Man(int x, int y, Color color) {
