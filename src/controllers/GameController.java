@@ -119,7 +119,7 @@ public class GameController implements ActionListener, MouseListener {
             board.move(input);
         } else {
             try {
-                Thread.sleep(50);
+                Thread.sleep(500);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

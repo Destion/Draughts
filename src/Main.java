@@ -1,5 +1,8 @@
 import controllers.GameController;
-import model.*;
+import model.Colour;
+import model.HumanPlayer;
+import model.NegaPlayer;
+import model.Player;
 
 public class Main {
 
@@ -10,7 +13,7 @@ public class Main {
             GameController game = new GameController(player1, player2, args[0]);
             game.run();
         } else {
-            Player player1 = new ComputerPlayer("Rogier", Colour.WHITE);
+            Player player1 = new HumanPlayer("Rogier", Colour.WHITE);
             Player player2 = new NegaPlayer("AI", Colour.BLACK, 7);
             GameController game = new GameController(player1, player2);
             game.run();

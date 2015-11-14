@@ -200,7 +200,7 @@ public class Board extends java.util.Observable {
         return !grid.containsKey(position) && position.getX() >= 1 && position.getX() <= 10 && position.getY() >= 1 && position.getY() <= 10;
     }
 
-    private boolean draw() {
+    public boolean draw() {
         boolean result = false;
         if (grid.size() < 4) {
             List<Piece> pieces = new ArrayList<Piece>();

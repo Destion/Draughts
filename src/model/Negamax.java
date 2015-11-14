@@ -39,11 +39,19 @@ public class Negamax {
         int score = 0;
         score = score + (board.getNumberBlack() * ((playerColour == Colour.BLACK) ? 1 : -1));
         score = score + (board.getNumberWhite() * ((playerColour == Colour.WHITE) ? 1 : -1));
-        if (board.winner() == playerColour) {
-            score = score + 1000;
+        if (board.gameOver()) {
+            if (board.winner() == playerColour) {
+                score = score + 1000;
+            } else if (board.winner() == playerColour.other()) {
+                score = score - 1000;
+            } else if (board.draw()) {
+                score = score - 100;
+            }
         }
+
         for (Position position : board.getGrid().keySet()) {
-            if (board.getGrid().get(position).getColour() == playerColour && board.getGrid().get(position) instanceof King) {
+            Piece piece = board.getGrid().get(position);
+            if (piece.getColour() == playerColour && piece instanceof King) {
                 score = score + 100;
             }
 //            if ((board.getGrid().get(position).getColour() == playerColour && position.getX() == 1)

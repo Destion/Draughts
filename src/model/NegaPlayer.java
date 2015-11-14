@@ -24,12 +24,13 @@ public class NegaPlayer extends Player {
             List<Move> possibleList = new ArrayList<>();
             possibleList.add(move);
             int value = -maxie.negamax(this.depth, 1, this.getColour(), board, Integer.MIN_VALUE, Integer.MAX_VALUE, possibleList);
+            System.out.println(move.toString() + " has a value of " + value);
             if (value > bestValue) {
                 choice = move;
                 bestValue = value;
             }
         }
-
+        System.out.println(choice.toString());
         return choice;
     }
 
