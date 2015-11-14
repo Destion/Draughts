@@ -18,9 +18,19 @@ public class NegaPlayer extends Player {
     @Override
     protected Move determineMove(Board board, List<Move> possibleMoves) {
         Negamax maxie = new Negamax();
-        maxie.negamax(this.depth, 1, this.getColour(), board, Integer.MIN_VALUE, Integer.MAX_VALUE, possibleMoves);
+        int bestValue = Integer.MIN_VALUE;
+        Move choice = null;
+        for (Move move : possibleMoves) {
+            List<Move> possibleList = new ArrayList<>();
+            possibleList.add(move);
+            int value = -maxie.negamax(this.depth, 1, this.getColour(), board, Integer.MIN_VALUE, Integer.MAX_VALUE, possibleList);
+            if (value > bestValue) {
+                choice = move;
+                bestValue = value;
+            }
+        }
 
-        return possibleMoves.get(0);
+        return choice;
     }
 
     public List<Long> getTimes() {

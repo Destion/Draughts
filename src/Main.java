@@ -11,7 +11,7 @@ public class Main {
             game.run();
         } else {
             Player player1 = new ComputerPlayer("Rogier", Colour.WHITE);
-            Player player2 = new NegaPlayer("AI", Colour.BLACK, 2);
+            Player player2 = new NegaPlayer("AI", Colour.BLACK, 7);
             GameController game = new GameController(player1, player2);
             game.run();
         }

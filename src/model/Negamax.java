@@ -6,7 +6,6 @@ import java.util.List;
  * Created by Rogier on 09-11-15
  */
 public class Negamax {
-    private Move bestMove;
 
 
     public Negamax() {
@@ -18,9 +17,6 @@ public class Negamax {
             bestValue = colourVal * this.analyse(board, playerColour);
         } else {
             for (Move move : possibleMoves) {
-                if (depth == 10) {
-                    System.out.println("Hallo");
-                }
                 Board newBoard = new Board();
                 newBoard.setGrid(board.deepCopy());
                 newBoard.setNumberBlack(board.getNumberBlack());
@@ -28,10 +24,6 @@ public class Negamax {
                 newBoard.move(move);
                 List<Move> newMoves = newBoard.generatePossibleMoves(playerColour.other());
                 int value = -this.negamax(depth - 1, -1 * colourVal, playerColour.other(), newBoard, -beta, -alpha, newMoves);
-                if (value > bestValue) {
-                    bestMove = move;
-                    bestValue = value;
-                }
                 bestValue = Math.max(bestValue, value);
 
                 alpha = Math.max(alpha, value);
@@ -63,7 +55,4 @@ public class Negamax {
         return score;
     }
 
-    public Move getBestMove() {
-        return bestMove;
-    }
 }

@@ -70,11 +70,11 @@ public class GameController implements ActionListener, MouseListener {
             }
 
             this.play();
-            while (true) {
-                this.setup();
-                this.play();
-            }
-//            this.displayWinner();
+//            while (true) {
+//                this.setup();
+//                this.play();
+//            }
+            this.displayWinner();
         }
     }
 
@@ -224,13 +224,11 @@ public class GameController implements ActionListener, MouseListener {
             for (Long l : ((NegaPlayer) player1).getTimes()) {
                 total = total + l;
             }
-            System.out.println(total / ((NegaPlayer) player1).getTimes().size());
         } else if (player2 instanceof NegaPlayer) {
             long total = 0;
             for (Long l : ((NegaPlayer) player2).getTimes()) {
                 total = total + l;
             }
-            System.out.println(total / ((NegaPlayer) player2).getTimes().size());
         }
         Colour winner = board.getWinner();
         if (winner == player1.getColour()) {
