@@ -75,7 +75,7 @@ public class BoardView extends JPanel implements Observer {
     @Override
     public void update(Observable observable, Object arg) {
         if (observable instanceof Board) {
-            this.grid = (Map<Position, model.Piece>) arg;
+            this.grid = (Map<Position, Piece>)arg;
             repaint();
         }
     }
@@ -124,9 +124,6 @@ public class BoardView extends JPanel implements Observer {
 
             int screenx = (340 + 5 + 60 * x) - 60;
             int screeny = 600 - ((60 + 5 + 60 * y) - 130);
-
-            boolean whiteMan = false;
-            boolean blackMan = false;
 
 
             if (grid.get(pos) instanceof Man) {

@@ -96,16 +96,15 @@ public class Board extends java.util.Observable {
                 grid.remove(position);
             }
         }
-
         if ((piece.getColour() == Colour.WHITE && move.getNewPos().getY() == 10)
                 || (piece.getColour() == Colour.BLACK && move.getNewPos().getY() == 1)) {
             this.promotePiece(move.getNewPos(), piece);
         }
         this.setChanged();
-        this.notifyObservers(grid);
+        this.notifyObservers(move);
     }
 
-    public void computeMove(Move move) {
+    public void computerMove(Move move) {
         Position oldPosition = move.getOldPos();
         Piece piece = grid.get(oldPosition);
 

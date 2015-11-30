@@ -27,6 +27,9 @@ public class GameController implements ActionListener, MouseListener {
     private Semaphore needsInput = new Semaphore(0);
     private Semaphore play = new Semaphore(0);
     private Log log;
+    private int player1wins = 0;
+    private int player2wins = 0;
+    private int draws = 0;
 
     public GameController(Player player1, Player player2) {
         this.player1 = player1;
@@ -70,11 +73,12 @@ public class GameController implements ActionListener, MouseListener {
             }
 
             this.play();
-//            while (true) {
-//                this.setup();
-//                this.play();
-//            }
-            this.displayWinner();
+            while (true) {
+                this.setup();
+                this.play();
+                this.displayNumberOfWins();
+            }
+//            this.displayWinner();
         }
     }
 
@@ -104,6 +108,7 @@ public class GameController implements ActionListener, MouseListener {
 
             counter++;
         }
+
     }
 
     public void move(Player player) {
@@ -119,7 +124,7 @@ public class GameController implements ActionListener, MouseListener {
             board.move(input);
         } else {
             try {
-                Thread.sleep(500);
+                Thread.sleep(50);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -127,11 +132,26 @@ public class GameController implements ActionListener, MouseListener {
         }
     }
 
+    public void displayNumberOfWins(){
+        Colour winner = board.getWinner();
+        if (winner == player1.getColour()) {
+//            view.displayWinner(player1);
+            player1wins++;
+        } else if (winner == player2.getColour()) {
+//            view.displayWinner(player2);
+            player2wins++;
+        } else {
+//            view.draw();
+            draws++;
+        }
+        view.displayMessage(player1.getName()+ ": "+ player1wins + " | " + player2.getName() + ": " +player2wins + " | draws: " + draws);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Play")) {
             play.release();
-            view.displayMessage("Play by clicking a piece");
+//            view.displayMessage("Play by clicking a piece");
         }
     }
 
@@ -158,7 +178,7 @@ public class GameController implements ActionListener, MouseListener {
                 }
             }
             if (wrongMove) {
-                view.displayMessage("Wrong move " + oldPosition);
+//                view.displayMessage("Wrong move " + oldPosition);
                 if (log != null) {
                     log.addMessage("Invalid.");
                 }
@@ -169,7 +189,7 @@ public class GameController implements ActionListener, MouseListener {
             int x = 1 + ((mouseX - 340) / 60);
             int y = 10 - ((mouseY - 85) / 60);
             Position newPosition = new Position(x, y);
-            view.displayMessage("New Position: " + newPosition);
+//            view.displayMessage("New Position: " + newPosition);
             if (log != null) {
                 log.addMessage("Moved to " + newPosition + ".");
             }
@@ -185,13 +205,13 @@ public class GameController implements ActionListener, MouseListener {
             if (wrongMove) {
                 mouseCount--;
 //                display message
-                view.displayMessage("Wrong move " + newPosition + ", try again!");
+//                view.displayMessage("Wrong move " + newPosition + ", try again!");
                 if (log != null) {
                     log.addMessage("Invalid move to: " + newPosition + ".");
                 }
             } else {
                 needsInput.release();
-                view.displayMessage("Succes " + input.getOldPos() + " - " + input.getNewPos() + "!");
+//                view.displayMessage("Succes " + input.getOldPos() + " - " + input.getNewPos() + "!");
             }
 
         }
@@ -219,17 +239,17 @@ public class GameController implements ActionListener, MouseListener {
 
 
     public void displayWinner() {
-        if (player1 instanceof NegaPlayer) {
-            long total = 0;
-            for (Long l : ((NegaPlayer) player1).getTimes()) {
-                total = total + l;
-            }
-        } else if (player2 instanceof NegaPlayer) {
-            long total = 0;
-            for (Long l : ((NegaPlayer) player2).getTimes()) {
-                total = total + l;
-            }
-        }
+//        if (player1 instanceof NegaPlayer) {
+//            long total = 0;
+//            for (Long l : ((NegaPlayer) player1).getTimes()) {
+//                total = total + l;
+//            }
+//        } else if (player2 instanceof NegaPlayer) {
+//            long total = 0;
+//            for (Long l : ((NegaPlayer) player2).getTimes()) {
+//                total = total + l;
+//            }
+//        }
         Colour winner = board.getWinner();
         if (winner == player1.getColour()) {
             view.displayWinner(player1);
